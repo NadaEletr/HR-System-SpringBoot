@@ -18,10 +18,10 @@ public class EmployeeService {
         {
             throw new ConflictException("this employee is already added");
         }
-        if(employeeRepository.existsBydepartmentId(employee.getDepartment().getDepartmentId())==false)
+        /*if(employeeRepository.existsBydepartmentId(employee.getDepartment().getDepartmentId())==false)
         {
             throw new ConflictException("this department does not exists");
-        }
+        }*/
         return employeeRepository.save(employee);
 
     }
@@ -34,4 +34,23 @@ public class EmployeeService {
         }
         return employeeRepository.getById(id);
     }
+
+
+    public void deleteEmployee(int id) throws NotFoundException {
+        if(employeeRepository.existsById(id)==false)
+        {
+            throw new NotFoundException("no employee with this ID");
+        }
+        employeeRepository.deleteById(id);
+
+    }
+    public boolean  existsById(int id)
+    {
+        return employeeRepository.existsById(id);
+    }
+
+
+
+
+
 }

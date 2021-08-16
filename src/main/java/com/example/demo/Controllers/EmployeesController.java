@@ -25,6 +25,12 @@ public class EmployeesController {
         Employee newEmployee = employeeService.getEmployeeInfoByID(Integer.parseInt(id));
         return new ResponseEntity<>(newEmployee,HttpStatus.OK);
     }
+    @DeleteMapping (value = "/deleteEmp")
+    public void deleteEmp(@RequestParam("id") String id) throws NotFoundException {
+        employeeService.deleteEmployee(Integer.parseInt(id));
+
+    }
+
 
 
 

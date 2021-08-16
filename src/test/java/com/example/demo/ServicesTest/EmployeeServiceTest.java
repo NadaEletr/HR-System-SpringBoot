@@ -4,13 +4,16 @@ import com.example.demo.Classes.Employee;
 import com.example.demo.Services.EmployeeService;
 import com.example.demo.DemoApplication;
 import javassist.NotFoundException;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.transaction.Transactional;
 import java.sql.Date;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes= DemoApplication.class)
 public class EmployeeServiceTest {
@@ -28,9 +31,6 @@ public class EmployeeServiceTest {
         Employee employee = new Employee();
         employee.setName("youssef");
         employee.setGender('M');
-        employee.setGraduation_date(Date.valueOf("1/1/2005"));
-
-//        given(employeeRepository.save(employee)).willReturn(employee);
         Employee result =  employeeService.saveEmployee(employee);
         assertEquals(result.getName(),employee.getName());
 
@@ -42,11 +42,14 @@ public class EmployeeServiceTest {
         assertEquals(result.getEmployeeId(),1);
 
     }
-    @Test
-    public void whenAddEmployee_ConflictException()
-    {
 
-    }
+   @Test
+    public void deleteEmployee() throws NotFoundException {
+        Employee employee = employeeService.getEmployeeInfoByID(5);
+        employeeService.deleteEmployee(employee.getEmployeeId());
+       assertEquals(employeeService.existsById(employee.getEmployeeId()),false);
+   }
+
 
 
 

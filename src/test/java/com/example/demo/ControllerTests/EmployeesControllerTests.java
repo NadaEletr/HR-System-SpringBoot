@@ -65,14 +65,16 @@ public class EmployeesControllerTests {
                 .param("id",String.valueOf(employee.getEmployeeId()))).andExpect(status().isOk())
                 .andExpect(jsonPath("employeeId").value(employee.getEmployeeId()));
 
-
     }
 
-
     @Test
-    public void deleteEmployee()
-    {
+    public void deleteEmployee() throws Exception {
 
+        int id=6;
+        ObjectMapper objectMapper = new ObjectMapper();
+        String body = objectMapper.writeValueAsString(id);
+        mockMvc.perform(MockMvcRequestBuilders.delete("/HR/deleteEmp").param("id",String.valueOf(id))
+                .contentType(MediaType.APPLICATION_JSON).content(body)).andExpect(status().isOk());
     }
 
 
