@@ -16,7 +16,7 @@ public class Employee {
     //@Column(name = "Birth_date")
     //private String Birthdate; // comment
     @Column(name = "graduation_date")
-    private String graduation_date;
+    private Date graduation_date;
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
@@ -33,6 +33,17 @@ public class Employee {
 
     @OneToMany(mappedBy = "manager")
     private List<Employee> employees;
+
+    @Column(name = "birthdate")
+    private Date birthDate;
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
 
     public Department getDepartment() {
         return department;
@@ -66,11 +77,11 @@ public class Employee {
         this.employeeId = employeeId;
     }
 
-    public String getGraduation_date() {
+    public Date getGraduation_date() {
         return graduation_date;
     }
 
-    public void setGraduation_date(String graduation_date) {
+    public void setGraduation_date(Date graduation_date) {
         this.graduation_date = graduation_date;
     }
 

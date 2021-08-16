@@ -27,4 +27,11 @@ public class EmployeeService {
     }
 
 
+    public Employee getEmployeeInfoByID(int id ) throws NotFoundException {
+        if(employeeRepository.existsById(id)==false)
+        {
+            throw new NotFoundException("no employee with this ID");
+        }
+        return employeeRepository.getById(id);
+    }
 }

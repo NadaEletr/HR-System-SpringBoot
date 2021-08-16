@@ -19,6 +19,14 @@ public class EmployeesController {
         Employee newEmployee = employeeService.saveEmployee(employee);
         return new ResponseEntity<>(newEmployee,HttpStatus.CREATED);
     }
+    @GetMapping (value = "/getEmployeeInfo",produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+        ResponseEntity<Employee> getEmployeeInfo(@RequestParam("id") String id) throws NotFoundException {
+        Employee newEmployee = employeeService.getEmployeeInfoByID(Integer.parseInt(id));
+        return new ResponseEntity<>(newEmployee,HttpStatus.OK);
+    }
+
+
 
 
 
