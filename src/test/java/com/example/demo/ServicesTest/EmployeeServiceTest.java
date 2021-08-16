@@ -13,6 +13,7 @@ import javax.transaction.Transactional;
 import java.sql.Date;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.hamcrest.Matchers.samePropertyValuesAs;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes= DemoApplication.class)
@@ -29,10 +30,10 @@ public class EmployeeServiceTest {
     @Test
     public  void whenAddEmployee_ReturnEmployee() throws NotFoundException {
         Employee employee = new Employee();
-        employee.setName("youssef");
+        employee.setName("ahmed");
         employee.setGender('M');
         Employee result =  employeeService.saveEmployee(employee);
-        assertEquals(result.getName(),employee.getName());
+        assertThat(result).usingRecursiveComparison().isEqualTo(employee);
 
     }
     @Test
@@ -48,6 +49,17 @@ public class EmployeeServiceTest {
         Employee employee = employeeService.getEmployeeInfoByID(5);
         employeeService.deleteEmployee(employee.getEmployeeId());
        assertEquals(employeeService.existsById(employee.getEmployeeId()),false);
+   }
+
+   @Test
+
+    public void updateEmployee() throws NotFoundException {
+
+        Employee employee = employeeService.getEmployeeInfoByID(8);
+        employee.setName("rwan");
+        employee.setGender('F');
+        Employee updatedEmployee = employeeService.updateEmployee(employee,String.valueOf(employee.getEmployeeId()));
+        assertThat(updatedEmployee).usingRecursiveComparison().isEqualTo(employee);
    }
 
 

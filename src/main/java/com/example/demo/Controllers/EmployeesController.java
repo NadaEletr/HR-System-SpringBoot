@@ -31,6 +31,14 @@ public class EmployeesController {
 
     }
 
+    @PutMapping(value = "/updateEmp",produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    ResponseEntity<Employee> updateEmployee(@RequestBody Employee employee,@RequestParam("id") String id) throws NotFoundException {
+        Employee newEmployee = employeeService.updateEmployee(employee,id);
+        return new ResponseEntity<>(newEmployee,HttpStatus.ACCEPTED);
+    }
+
+
 
 
 

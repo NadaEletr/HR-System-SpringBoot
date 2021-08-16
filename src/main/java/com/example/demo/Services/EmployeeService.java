@@ -5,6 +5,7 @@ import com.example.demo.Repositories.EmployeeRepository;
 import com.example.demo.errors.ConflictException;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.server.DelegatingServerHttpResponse;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -50,7 +51,17 @@ public class EmployeeService {
     }
 
 
+    public Employee updateEmployee(Employee employee, String id) throws NotFoundException {
 
+       if(existsById(Integer.parseInt(id)))
+       {
+           employee.setEmployeeId(Integer.parseInt(id));
+           return employeeRepository.save(employee);
+       }
+       else
+       {
+           throw new NotFoundException("no employee with this ID");
+       }
 
-
+    }
 }
