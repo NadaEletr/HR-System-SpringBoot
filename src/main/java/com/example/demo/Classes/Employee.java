@@ -9,26 +9,20 @@ import java.util.List;
 @Table(name = "employee")
 public class Employee {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy =GenerationType.AUTO)
     private int employeeId;
     @Column(name = "employee_name")
     private String name;
     //@Column(name = "Birth_date")
-    //private String Birthdate;
+    //private String Birthdate; // comment
     @Column(name = "graduation_date")
     private String graduation_date;
-
-    public String getGraduation_date() {
-        return graduation_date;
-    }
-
-    public void setGraduation_date(String graduation_date) {
-        this.graduation_date = graduation_date;
-    }
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
 
     @Column(name = "gender")
     private char gender;
-
     public Employee() {
         employees = new ArrayList<>();
     }
@@ -40,12 +34,20 @@ public class Employee {
     @OneToMany(mappedBy = "manager")
     private List<Employee> employees;
 
+    public Department getDepartment() {
+        return department;
+    }
+
     public Employee getManager() {
         return manager;
     }
 
     public void setManager(Employee manager) {
         this.manager = manager;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
     public List<Employee> getEmployees() {
@@ -63,6 +65,15 @@ public class Employee {
     public void setEmployeeId(int employeeId) {
         this.employeeId = employeeId;
     }
+
+    public String getGraduation_date() {
+        return graduation_date;
+    }
+
+    public void setGraduation_date(String graduation_date) {
+        this.graduation_date = graduation_date;
+    }
+
 
     public String getName() {
         return name;

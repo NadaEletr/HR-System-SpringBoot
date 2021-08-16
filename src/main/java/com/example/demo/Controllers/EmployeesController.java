@@ -1,5 +1,7 @@
 package com.example.demo.Controllers;
 import com.example.demo.Classes.*;
+import com.example.demo.Services.EmployeeService;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,10 +15,11 @@ public class EmployeesController {
     EmployeeService employeeService;
     @PostMapping(value = "/add",produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    ResponseEntity<Employee> addNewEmployee(@RequestBody Employee employee)
-    {
+    ResponseEntity<Employee> addNewEmployee(@RequestBody Employee employee) throws NotFoundException {
         Employee newEmployee = employeeService.saveEmployee(employee);
-        return new ResponseEntity<>(newEmployee,HttpStatus.OK);
+        return new ResponseEntity<>(newEmployee,HttpStatus.CREATED);
     }
+
+
 
 }
