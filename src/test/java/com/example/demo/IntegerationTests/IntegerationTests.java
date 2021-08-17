@@ -44,15 +44,12 @@ public class IntegerationTests {
     @Test
     public void getEmployeeSalary() throws Exception {
         Employee employee = employeeService.getEmployeeInfoByID(23);
-
         SalaryDTO salaryDTO = new SalaryDTO(employee);
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(salaryDTO);
         mockMvc.perform(MockMvcRequestBuilders.get("/HR/getSalaries")
                 .param("id", String.valueOf(employee.getEmployeeId())))
                 .andExpect(status().isOk()).andExpect((content().json(body)));
-
-
     }
 
 

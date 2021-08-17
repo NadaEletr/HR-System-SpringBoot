@@ -31,6 +31,10 @@ public class Employee {
     @OneToMany(mappedBy = "manager")
     private List<Employee> employees;
 
+    @ManyToOne
+    @JoinColumn(name="team_id")
+    private Teams team;
+
     @Column(name = "birthdate")
     private Date birthDate;
     @Column(name="gross_salary")
@@ -153,7 +157,13 @@ public class Employee {
         return netSalary;
     }
 
+    public Teams getTeam() {
+        return team;
+    }
 
+    public void setTeam(Teams team) {
+        this.team = team;
+    }
 }
 
 
