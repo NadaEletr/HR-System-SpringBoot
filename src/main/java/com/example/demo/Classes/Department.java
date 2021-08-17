@@ -24,7 +24,6 @@ public class Department {
 
     }
 
-
     public int getDepartmentId() {
         return departmentId;
     }

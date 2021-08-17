@@ -9,7 +9,7 @@ import java.util.List;
 @Table(name = "employee")
 public class Employee {
     @Id
-    @GeneratedValue(strategy =GenerationType.AUTO)
+    @GeneratedValue
     private int employeeId;
     @Column(name = "employee_name")
     private String name;
@@ -31,16 +31,15 @@ public class Employee {
     @OneToMany(mappedBy = "manager")
     private List<Employee> employees;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="team_id")
     private Teams team;
-
     @Column(name = "birthdate")
     private Date birthDate;
     @Column(name="gross_salary")
-    private double grossSalary;
+    private Double grossSalary;
     @Column(name="net_salary")
-    private double netSalary;
+    private Double netSalary;
     public static void transferEmployee (Employee updateEmployee, Employee originalEmployee)
     {
         if(updateEmployee.name !=null)
@@ -71,7 +70,7 @@ public class Employee {
         {
             originalEmployee.setDepartment(updateEmployee.department);
         }
-;
+
 
     }
 
@@ -144,16 +143,16 @@ public class Employee {
         this.gender = gender;
     }
 
-    public double getGrossSalary() {
+    public Double getGrossSalary() {
         return grossSalary;
     }
 
-    public void setGrossSalary(double grossSalary) {
+    public void setGrossSalary(Double grossSalary) {
         this.grossSalary = grossSalary;
         this.netSalary=0.85*grossSalary-500;
     }
 
-    public double getNetSalary() {
+    public Double getNetSalary() {
         return netSalary;
     }
 
@@ -163,6 +162,10 @@ public class Employee {
 
     public void setTeam(Teams team) {
         this.team = team;
+    }
+
+    public void setNetSalary(Double netSalary) {
+        this.netSalary = netSalary;
     }
 }
 

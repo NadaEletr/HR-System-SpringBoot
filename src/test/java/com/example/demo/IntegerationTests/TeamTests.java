@@ -35,7 +35,6 @@ public class TeamTests {
         addTeam.setTeamName("abc");
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(addTeam);
-
         mockMvc.perform(MockMvcRequestBuilders.post("/HR/addTeam").contentType(MediaType.APPLICATION_JSON).content(body))
                 .andExpect(status().isCreated()).andExpect(content().json(body));
     }

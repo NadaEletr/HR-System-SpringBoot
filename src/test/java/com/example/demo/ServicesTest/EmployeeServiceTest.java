@@ -32,7 +32,7 @@ public class EmployeeServiceTest {
         Employee employee = new Employee();
         employee.setName("ahmed");
         employee.setGender('M');
-        employee.setGrossSalary(120000);
+        employee.setGrossSalary(120000d);
         Employee result =  employeeService.saveEmployee(employee);
         assertThat(result).usingRecursiveComparison().isEqualTo(employee);
 

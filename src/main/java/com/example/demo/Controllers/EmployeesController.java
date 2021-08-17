@@ -9,6 +9,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/HR")
 public class EmployeesController {
@@ -48,6 +50,13 @@ public class EmployeesController {
     ResponseEntity<SalaryDTO> getEmployeeSalaries(@RequestParam("id") String id) throws NotFoundException {
         SalaryDTO employeeSalary=employeeService.getEmployeeSalary(Integer.parseInt(id));
         return new ResponseEntity<>(employeeSalary, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/getEmpInTeam", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    List<Employee> getEmployeesInTeam(@RequestParam("id") String id) throws NotFoundException {
+
+        return employeeService.getEmployeesInTeam(Integer.parseInt(id));
     }
 
 

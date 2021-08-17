@@ -2,18 +2,13 @@ package com.example.demo.IntegerationTests;
 
 import com.example.demo.Classes.Employee;
 import com.example.demo.Classes.SalaryDTO;
-import com.example.demo.Services.DepartmentService;
+import com.example.demo.Classes.Teams;
 import com.example.demo.Services.EmployeeService;
-import javassist.NotFoundException;
-import com.example.demo.Classes.Employee;
-import com.example.demo.Services.EmployeeService;
-import javassist.NotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -21,21 +16,18 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.testcontainers.shaded.com.fasterxml.jackson.core.JsonProcessingException;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.assertj.core.internal.bytebuddy.matcher.ElementMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.mockito.BDDMockito.*;
+import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @ExtendWith(SpringExtension.class)
-public class IntegerationTests {
-
+public class EmployeeTests {
     @Autowired
     MockMvc mockMvc;
     @Autowired
@@ -51,6 +43,35 @@ public class IntegerationTests {
                 .param("id", String.valueOf(employee.getEmployeeId())))
                 .andExpect(status().isOk()).andExpect((content().json(body)));
     }
+    @Test
+    public void getEmployeesInTeam() throws Exception {
+
+        int teamId=1;
+        List<Employee> employees = employeeService.getEmployeesInTeam(teamId);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String body = objectMapper.writeValueAsString(employees);
+        mockMvc.perform(MockMvcRequestBuilders.get("/HR/getEmpInTeam")
+                .param("id", String.valueOf(teamId))).andExpect(content().json(body)).andExpect(jsonPath("$",hasSize(employees.size())))
+                .andExpect(status().isOk());
+
+
+
+
+
+    }
+    @Test
+    public void addEmployee() throws Exception
+    {
+        Employee employee  = new Employee();
+        employee.setName("sara");
+        employee.setGender('F');
+        employee.setGrossSalary(120000d);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String body = objectMapper.writeValueAsString(employee);
+        mockMvc.perform(MockMvcRequestBuilders.post("/HR/add").contentType(MediaType.APPLICATION_JSON)
+                .content(body)).andExpect(status().isCreated()).andExpect(content().json(body));
+    }
+
 
 
 }
