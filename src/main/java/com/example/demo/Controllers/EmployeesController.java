@@ -43,5 +43,13 @@ public class EmployeesController {
         return originalEmployeeModified;
     }
 
+    @GetMapping(value = "/getSalaries", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    ResponseEntity<SalaryDTO> getEmployeeSalaries(@RequestParam("id") String id) throws NotFoundException {
+        SalaryDTO employeeSalary=employeeService.getEmployeeSalary(Integer.parseInt(id));
+        return new ResponseEntity<>(employeeSalary, HttpStatus.OK);
+    }
+
+
 
 }

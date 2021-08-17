@@ -32,6 +32,7 @@ public class EmployeeServiceTest {
         Employee employee = new Employee();
         employee.setName("ahmed");
         employee.setGender('M');
+        employee.setGrossSalary(120000);
         Employee result =  employeeService.saveEmployee(employee);
         assertThat(result).usingRecursiveComparison().isEqualTo(employee);
 
@@ -61,6 +62,12 @@ public class EmployeeServiceTest {
         Employee updatedEmployee = employeeService.updateEmployee(updateEmployee,employee);
         assertEquals(updatedEmployee.getName(),updateEmployee.getName());
         assertEquals(updatedEmployee.getGender(),updateEmployee.getGender());
+   }
+
+   @Test
+    public void getEmployeeSalaryInfo() throws NotFoundException {
+       Employee employee = employeeService.getEmployeeInfoByID(5);
+
    }
 
 

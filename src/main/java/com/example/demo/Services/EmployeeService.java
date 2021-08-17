@@ -1,6 +1,7 @@
 package com.example.demo.Services;
 
 import com.example.demo.Classes.Employee;
+import com.example.demo.Classes.SalaryDTO;
 import com.example.demo.Repositories.EmployeeRepository;
 import com.example.demo.errors.ConflictException;
 import javassist.NotFoundException;
@@ -56,5 +57,10 @@ public class EmployeeService {
         Employee.transferEmployee(updateEmployee, originalEmployee);
 
         return employeeRepository.save(originalEmployee);
+    }
+
+    public SalaryDTO getEmployeeSalary(int id) throws NotFoundException {
+        Employee employee = getEmployeeInfoByID(id);
+        return new SalaryDTO(employee);
     }
 }

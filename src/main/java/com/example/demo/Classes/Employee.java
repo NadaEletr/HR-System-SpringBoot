@@ -33,7 +33,10 @@ public class Employee {
 
     @Column(name = "birthdate")
     private Date birthDate;
-
+    @Column(name="gross_salary")
+    private double grossSalary;
+    @Column(name="net_salary")
+    private double netSalary;
     public static void transferEmployee (Employee updateEmployee, Employee originalEmployee)
     {
         if(updateEmployee.name !=null)
@@ -135,6 +138,19 @@ public class Employee {
 
     public void setGender(char gender) {
         this.gender = gender;
+    }
+
+    public double getGrossSalary() {
+        return grossSalary;
+    }
+
+    public void setGrossSalary(double grossSalary) {
+        this.grossSalary = grossSalary;
+        this.netSalary=0.85*grossSalary-500;
+    }
+
+    public double getNetSalary() {
+        return netSalary;
     }
 
 
