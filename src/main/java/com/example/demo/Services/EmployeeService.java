@@ -51,17 +51,10 @@ public class EmployeeService {
     }
 
 
-    public Employee updateEmployee(Employee employee, String id) throws NotFoundException {
+    public Employee updateEmployee(Employee updateEmployee, Employee originalEmployee) throws NotFoundException {
 
-       if(existsById(Integer.parseInt(id)))
-       {
-           employee.setEmployeeId(Integer.parseInt(id));
-           return employeeRepository.save(employee);
-       }
-       else
-       {
-           throw new NotFoundException("no employee with this ID");
-       }
+        Employee.transferEmployee(updateEmployee, originalEmployee);
 
+        return employeeRepository.save(originalEmployee);
     }
 }

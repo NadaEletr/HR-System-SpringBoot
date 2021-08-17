@@ -13,4 +13,5 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     @Query(value="select case when count (d)>0 then true else false end from Department  d where d.departmentId =?1 ")
     boolean existsBydepartmentId(@Param("departmentId")int departmentId);
 
+
 }

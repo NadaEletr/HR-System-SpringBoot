@@ -52,14 +52,15 @@ public class EmployeeServiceTest {
    }
 
    @Test
-
     public void updateEmployee() throws NotFoundException {
 
         Employee employee = employeeService.getEmployeeInfoByID(8);
-        employee.setName("rwan");
-        employee.setGender('F');
-        Employee updatedEmployee = employeeService.updateEmployee(employee,String.valueOf(employee.getEmployeeId()));
-        assertThat(updatedEmployee).usingRecursiveComparison().isEqualTo(employee);
+        Employee updateEmployee = new Employee();
+        updateEmployee.setName("nada");
+        updateEmployee.setGender('F');
+        Employee updatedEmployee = employeeService.updateEmployee(updateEmployee,employee);
+        assertEquals(updatedEmployee.getName(),updateEmployee.getName());
+        assertEquals(updatedEmployee.getGender(),updateEmployee.getGender());
    }
 
 

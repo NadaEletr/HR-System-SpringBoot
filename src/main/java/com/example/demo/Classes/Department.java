@@ -20,7 +20,9 @@ public class Department {
     Set<Employee> employees;
 
     public Department()
-    { }
+    {
+
+    }
 
 
     public int getDepartmentId() {

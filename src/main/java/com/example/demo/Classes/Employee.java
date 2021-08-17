@@ -23,9 +23,6 @@ public class Employee {
 
     @Column(name = "gender")
     private char gender;
-    public Employee() {
-        employees = new ArrayList<>();
-    }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manager_id")
@@ -36,6 +33,44 @@ public class Employee {
 
     @Column(name = "birthdate")
     private Date birthDate;
+
+    public static void transferEmployee (Employee updateEmployee, Employee originalEmployee)
+    {
+        if(updateEmployee.name !=null)
+        {
+            originalEmployee.setName(updateEmployee.name);
+        }
+        if(updateEmployee.employees!=null)
+        {
+            originalEmployee.setEmployees(updateEmployee.employees);
+        }
+        if(updateEmployee.graduation_date!=null)
+        {
+            originalEmployee.setGraduation_date(updateEmployee.graduation_date);
+        }
+        if(updateEmployee.birthDate!= null)
+        {
+            originalEmployee.setBirthDate(updateEmployee.birthDate);
+        }
+        if(updateEmployee.manager!=null)
+        {
+            originalEmployee.setManager(updateEmployee.manager);
+        }
+        if(updateEmployee.gender!='\0')
+        {
+            originalEmployee.setGender(updateEmployee.gender);
+        }
+        if(updateEmployee.department !=null)
+        {
+            originalEmployee.setDepartment(updateEmployee.department);
+        }
+;
+
+    }
+
+    public Employee() {
+        employees = new ArrayList<>();
+    }
 
     public Date getBirthDate() {
         return birthDate;
