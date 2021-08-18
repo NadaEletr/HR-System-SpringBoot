@@ -13,10 +13,11 @@ public class DepartmentService {
     public DepartmentRepository departmentRepository;
 
     public Department saveEmployee(Department department) {
-        if(departmentRepository.existsById(department.getDepartmentId()))
+        if(departmentRepository.existsById(department.getDepartmentId()) || departmentRepository.existsByName(department.getDepartmentName()))
         {
             throw new ConflictException("department already exists !");
         }
+
 
             return departmentRepository.save(department);
 

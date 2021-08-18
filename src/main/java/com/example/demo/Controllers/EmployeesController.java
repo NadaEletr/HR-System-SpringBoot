@@ -24,6 +24,7 @@ public class EmployeesController {
         return new ResponseEntity<>(newEmployee, HttpStatus.CREATED);
     }
 
+
     @GetMapping(value = "/getEmployeeInfo", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity<Employee> getEmployeeInfo(@RequestParam("id") String id) throws NotFoundException {
@@ -32,8 +33,9 @@ public class EmployeesController {
     }
 
     @DeleteMapping(value = "/deleteEmp")
-    public void deleteEmp(@RequestParam("id") String id) throws NotFoundException {
+    public String deleteEmp(@RequestParam("id") String id) throws NotFoundException {
         employeeService.deleteEmployee(Integer.parseInt(id));
+        return "employee is deleted";
 
     }
 
@@ -57,6 +59,13 @@ public class EmployeesController {
     List<Employee> getEmployeesInTeam(@RequestParam("id") String id) throws NotFoundException {
 
         return employeeService.getEmployeesInTeam(Integer.parseInt(id));
+    }
+
+    @GetMapping(value = "/getEmployees/underManager", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    List<Employee> getEmployeesUnderManager(@RequestParam("id") String id) throws NotFoundException {
+
+        return employeeService.getEmployeesUnderManger(Integer.parseInt(id));
     }
 
 

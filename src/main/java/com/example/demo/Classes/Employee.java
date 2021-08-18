@@ -1,15 +1,19 @@
 package com.example.demo.Classes;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "employee")
 public class Employee {
     @Id
-    @GeneratedValue
     private int employeeId;
     @Column(name = "employee_name")
     private String name;
@@ -24,13 +28,13 @@ public class Employee {
     @Column(name = "gender")
     private char gender;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+
+    @ManyToOne
     @JoinColumn(name = "manager_id")
     private Employee manager;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "manager")
-    private List<Employee> employees;
-
+    private Set<Employee> employees;
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="team_id")
     private Teams team;
@@ -48,7 +52,7 @@ public class Employee {
         }
         if(updateEmployee.employees!=null)
         {
-            originalEmployee.setEmployees(updateEmployee.employees);
+            originalEmployee.setEmployees(updateEmployee.getEmployees());
         }
         if(updateEmployee.graduation_date!=null)
         {
@@ -70,12 +74,21 @@ public class Employee {
         {
             originalEmployee.setDepartment(updateEmployee.department);
         }
+        if(updateEmployee.team !=null)
+        {
+            originalEmployee.setTeam(updateEmployee.team);
+        }
+        if(updateEmployee.grossSalary!=null)
+        {
+            originalEmployee.setGrossSalary(updateEmployee.grossSalary);
+
+        }
 
 
     }
 
     public Employee() {
-        employees = new ArrayList<>();
+
     }
 
     public Date getBirthDate() {
@@ -102,11 +115,11 @@ public class Employee {
         this.department = department;
     }
 
-    public List<Employee> getEmployees() {
+    public Set<Employee> getEmployees() {
         return employees;
     }
 
-    public void setEmployees(List<Employee> employees) {
+    public void setEmployees(Set<Employee> employees) {
         this.employees = employees;
     }
 

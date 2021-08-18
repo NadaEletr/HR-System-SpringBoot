@@ -82,4 +82,12 @@ public class EmployeeService {
         }
         return employeeRepository.findAllByTeamId( teamId);
     }
+
+    public List<Employee> getEmployeesUnderManger(int mangerId) {
+        if(employeeRepository.existsById(mangerId)==false)
+        {
+            throw new NotFoundException("no employee with this ID");
+        }
+        return employeeRepository.findAllByManagerId(mangerId);
+    }
 }
