@@ -18,7 +18,6 @@ public class DepartmentService {
             throw new ConflictException("department already exists !");
         }
 
-
             return departmentRepository.save(department);
 
 

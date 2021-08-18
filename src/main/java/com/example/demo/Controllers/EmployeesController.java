@@ -68,6 +68,14 @@ public class EmployeesController {
         return employeeService.getEmployeesUnderManger(Integer.parseInt(id));
     }
 
+    @GetMapping(value = "/getEmployees/SomeManager", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    List<Employee> getEmployeesUnderSomeManager(@RequestParam("id") String id) throws NotFoundException {
+
+        return employeeService.getEmployeesOnSpeceficManger(Integer.parseInt(id));
+    }
+
+
 
 
 }

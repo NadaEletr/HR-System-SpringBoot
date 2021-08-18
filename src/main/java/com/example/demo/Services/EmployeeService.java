@@ -90,4 +90,12 @@ public class EmployeeService {
         }
         return employeeRepository.findAllByManagerId(mangerId);
     }
+
+    public List<Employee> getEmployeesOnSpeceficManger(int mangerId) {
+        //if(employeeRepository.existsById(mangerId)==false)
+        /*{
+            throw new NotFoundException("no employee with this ID");
+        }*/
+        return employeeRepository.findAllUnderSomeManager(mangerId);
+    }
 }

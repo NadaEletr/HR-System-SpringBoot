@@ -14,6 +14,7 @@ import java.util.Set;
 @Table(name = "employee")
 public class Employee {
     @Id
+    @Column(name="employee_id")
     private int employeeId;
     @Column(name = "employee_name")
     private String name;

@@ -95,8 +95,19 @@ public class EmployeeTests {
         mockMvc.perform(MockMvcRequestBuilders.get("/HR/getEmployees/underManager").param("id",String.valueOf(employeeManager.getEmployeeId()))
         ).andExpect(status().isOk()).andExpect(content().json(body));
 
+    }
+
+    @Test
+    public void getEmployeeUnderSomeManager() throws Exception {
+        int managerId=1;
+        List<Employee> employeesUnderManger= employeeRepository.findAllUnderSomeManager(managerId);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String body = objectMapper.writeValueAsString(employeesUnderManger);
+        mockMvc.perform(MockMvcRequestBuilders.get("/HR/getEmployees/SomeManager").param("id",String.valueOf(managerId))
+        ).andExpect(status().isOk()).andExpect(content().json(body));
 
     }
+
 
 
 
