@@ -6,13 +6,15 @@ import com.example.demo.Classes.Teams;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 
 import java.util.List;
 
+@Repository
 public interface TeamRepository extends JpaRepository<Teams, Integer> {
 
 
-    @Query(value="select case when count (t)>0 then true else false end from Teams  t where t.teamName=?1 ")
-    boolean findByTeamName(@Param("teamName")String teamName);
+
+    boolean existsByTeamName(String teamName);
 }

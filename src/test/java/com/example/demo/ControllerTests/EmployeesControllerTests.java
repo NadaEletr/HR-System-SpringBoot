@@ -76,22 +76,6 @@ public class EmployeesControllerTests {
                 .contentType(MediaType.APPLICATION_JSON).content(body)).andExpect(status().isOk());
     }
 
-    @Test
-    public void updateEmployee() throws Exception {
-
-        int employeeId=6;
-        Employee updateEmployee = new Employee();
-        updateEmployee.setGender('F');
-        updateEmployee.setName("swsan");
-        Employee employeeToUpdate = new Employee();
-        employeeToUpdate.setName("nada");
-        ObjectMapper objectMapper = new ObjectMapper();
-        String body = objectMapper.writeValueAsString(updateEmployee);
-        mockMvc.perform(MockMvcRequestBuilders.put("/HR/updateEmp").param("id",String.valueOf(employeeId))
-                .contentType(MediaType.APPLICATION_JSON).content(body)).andExpect(status().isOk());
-    }
-
-
 
 
 

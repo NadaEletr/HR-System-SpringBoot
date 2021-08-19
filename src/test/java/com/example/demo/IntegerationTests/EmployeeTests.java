@@ -1,9 +1,12 @@
 package com.example.demo.IntegerationTests;
 
+import com.example.demo.Classes.Department;
 import com.example.demo.Classes.Employee;
 import com.example.demo.Classes.SalaryDTO;
 import com.example.demo.Classes.Teams;
+import com.example.demo.Repositories.DepartmentRepository;
 import com.example.demo.Repositories.EmployeeRepository;
+import com.example.demo.Repositories.TeamRepository;
 import com.example.demo.Services.EmployeeService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,16 +17,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.testcontainers.shaded.com.fasterxml.jackson.core.JsonProcessingException;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
-import org.testcontainers.shaded.org.apache.commons.lang.ObjectUtils;
-
-import java.util.Arrays;
 import java.util.List;
-
+import java.util.Optional;
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
@@ -39,9 +36,15 @@ public class EmployeeTests {
     @Autowired
     EmployeeRepository employeeRepository;
 
+    @Autowired
+    TeamRepository teamRepository;
+
+    @Autowired
+    DepartmentRepository departmentRepository;
+
     @Test
     public void getEmployeeSalary() throws Exception {
-        Employee employee = employeeService.getEmployeeInfoByID(23);
+        Employee employee = employeeService.getEmployeeInfoByID(1);
         SalaryDTO salaryDTO = new SalaryDTO(employee);
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(salaryDTO);
@@ -50,11 +53,24 @@ public class EmployeeTests {
                 .andExpect(status().isOk()).andExpect((content().json(body)));
     }
     @Test
+    public void getEmployee() throws Exception {
+        int id =1;
+        Employee employee = employeeService.getEmployeeInfoByID(id);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String body = objectMapper.writeValueAsString(employee);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/HR/getEmployeeInfo")
+                .param("id",String.valueOf(id))).andExpect(status().isOk())
+                .andExpect((content().json(body)));
+
+    }
+    @Test
     public void getEmployeesInTeam() throws Exception {
 
         int teamId=1;
         List<Employee> employees = employeeService.getEmployeesInTeam(teamId);
         ObjectMapper objectMapper = new ObjectMapper();
+
         String body = objectMapper.writeValueAsString(employees);
         mockMvc.perform(MockMvcRequestBuilders.get("/HR/getEmpInTeam")
                 .param("id", String.valueOf(teamId))).andExpect(content().json(body)).andExpect(jsonPath("$",hasSize(employees.size())))
@@ -64,19 +80,41 @@ public class EmployeeTests {
     @Test
     public void addEmployee() throws Exception
     {
+        Optional<Teams> team = teamRepository.findById(2);
+        Optional<Department> department=departmentRepository.findById(1);
         Employee employee  = new Employee();
-        employee.setName("sara");
-        employee.setGender('F');
-        employee.setGrossSalary(120000d);
+        employee.setName("mohamed");
+        employee.setGender('M');
+        employee.setEmployeeId(6);
+        employee.setGrossSalary(1223330d);
+        employee.setTeam(team.get());
+        employee.setDepartment(department.get());
+        System.out.println(employee.getTeam());
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(employee);
         mockMvc.perform(MockMvcRequestBuilders.post("/HR/add").contentType(MediaType.APPLICATION_JSON)
                 .content(body)).andExpect(status().isCreated()).andExpect(content().json(body));
     }
+    @Test
+    public void updateEmployee() throws Exception {
+
+        int employeeId=3;
+        Employee updateEmployee = new Employee();
+        updateEmployee.setEmployeeId(employeeId);
+        updateEmployee.setGender('F');
+        updateEmployee.setName("mayar");
+        ObjectMapper objectMapper = new ObjectMapper();
+        String body = objectMapper.writeValueAsString(updateEmployee);
+       mockMvc.perform(MockMvcRequestBuilders.put("/HR/updateEmp")
+               .contentType(MediaType.APPLICATION_JSON).content(body)
+               .param("id",String.valueOf(employeeId)))
+               .andExpect(status().isOk());
+    }
+
 
     @Test
     public void deleteEmployee() throws Exception {
-        int id=28;
+        int id=1;
         String message ="employee is deleted";
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(message);
@@ -88,8 +126,8 @@ public class EmployeeTests {
     @Test
     public void getEmployeeUnderManager() throws Exception {
 
-        Employee employeeManager= employeeRepository.getById(13);
-        List<Employee> employeesUnderManger= employeeRepository.findAllByManagerId(employeeManager.getEmployeeId());
+        Employee employeeManager= employeeRepository.getById(8);
+        List<Employee> employeesUnderManger= employeeRepository.findAllByManagerEmployeeId(employeeManager.getEmployeeId());
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(employeesUnderManger);
         mockMvc.perform(MockMvcRequestBuilders.get("/HR/getEmployees/underManager").param("id",String.valueOf(employeeManager.getEmployeeId()))
@@ -99,7 +137,7 @@ public class EmployeeTests {
 
     @Test
     public void getEmployeeUnderSomeManager() throws Exception {
-        int managerId=1;
+        int managerId=3;
         List<Employee> employeesUnderManger= employeeRepository.findAllUnderSomeManager(managerId);
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(employeesUnderManger);
@@ -107,6 +145,18 @@ public class EmployeeTests {
         ).andExpect(status().isOk()).andExpect(content().json(body));
 
     }
+
+    @Test
+    public void deleteManagerAndUpdateEmployee() throws Exception {
+        int id =8;
+        String message = "manager "+id+" is deleted";
+        ObjectMapper objectMapper = new ObjectMapper();
+        String body = objectMapper.writeValueAsString(message);
+        mockMvc.perform(MockMvcRequestBuilders.delete("/HR/delete/manager").param("id",String.valueOf(id))
+        ).andExpect(status().isOk()).andExpect(content().string(message));
+    }
+
+
 
 
 

@@ -18,7 +18,7 @@ public class TeamService {
     public TeamRepository teamRepository;
 
     public Teams addTeam(Teams team) {
-        if(teamRepository.findByTeamName(team.getTeamName()))
+        if(teamRepository.existsByTeamName(team.getTeamName()))
         {
             throw new ConflictException("team already exists !");
         }

@@ -18,8 +18,6 @@ public class DepartmentServiceTest {
     @Autowired
     DepartmentService departmentService;
 
-
-
     @Test
     public  void whenAddDepartmentReturnDepartment() throws NotFoundException {
         Department department = new Department();

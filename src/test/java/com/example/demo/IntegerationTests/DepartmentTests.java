@@ -1,7 +1,6 @@
 package com.example.demo.IntegerationTests;
 
-import com.example.demo.Classes.Teams;
-import com.example.demo.Services.TeamService;
+import com.example.demo.Classes.Department;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,24 +17,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @ExtendWith(SpringExtension.class)
-public class TeamTests {
-
+public class DepartmentTests {
     @Autowired
     MockMvc mockMvc;
-    @Autowired
-    TeamService teamService;
-
     @Test
-    public void addTeam() throws Exception {
-        Teams addTeam = new Teams();
-        addTeam.setTeamName("a7");
-        addTeam.setTeamId(7);
+    public  void whenAddDepartmentReturnDepartment() throws Exception {
+        Department department  = new Department();
+        department.setDepartmentName(" embeded");
+        department.setDepartmentId(1);
         ObjectMapper objectMapper = new ObjectMapper();
-        String body = objectMapper.writeValueAsString(addTeam);
-        mockMvc.perform(MockMvcRequestBuilders.post("/HR/addTeam").contentType(MediaType.APPLICATION_JSON).content(body))
-                .andExpect(status().isCreated()).andExpect(content().json(body));
+        String body = objectMapper.writeValueAsString(department);
+        mockMvc.perform(MockMvcRequestBuilders.post("/HR/addDep").contentType(MediaType.APPLICATION_JSON)
+                .content(body)).andExpect(status().isCreated()).andExpect(content().json(body));
     }
-
-
-
 }

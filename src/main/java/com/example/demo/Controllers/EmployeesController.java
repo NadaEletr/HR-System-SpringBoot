@@ -27,7 +27,7 @@ public class EmployeesController {
 
     @GetMapping(value = "/getEmployeeInfo", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    ResponseEntity<Employee> getEmployeeInfo(@RequestParam("id") String id) throws NotFoundException {
+    ResponseEntity<Employee> getEmployeeInfo(@RequestParam("id") String id) {
         Employee newEmployee = employeeService.getEmployeeInfoByID(Integer.parseInt(id));
         return new ResponseEntity<>(newEmployee, HttpStatus.OK);
     }
@@ -40,42 +40,46 @@ public class EmployeesController {
     }
 
     @PutMapping(value = "/updateEmp", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Employee updateEmployee(@RequestBody Employee EmployeeToModify, @RequestParam("id") String id) throws NotFoundException {
+    public ResponseEntity<Employee> updateEmployee(@RequestBody Employee EmployeeToModify, @RequestParam String id) {
         Employee originalEmployeeModified = employeeService.getEmployeeInfoByID(Integer.parseInt(id));
         employeeService.updateEmployee(EmployeeToModify, originalEmployeeModified);
-
-        return originalEmployeeModified;
+        return new ResponseEntity<>(originalEmployeeModified, HttpStatus.OK);
     }
+
 
     @GetMapping(value = "/getSalaries", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    ResponseEntity<SalaryDTO> getEmployeeSalaries(@RequestParam("id") String id) throws NotFoundException {
+    ResponseEntity<SalaryDTO> getEmployeeSalaries(@RequestParam("id") String id)  {
         SalaryDTO employeeSalary=employeeService.getEmployeeSalary(Integer.parseInt(id));
         return new ResponseEntity<>(employeeSalary, HttpStatus.OK);
     }
 
     @GetMapping(value = "/getEmpInTeam", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    List<Employee> getEmployeesInTeam(@RequestParam("id") String id) throws NotFoundException {
+    List<Employee> getEmployeesInTeam(@RequestParam("id") String id) {
 
         return employeeService.getEmployeesInTeam(Integer.parseInt(id));
     }
 
     @GetMapping(value = "/getEmployees/underManager", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    List<Employee> getEmployeesUnderManager(@RequestParam("id") String id) throws NotFoundException {
+    List<Employee> getEmployeesUnderManager(@RequestParam("id") String id)  {
 
         return employeeService.getEmployeesUnderManger(Integer.parseInt(id));
     }
 
     @GetMapping(value = "/getEmployees/SomeManager", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    List<Employee> getEmployeesUnderSomeManager(@RequestParam("id") String id) throws NotFoundException {
+    List<Employee> getEmployeesUnderSomeManager(@RequestParam("id") String id) {
 
         return employeeService.getEmployeesOnSpeceficManger(Integer.parseInt(id));
     }
 
+    @DeleteMapping(value = "/delete/manager")
+    public String deleteManager(@RequestParam("id") String id)  {
+        employeeService.deleteManager(Integer.parseInt(id));
+        return "manager "+id+" is deleted";
 
-
+    }
 
 }

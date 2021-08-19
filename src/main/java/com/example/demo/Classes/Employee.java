@@ -1,6 +1,8 @@
 package com.example.demo.Classes;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -12,6 +14,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "employee")
+@JsonIgnoreProperties(value={"hibernateLazyInitializer"})
 public class Employee {
     @Id
     @Column(name="employee_id")
@@ -28,8 +31,6 @@ public class Employee {
 
     @Column(name = "gender")
     private char gender;
-
-
     @ManyToOne
     @JoinColumn(name = "manager_id")
     private Employee manager;
@@ -42,9 +43,10 @@ public class Employee {
     @Column(name = "birthdate")
     private Date birthDate;
     @Column(name="gross_salary")
-    private Double grossSalary;
+    private double grossSalary;
     @Column(name="net_salary")
-    private Double netSalary;
+    private double netSalary;
+
     public static void transferEmployee (Employee updateEmployee, Employee originalEmployee)
     {
         if(updateEmployee.name !=null)
@@ -79,12 +81,11 @@ public class Employee {
         {
             originalEmployee.setTeam(updateEmployee.team);
         }
-        if(updateEmployee.grossSalary!=null)
+        if(updateEmployee.grossSalary!=0d)
         {
             originalEmployee.setGrossSalary(updateEmployee.grossSalary);
 
         }
-
 
     }
 
@@ -162,6 +163,7 @@ public class Employee {
     }
 
     public void setGrossSalary(Double grossSalary) {
+
         this.grossSalary = grossSalary;
         this.netSalary=0.85*grossSalary-500;
     }

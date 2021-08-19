@@ -15,18 +15,18 @@ import java.util.List;
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
 
-    @Query(value="select case when count (d)>0 then true else false end from Department  d where d.departmentId =?1 ")
-    boolean existsBydepartmentId(@Param("departmentId")int departmentId);
+    @Query("select case when count(d)> 0 then true else false end from Department d where d.departmentId=?1 ")
+    boolean existsByDepartmentId(@Param("departmentId")int departmentId);
 
 
-    @Query(value="select case when count (t)>0 then true else false end from Teams  t where t.teamId =?1 ")
-    boolean existsByTeamId(int teamId);
+    @Query("select case when count(t)> 0 then true else false end from Teams t where t.teamId=?1 ")
+    boolean existsByTeamId(@Param("teamId")int teamId);
 
-    @Query(value = "SELECT e FROM  Employee  e where e.team.teamId =?1")
-    List<Employee> findAllByTeamId(@Param("teamId")int teamId);
 
-    @Query(value = "SELECT e FROM Employee  e where e.manager.employeeId =?1")
-    List<Employee> findAllByManagerId(@Param("employeeId")int employeeId);
+    List<Employee> findAllByTeamTeamId(int teamId);
+
+
+    List<Employee> findAllByManagerEmployeeId(int employeeId);
 
 
     @Query(
@@ -44,4 +44,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
                     "            select * from cte; "
             , nativeQuery = true)
     List<Employee> findAllUnderSomeManager(@Param("employeeId")int employeeId);
+
+
 }

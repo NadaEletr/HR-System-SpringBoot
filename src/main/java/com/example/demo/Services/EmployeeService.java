@@ -26,15 +26,18 @@ public class EmployeeService {
         {
             throw new ConflictException("this employee is already added");
         }
-        if(employee.getDepartment()!=null&&employeeRepository.existsBydepartmentId(employee.getDepartment().getDepartmentId())==false)
+        if(employee.getDepartment()!=null&&employeeRepository.existsByDepartmentId(employee.getDepartment().getDepartmentId())==false)
         {
-            throw new ConflictException("this department does not exists");
+            throw new NotFoundException("this department does not exists");
         }
         if(employee.getTeam()!=null &&employeeRepository.existsByTeamId(employee.getTeam().getTeamId())==false)
         {
-            throw new ConflictException("this team does not exists");
+            throw new NotFoundException("this team does not exists");
         }
-
+        if(employee.getManager()!=null && !employeeRepository.existsById(employee.getManager().getEmployeeId()))
+        {
+            throw new NotFoundException(" manager does not exists!");
+        }
         return employeeRepository.save(employee);
 
     }
@@ -80,7 +83,7 @@ public class EmployeeService {
         {
             throw new NotFoundException("team does not exists !");
         }
-        return employeeRepository.findAllByTeamId( teamId);
+        return employeeRepository.findAllByTeamTeamId( teamId);
     }
 
     public List<Employee> getEmployeesUnderManger(int mangerId) {
@@ -88,14 +91,32 @@ public class EmployeeService {
         {
             throw new NotFoundException("no employee with this ID");
         }
-        return employeeRepository.findAllByManagerId(mangerId);
+        return employeeRepository.findAllByManagerEmployeeId(mangerId);
     }
 
     public List<Employee> getEmployeesOnSpeceficManger(int mangerId) {
-        //if(employeeRepository.existsById(mangerId)==false)
-        /*{
+        if(employeeRepository.existsById(mangerId)==false)
+        {
             throw new NotFoundException("no employee with this ID");
-        }*/
+        }
         return employeeRepository.findAllUnderSomeManager(mangerId);
+    }
+
+    public void deleteManager(int mangerID) {
+
+        Employee manager = getEmployeeInfoByID(mangerID);
+        if(manager.getManager()==null)
+        {
+            throw new NotFoundException(" can't delete employee with no manager");
+        }
+
+        for(Employee employee :manager.getEmployees())
+        {
+            employee.setManager(manager.getManager());
+            employeeRepository.save(employee);
+        }
+        deleteEmployee(mangerID);
+
+
     }
 }

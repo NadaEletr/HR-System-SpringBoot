@@ -10,9 +10,8 @@ import java.util.Set;
 @Table(name = "department")
 public class Department {
     @Id
-    @GeneratedValue(strategy =GenerationType.AUTO)
-    int departmentId;
 
+    int departmentId;
     @Column(name = "department_name")
     String departmentName;
     @JsonIgnore
