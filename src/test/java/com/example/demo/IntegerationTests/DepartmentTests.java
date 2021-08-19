@@ -23,11 +23,11 @@ public class DepartmentTests {
     @Test
     public  void whenAddDepartmentReturnDepartment() throws Exception {
         Department department  = new Department();
-        department.setDepartmentName(" embeded");
-        department.setDepartmentId(1);
+        department.setDepartmentName(" embeded2");
+        department.setDepartmentId(5);
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(department);
-        mockMvc.perform(MockMvcRequestBuilders.post("/HR/addDep").contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(MockMvcRequestBuilders.post("/HR/department/add").contentType(MediaType.APPLICATION_JSON)
                 .content(body)).andExpect(status().isCreated()).andExpect(content().json(body));
     }
 }

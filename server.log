@@ -98,3 +98,428 @@
 2021-08-19 14:50:27.278  INFO 20712 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2021-08-19 14:50:27.282  INFO 20712 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2021-08-19 14:50:27.289  INFO 20712 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-08-19 15:29:04.544  INFO 22524 --- [main] c.e.d.IntegerationTests.DepartmentTests  : Starting DepartmentTests using Java 16.0.2 on DESKTOP-6JICA1R with PID 22524 (started by Nada Eletr in E:\phase1 Orange kabs'\HR-System-SpringBoot)
+2021-08-19 15:29:04.548  INFO 22524 --- [main] c.e.d.IntegerationTests.DepartmentTests  : No active profile set, falling back to default profiles: default
+2021-08-19 15:29:05.730  INFO 22524 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-19 15:29:05.831  INFO 22524 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 90 ms. Found 3 JPA repository interfaces.
+2021-08-19 15:29:06.922  INFO 22524 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2021-08-19 15:29:06.944  INFO 22524 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-19 15:29:06.945  INFO 22524 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-19 15:29:07.109  INFO 22524 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-19 15:29:07.109  INFO 22524 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2537 ms
+2021-08-19 15:29:07.550  INFO 22524 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-19 15:29:07.639  INFO 22524 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-19 15:29:07.854  INFO 22524 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-19 15:29:08.040  INFO 22524 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-08-19 15:29:08.598  INFO 22524 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-08-19 15:29:08.643  INFO 22524 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-08-19 15:29:09.658  INFO 22524 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-19 15:29:09.675  INFO 22524 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-19 15:29:11.252  INFO 22524 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2021-08-19 15:29:11.252  INFO 22524 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-19 15:29:11.260  INFO 22524 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 8 ms
+2021-08-19 15:29:11.343  INFO 22524 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 56933 (http) with context path ''
+2021-08-19 15:29:11.354  INFO 22524 --- [main] c.e.d.IntegerationTests.DepartmentTests  : Started DepartmentTests in 7.403 seconds (JVM running for 8.764)
+2021-08-19 15:29:12.167  INFO 22524 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-08-19 15:29:12.170  INFO 22524 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-08-19 15:29:12.179  INFO 22524 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-08-19 15:31:42.906  INFO 11396 --- [main] c.e.d.IntegerationTests.EmployeeTests    : Starting EmployeeTests using Java 16.0.2 on DESKTOP-6JICA1R with PID 11396 (started by Nada Eletr in E:\phase1 Orange kabs'\HR-System-SpringBoot)
+2021-08-19 15:31:42.911  INFO 11396 --- [main] c.e.d.IntegerationTests.EmployeeTests    : No active profile set, falling back to default profiles: default
+2021-08-19 15:31:43.897  INFO 11396 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-19 15:31:44.016  INFO 11396 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 99 ms. Found 3 JPA repository interfaces.
+2021-08-19 15:31:45.231  INFO 11396 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2021-08-19 15:31:45.247  INFO 11396 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-19 15:31:45.248  INFO 11396 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-19 15:31:45.467  INFO 11396 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-19 15:31:45.467  INFO 11396 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2534 ms
+2021-08-19 15:31:45.927  INFO 11396 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-19 15:31:46.015  INFO 11396 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-19 15:31:46.240  INFO 11396 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-19 15:31:46.432  INFO 11396 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-08-19 15:31:46.939  INFO 11396 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-08-19 15:31:46.970  INFO 11396 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-08-19 15:31:48.028  INFO 11396 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-19 15:31:48.046  INFO 11396 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-19 15:31:49.755  INFO 11396 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2021-08-19 15:31:49.756  INFO 11396 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-19 15:31:49.757  INFO 11396 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2021-08-19 15:31:49.862  INFO 11396 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 63154 (http) with context path ''
+2021-08-19 15:31:49.878  INFO 11396 --- [main] c.e.d.IntegerationTests.EmployeeTests    : Started EmployeeTests in 7.605 seconds (JVM running for 9.075)
+2021-08-19 15:31:50.925  INFO 11396 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-08-19 15:31:50.927  INFO 11396 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-08-19 15:31:50.935  INFO 11396 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-08-19 15:32:13.541  INFO 6788 --- [main] c.e.d.IntegerationTests.EmployeeTests    : Starting EmployeeTests using Java 16.0.2 on DESKTOP-6JICA1R with PID 6788 (started by Nada Eletr in E:\phase1 Orange kabs'\HR-System-SpringBoot)
+2021-08-19 15:32:13.544  INFO 6788 --- [main] c.e.d.IntegerationTests.EmployeeTests    : No active profile set, falling back to default profiles: default
+2021-08-19 15:32:14.517  INFO 6788 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-19 15:32:14.620  INFO 6788 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 83 ms. Found 3 JPA repository interfaces.
+2021-08-19 15:32:15.704  INFO 6788 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2021-08-19 15:32:15.724  INFO 6788 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-19 15:32:15.725  INFO 6788 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-19 15:32:15.876  INFO 6788 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-19 15:32:15.876  INFO 6788 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2309 ms
+2021-08-19 15:32:16.277  INFO 6788 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-19 15:32:16.343  INFO 6788 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-19 15:32:16.520  INFO 6788 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-19 15:32:16.699  INFO 6788 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-08-19 15:32:17.215  INFO 6788 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-08-19 15:32:17.251  INFO 6788 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-08-19 15:32:18.188  INFO 6788 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-19 15:32:18.199  INFO 6788 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-19 15:32:19.806  INFO 6788 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2021-08-19 15:32:19.807  INFO 6788 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-19 15:32:19.807  INFO 6788 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2021-08-19 15:32:19.875  INFO 6788 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 64881 (http) with context path ''
+2021-08-19 15:32:19.888  INFO 6788 --- [main] c.e.d.IntegerationTests.EmployeeTests    : Started EmployeeTests in 6.882 seconds (JVM running for 8.28)
+2021-08-19 15:32:20.732  INFO 6788 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-08-19 15:32:20.735  INFO 6788 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-08-19 15:32:20.742  INFO 6788 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-08-19 15:33:33.910  INFO 9104 --- [main] c.e.d.IntegerationTests.EmployeeTests    : Starting EmployeeTests using Java 16.0.2 on DESKTOP-6JICA1R with PID 9104 (started by Nada Eletr in E:\phase1 Orange kabs'\HR-System-SpringBoot)
+2021-08-19 15:33:33.914  INFO 9104 --- [main] c.e.d.IntegerationTests.EmployeeTests    : No active profile set, falling back to default profiles: default
+2021-08-19 15:33:34.997  INFO 9104 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-19 15:33:35.109  INFO 9104 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 93 ms. Found 3 JPA repository interfaces.
+2021-08-19 15:33:36.146  INFO 9104 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2021-08-19 15:33:36.166  INFO 9104 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-19 15:33:36.167  INFO 9104 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-19 15:33:36.328  INFO 9104 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-19 15:33:36.329  INFO 9104 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2391 ms
+2021-08-19 15:33:36.762  INFO 9104 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-19 15:33:36.856  INFO 9104 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-19 15:33:37.074  INFO 9104 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-19 15:33:37.313  INFO 9104 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-08-19 15:33:37.825  INFO 9104 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-08-19 15:33:37.853  INFO 9104 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-08-19 15:33:38.852  INFO 9104 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-19 15:33:38.862  INFO 9104 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-19 15:33:40.566  INFO 9104 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2021-08-19 15:33:40.568  INFO 9104 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-19 15:33:40.569  INFO 9104 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2021-08-19 15:33:40.646  INFO 9104 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 62038 (http) with context path ''
+2021-08-19 15:33:40.657  INFO 9104 --- [main] c.e.d.IntegerationTests.EmployeeTests    : Started EmployeeTests in 7.463 seconds (JVM running for 8.811)
+2021-08-19 15:33:41.111  INFO 9104 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-08-19 15:33:41.117  INFO 9104 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-08-19 15:33:41.125  INFO 9104 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-08-19 15:33:56.694  INFO 22340 --- [main] c.e.d.IntegerationTests.EmployeeTests    : Starting EmployeeTests using Java 16.0.2 on DESKTOP-6JICA1R with PID 22340 (started by Nada Eletr in E:\phase1 Orange kabs'\HR-System-SpringBoot)
+2021-08-19 15:33:56.697  INFO 22340 --- [main] c.e.d.IntegerationTests.EmployeeTests    : No active profile set, falling back to default profiles: default
+2021-08-19 15:33:58.048  INFO 22340 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-19 15:33:58.172  INFO 22340 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 105 ms. Found 3 JPA repository interfaces.
+2021-08-19 15:33:59.368  INFO 22340 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2021-08-19 15:33:59.387  INFO 22340 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-19 15:33:59.388  INFO 22340 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-19 15:33:59.563  INFO 22340 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-19 15:33:59.564  INFO 22340 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2839 ms
+2021-08-19 15:33:59.988  INFO 22340 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-19 15:34:00.096  INFO 22340 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-19 15:34:00.284  INFO 22340 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-19 15:34:00.457  INFO 22340 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-08-19 15:34:00.949  INFO 22340 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-08-19 15:34:00.981  INFO 22340 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-08-19 15:34:02.069  INFO 22340 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-19 15:34:02.081  INFO 22340 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-19 15:34:03.833  INFO 22340 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2021-08-19 15:34:03.833  INFO 22340 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-19 15:34:03.834  INFO 22340 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2021-08-19 15:34:03.914  INFO 22340 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 61846 (http) with context path ''
+2021-08-19 15:34:03.925  INFO 22340 --- [main] c.e.d.IntegerationTests.EmployeeTests    : Started EmployeeTests in 7.968 seconds (JVM running for 9.367)
+2021-08-19 15:34:04.828  INFO 22340 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-08-19 15:34:04.833  INFO 22340 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-08-19 15:34:04.877  INFO 22340 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-08-19 15:34:57.905  INFO 22100 --- [main] c.e.d.IntegerationTests.EmployeeTests    : Starting EmployeeTests using Java 16.0.2 on DESKTOP-6JICA1R with PID 22100 (started by Nada Eletr in E:\phase1 Orange kabs'\HR-System-SpringBoot)
+2021-08-19 15:34:57.908  INFO 22100 --- [main] c.e.d.IntegerationTests.EmployeeTests    : No active profile set, falling back to default profiles: default
+2021-08-19 15:34:58.975  INFO 22100 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-19 15:34:59.079  INFO 22100 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 93 ms. Found 3 JPA repository interfaces.
+2021-08-19 15:35:00.313  INFO 22100 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2021-08-19 15:35:00.339  INFO 22100 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-19 15:35:00.340  INFO 22100 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-19 15:35:00.502  INFO 22100 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-19 15:35:00.502  INFO 22100 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2568 ms
+2021-08-19 15:35:01.034  INFO 22100 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-19 15:35:01.155  INFO 22100 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-19 15:35:01.428  INFO 22100 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-19 15:35:01.609  INFO 22100 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-08-19 15:35:02.081  INFO 22100 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-08-19 15:35:02.115  INFO 22100 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-08-19 15:35:03.264  INFO 22100 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-19 15:35:03.278  INFO 22100 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-19 15:35:04.761  INFO 22100 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2021-08-19 15:35:04.762  INFO 22100 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-19 15:35:04.762  INFO 22100 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2021-08-19 15:35:04.840  INFO 22100 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 64759 (http) with context path ''
+2021-08-19 15:35:04.850  INFO 22100 --- [main] c.e.d.IntegerationTests.EmployeeTests    : Started EmployeeTests in 7.535 seconds (JVM running for 9.382)
+2021-08-19 15:35:05.672  INFO 22100 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-08-19 15:35:05.674  INFO 22100 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-08-19 15:35:05.682  INFO 22100 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-08-19 15:35:53.707  INFO 26860 --- [main] c.e.d.IntegerationTests.EmployeeTests    : Starting EmployeeTests using Java 16.0.2 on DESKTOP-6JICA1R with PID 26860 (started by Nada Eletr in E:\phase1 Orange kabs'\HR-System-SpringBoot)
+2021-08-19 15:35:53.710  INFO 26860 --- [main] c.e.d.IntegerationTests.EmployeeTests    : No active profile set, falling back to default profiles: default
+2021-08-19 15:35:54.731  INFO 26860 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-19 15:35:54.844  INFO 26860 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 94 ms. Found 3 JPA repository interfaces.
+2021-08-19 15:35:56.662  INFO 26860 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2021-08-19 15:35:56.678  INFO 26860 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-19 15:35:56.679  INFO 26860 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-19 15:35:56.850  INFO 26860 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-19 15:35:56.852  INFO 26860 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3120 ms
+2021-08-19 15:35:57.279  INFO 26860 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-19 15:35:57.359  INFO 26860 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-19 15:35:57.551  INFO 26860 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-19 15:35:57.746  INFO 26860 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-08-19 15:35:58.263  INFO 26860 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-08-19 15:35:58.304  INFO 26860 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-08-19 15:35:59.351  INFO 26860 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-19 15:35:59.372  INFO 26860 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-19 15:36:01.107  INFO 26860 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2021-08-19 15:36:01.107  INFO 26860 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-19 15:36:01.109  INFO 26860 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2021-08-19 15:36:01.183  INFO 26860 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 52147 (http) with context path ''
+2021-08-19 15:36:01.197  INFO 26860 --- [main] c.e.d.IntegerationTests.EmployeeTests    : Started EmployeeTests in 8.174 seconds (JVM running for 9.531)
+2021-08-19 15:36:02.088  INFO 26860 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-08-19 15:36:02.091  INFO 26860 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-08-19 15:36:02.119  INFO 26860 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-08-19 15:37:02.848  INFO 26496 --- [main] c.e.d.IntegerationTests.EmployeeTests    : Starting EmployeeTests using Java 16.0.2 on DESKTOP-6JICA1R with PID 26496 (started by Nada Eletr in E:\phase1 Orange kabs'\HR-System-SpringBoot)
+2021-08-19 15:37:02.852  INFO 26496 --- [main] c.e.d.IntegerationTests.EmployeeTests    : No active profile set, falling back to default profiles: default
+2021-08-19 15:37:03.858  INFO 26496 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-19 15:37:03.943  INFO 26496 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 72 ms. Found 3 JPA repository interfaces.
+2021-08-19 15:37:05.060  INFO 26496 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2021-08-19 15:37:05.083  INFO 26496 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-19 15:37:05.083  INFO 26496 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-19 15:37:05.228  INFO 26496 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-19 15:37:05.229  INFO 26496 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2353 ms
+2021-08-19 15:37:05.668  INFO 26496 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-19 15:37:05.764  INFO 26496 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-19 15:37:05.988  INFO 26496 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-19 15:37:06.165  INFO 26496 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-08-19 15:37:06.643  INFO 26496 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-08-19 15:37:06.677  INFO 26496 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-08-19 15:37:07.847  INFO 26496 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-19 15:37:07.877  INFO 26496 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-19 15:37:09.506  INFO 26496 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2021-08-19 15:37:09.506  INFO 26496 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-19 15:37:09.507  INFO 26496 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2021-08-19 15:37:09.596  INFO 26496 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 52168 (http) with context path ''
+2021-08-19 15:37:09.607  INFO 26496 --- [main] c.e.d.IntegerationTests.EmployeeTests    : Started EmployeeTests in 7.324 seconds (JVM running for 8.781)
+2021-08-19 15:37:10.063  INFO 26496 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-08-19 15:37:10.066  INFO 26496 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-08-19 15:37:10.073  INFO 26496 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-08-19 15:37:39.523  INFO 27564 --- [main] c.e.d.IntegerationTests.EmployeeTests    : Starting EmployeeTests using Java 16.0.2 on DESKTOP-6JICA1R with PID 27564 (started by Nada Eletr in E:\phase1 Orange kabs'\HR-System-SpringBoot)
+2021-08-19 15:37:39.527  INFO 27564 --- [main] c.e.d.IntegerationTests.EmployeeTests    : No active profile set, falling back to default profiles: default
+2021-08-19 15:37:40.597  INFO 27564 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-19 15:37:40.706  INFO 27564 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 98 ms. Found 3 JPA repository interfaces.
+2021-08-19 15:37:41.793  INFO 27564 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2021-08-19 15:37:41.810  INFO 27564 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-19 15:37:41.810  INFO 27564 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-19 15:37:41.968  INFO 27564 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-19 15:37:41.968  INFO 27564 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2421 ms
+2021-08-19 15:37:42.397  INFO 27564 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-19 15:37:42.479  INFO 27564 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-19 15:37:42.685  INFO 27564 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-19 15:37:42.871  INFO 27564 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-08-19 15:37:43.365  INFO 27564 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-08-19 15:37:43.395  INFO 27564 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-08-19 15:37:44.498  INFO 27564 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-19 15:37:44.506  INFO 27564 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-19 15:37:46.100  INFO 27564 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2021-08-19 15:37:46.101  INFO 27564 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-19 15:37:46.101  INFO 27564 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2021-08-19 15:37:46.169  INFO 27564 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 52186 (http) with context path ''
+2021-08-19 15:37:46.179  INFO 27564 --- [main] c.e.d.IntegerationTests.EmployeeTests    : Started EmployeeTests in 7.198 seconds (JVM running for 8.601)
+2021-08-19 15:37:46.570  INFO 27564 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-08-19 15:37:46.573  INFO 27564 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-08-19 15:37:46.583  INFO 27564 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-08-19 15:38:00.865  INFO 27228 --- [main] c.e.d.IntegerationTests.EmployeeTests    : Starting EmployeeTests using Java 16.0.2 on DESKTOP-6JICA1R with PID 27228 (started by Nada Eletr in E:\phase1 Orange kabs'\HR-System-SpringBoot)
+2021-08-19 15:38:00.868  INFO 27228 --- [main] c.e.d.IntegerationTests.EmployeeTests    : No active profile set, falling back to default profiles: default
+2021-08-19 15:38:01.742  INFO 27228 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-19 15:38:01.837  INFO 27228 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 82 ms. Found 3 JPA repository interfaces.
+2021-08-19 15:38:02.995  INFO 27228 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2021-08-19 15:38:03.015  INFO 27228 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-19 15:38:03.016  INFO 27228 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-19 15:38:03.181  INFO 27228 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-19 15:38:03.181  INFO 27228 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2288 ms
+2021-08-19 15:38:03.599  INFO 27228 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-19 15:38:03.695  INFO 27228 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-19 15:38:03.874  INFO 27228 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-19 15:38:04.044  INFO 27228 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-08-19 15:38:04.503  INFO 27228 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-08-19 15:38:04.539  INFO 27228 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-08-19 15:38:05.641  INFO 27228 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-19 15:38:05.668  INFO 27228 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-19 15:38:07.253  INFO 27228 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2021-08-19 15:38:07.254  INFO 27228 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-19 15:38:07.255  INFO 27228 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2021-08-19 15:38:07.325  INFO 27228 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 52204 (http) with context path ''
+2021-08-19 15:38:07.337  INFO 27228 --- [main] c.e.d.IntegerationTests.EmployeeTests    : Started EmployeeTests in 7.012 seconds (JVM running for 8.381)
+2021-08-19 15:38:08.092  INFO 27228 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-08-19 15:38:08.096  INFO 27228 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-08-19 15:38:08.103  INFO 27228 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-08-19 15:38:54.275  INFO 27160 --- [main] c.e.d.IntegerationTests.EmployeeTests    : Starting EmployeeTests using Java 16.0.2 on DESKTOP-6JICA1R with PID 27160 (started by Nada Eletr in E:\phase1 Orange kabs'\HR-System-SpringBoot)
+2021-08-19 15:38:54.279  INFO 27160 --- [main] c.e.d.IntegerationTests.EmployeeTests    : No active profile set, falling back to default profiles: default
+2021-08-19 15:38:55.292  INFO 27160 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-19 15:38:55.393  INFO 27160 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 86 ms. Found 3 JPA repository interfaces.
+2021-08-19 15:38:56.483  INFO 27160 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2021-08-19 15:38:56.508  INFO 27160 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-19 15:38:56.510  INFO 27160 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-19 15:38:56.670  INFO 27160 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-19 15:38:56.671  INFO 27160 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2371 ms
+2021-08-19 15:38:57.092  INFO 27160 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-19 15:38:57.203  INFO 27160 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-19 15:38:57.413  INFO 27160 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-19 15:38:57.612  INFO 27160 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-08-19 15:38:58.071  INFO 27160 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-08-19 15:38:58.111  INFO 27160 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-08-19 15:38:59.099  INFO 27160 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-19 15:38:59.113  INFO 27160 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-19 15:39:00.914  INFO 27160 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2021-08-19 15:39:00.914  INFO 27160 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-19 15:39:00.916  INFO 27160 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 2 ms
+2021-08-19 15:39:01.001  INFO 27160 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 62707 (http) with context path ''
+2021-08-19 15:39:01.012  INFO 27160 --- [main] c.e.d.IntegerationTests.EmployeeTests    : Started EmployeeTests in 7.335 seconds (JVM running for 8.787)
+2021-08-19 15:39:01.859  INFO 27160 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-08-19 15:39:01.862  INFO 27160 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-08-19 15:39:01.871  INFO 27160 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-08-19 15:40:04.396  INFO 23852 --- [main] c.e.d.IntegerationTests.EmployeeTests    : Starting EmployeeTests using Java 16.0.2 on DESKTOP-6JICA1R with PID 23852 (started by Nada Eletr in E:\phase1 Orange kabs'\HR-System-SpringBoot)
+2021-08-19 15:40:04.398  INFO 23852 --- [main] c.e.d.IntegerationTests.EmployeeTests    : No active profile set, falling back to default profiles: default
+2021-08-19 15:40:05.449  INFO 23852 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-19 15:40:05.563  INFO 23852 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 100 ms. Found 3 JPA repository interfaces.
+2021-08-19 15:40:06.740  INFO 23852 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2021-08-19 15:40:06.766  INFO 23852 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-19 15:40:06.767  INFO 23852 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-19 15:40:06.929  INFO 23852 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-19 15:40:06.930  INFO 23852 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2481 ms
+2021-08-19 15:40:07.360  INFO 23852 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-19 15:40:07.460  INFO 23852 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-19 15:40:07.690  INFO 23852 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-19 15:40:07.952  INFO 23852 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-08-19 15:40:08.459  INFO 23852 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-08-19 15:40:08.498  INFO 23852 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-08-19 15:40:09.473  INFO 23852 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-19 15:40:09.485  INFO 23852 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-19 15:40:11.218  INFO 23852 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2021-08-19 15:40:11.219  INFO 23852 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-19 15:40:11.220  INFO 23852 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2021-08-19 15:40:11.304  INFO 23852 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 58934 (http) with context path ''
+2021-08-19 15:40:11.317  INFO 23852 --- [main] c.e.d.IntegerationTests.EmployeeTests    : Started EmployeeTests in 7.576 seconds (JVM running for 9.063)
+2021-08-19 15:40:12.182  INFO 23852 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-08-19 15:40:12.184  INFO 23852 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-08-19 15:40:12.193  INFO 23852 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-08-19 15:40:38.187  INFO 19380 --- [main] c.e.d.IntegerationTests.EmployeeTests    : Starting EmployeeTests using Java 16.0.2 on DESKTOP-6JICA1R with PID 19380 (started by Nada Eletr in E:\phase1 Orange kabs'\HR-System-SpringBoot)
+2021-08-19 15:40:38.191  INFO 19380 --- [main] c.e.d.IntegerationTests.EmployeeTests    : No active profile set, falling back to default profiles: default
+2021-08-19 15:40:39.167  INFO 19380 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-19 15:40:39.287  INFO 19380 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 100 ms. Found 3 JPA repository interfaces.
+2021-08-19 15:40:40.466  INFO 19380 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2021-08-19 15:40:40.484  INFO 19380 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-19 15:40:40.485  INFO 19380 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-19 15:40:40.636  INFO 19380 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-19 15:40:40.636  INFO 19380 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2419 ms
+2021-08-19 15:40:41.094  INFO 19380 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-19 15:40:41.172  INFO 19380 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-19 15:40:41.336  INFO 19380 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-19 15:40:41.518  INFO 19380 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-08-19 15:40:42.017  INFO 19380 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-08-19 15:40:42.051  INFO 19380 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-08-19 15:40:43.321  INFO 19380 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-19 15:40:43.326  INFO 19380 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-19 15:40:44.845  INFO 19380 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2021-08-19 15:40:44.845  INFO 19380 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-19 15:40:44.848  INFO 19380 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 3 ms
+2021-08-19 15:40:44.923  INFO 19380 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 55420 (http) with context path ''
+2021-08-19 15:40:44.936  INFO 19380 --- [main] c.e.d.IntegerationTests.EmployeeTests    : Started EmployeeTests in 7.354 seconds (JVM running for 8.794)
+2021-08-19 15:40:45.581  INFO 19380 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-08-19 15:40:45.584  INFO 19380 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-08-19 15:40:45.592  INFO 19380 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-08-19 15:41:31.743  INFO 652 --- [main] c.e.d.IntegerationTests.EmployeeTests    : Starting EmployeeTests using Java 16.0.2 on DESKTOP-6JICA1R with PID 652 (started by Nada Eletr in E:\phase1 Orange kabs'\HR-System-SpringBoot)
+2021-08-19 15:41:31.747  INFO 652 --- [main] c.e.d.IntegerationTests.EmployeeTests    : No active profile set, falling back to default profiles: default
+2021-08-19 15:41:32.726  INFO 652 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-19 15:41:32.831  INFO 652 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 89 ms. Found 3 JPA repository interfaces.
+2021-08-19 15:41:33.992  INFO 652 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2021-08-19 15:41:34.015  INFO 652 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-19 15:41:34.015  INFO 652 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-19 15:41:34.176  INFO 652 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-19 15:41:34.177  INFO 652 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2406 ms
+2021-08-19 15:41:34.631  INFO 652 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-19 15:41:34.741  INFO 652 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-19 15:41:34.955  INFO 652 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-19 15:41:35.166  INFO 652 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-08-19 15:41:35.664  INFO 652 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-08-19 15:41:35.706  INFO 652 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-08-19 15:41:36.712  INFO 652 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-19 15:41:36.722  INFO 652 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-19 15:41:38.349  INFO 652 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2021-08-19 15:41:38.349  INFO 652 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-19 15:41:38.350  INFO 652 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2021-08-19 15:41:38.429  INFO 652 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 60792 (http) with context path ''
+2021-08-19 15:41:38.441  INFO 652 --- [main] c.e.d.IntegerationTests.EmployeeTests    : Started EmployeeTests in 7.249 seconds (JVM running for 8.629)
+2021-08-19 15:41:39.268  INFO 652 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-08-19 15:41:39.271  INFO 652 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-08-19 15:41:39.279  INFO 652 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-08-19 15:42:17.614  INFO 23736 --- [main] c.e.d.IntegerationTests.EmployeeTests    : Starting EmployeeTests using Java 16.0.2 on DESKTOP-6JICA1R with PID 23736 (started by Nada Eletr in E:\phase1 Orange kabs'\HR-System-SpringBoot)
+2021-08-19 15:42:17.619  INFO 23736 --- [main] c.e.d.IntegerationTests.EmployeeTests    : No active profile set, falling back to default profiles: default
+2021-08-19 15:42:18.657  INFO 23736 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-19 15:42:18.758  INFO 23736 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 80 ms. Found 3 JPA repository interfaces.
+2021-08-19 15:42:19.883  INFO 23736 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2021-08-19 15:42:19.907  INFO 23736 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-19 15:42:19.908  INFO 23736 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-19 15:42:20.063  INFO 23736 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-19 15:42:20.063  INFO 23736 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2421 ms
+2021-08-19 15:42:20.488  INFO 23736 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-19 15:42:20.572  INFO 23736 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-19 15:42:20.760  INFO 23736 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-19 15:42:20.935  INFO 23736 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-08-19 15:42:21.463  INFO 23736 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-08-19 15:42:21.506  INFO 23736 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-08-19 15:42:22.479  INFO 23736 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-19 15:42:22.490  INFO 23736 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-19 15:42:24.244  INFO 23736 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2021-08-19 15:42:24.244  INFO 23736 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-19 15:42:24.245  INFO 23736 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2021-08-19 15:42:24.308  INFO 23736 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 62243 (http) with context path ''
+2021-08-19 15:42:24.318  INFO 23736 --- [main] c.e.d.IntegerationTests.EmployeeTests    : Started EmployeeTests in 7.295 seconds (JVM running for 8.714)
+2021-08-19 15:42:25.142  INFO 23736 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-08-19 15:42:25.145  INFO 23736 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-08-19 15:42:25.154  INFO 23736 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-08-19 15:49:05.513  INFO 6476 --- [main] c.e.d.IntegerationTests.EmployeeTests    : Starting EmployeeTests using Java 16.0.2 on DESKTOP-6JICA1R with PID 6476 (started by Nada Eletr in E:\phase1 Orange kabs'\HR-System-SpringBoot)
+2021-08-19 15:49:05.517  INFO 6476 --- [main] c.e.d.IntegerationTests.EmployeeTests    : No active profile set, falling back to default profiles: default
+2021-08-19 15:49:06.737  INFO 6476 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-19 15:49:06.864  INFO 6476 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 113 ms. Found 3 JPA repository interfaces.
+2021-08-19 15:49:08.063  INFO 6476 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2021-08-19 15:49:08.095  INFO 6476 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-19 15:49:08.096  INFO 6476 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-19 15:49:08.281  INFO 6476 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-19 15:49:08.281  INFO 6476 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2742 ms
+2021-08-19 15:49:08.744  INFO 6476 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-19 15:49:08.831  INFO 6476 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-19 15:49:09.059  INFO 6476 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-19 15:49:09.259  INFO 6476 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-08-19 15:49:10.044  INFO 6476 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-08-19 15:49:10.097  INFO 6476 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-08-19 15:49:11.379  INFO 6476 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-19 15:49:11.388  INFO 6476 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-19 15:49:13.076  INFO 6476 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2021-08-19 15:49:13.077  INFO 6476 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-19 15:49:13.078  INFO 6476 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2021-08-19 15:49:13.150  INFO 6476 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 65348 (http) with context path ''
+2021-08-19 15:49:13.163  INFO 6476 --- [main] c.e.d.IntegerationTests.EmployeeTests    : Started EmployeeTests in 8.368 seconds (JVM running for 9.724)
+2021-08-19 15:49:14.008  INFO 6476 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-08-19 15:49:14.011  INFO 6476 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-08-19 15:49:14.021  INFO 6476 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-08-19 15:50:01.204  INFO 8544 --- [main] c.e.d.IntegerationTests.EmployeeTests    : Starting EmployeeTests using Java 16.0.2 on DESKTOP-6JICA1R with PID 8544 (started by Nada Eletr in E:\phase1 Orange kabs'\HR-System-SpringBoot)
+2021-08-19 15:50:01.209  INFO 8544 --- [main] c.e.d.IntegerationTests.EmployeeTests    : No active profile set, falling back to default profiles: default
+2021-08-19 15:50:02.149  INFO 8544 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-19 15:50:02.257  INFO 8544 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 89 ms. Found 3 JPA repository interfaces.
+2021-08-19 15:50:03.373  INFO 8544 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2021-08-19 15:50:03.397  INFO 8544 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-19 15:50:03.397  INFO 8544 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-19 15:50:03.565  INFO 8544 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-19 15:50:03.565  INFO 8544 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2330 ms
+2021-08-19 15:50:03.998  INFO 8544 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-19 15:50:04.098  INFO 8544 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-19 15:50:04.312  INFO 8544 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-19 15:50:04.492  INFO 8544 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-08-19 15:50:04.975  INFO 8544 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-08-19 15:50:05.010  INFO 8544 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-08-19 15:50:06.062  INFO 8544 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-19 15:50:06.076  INFO 8544 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-19 15:50:07.734  INFO 8544 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2021-08-19 15:50:07.734  INFO 8544 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-19 15:50:07.738  INFO 8544 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 4 ms
+2021-08-19 15:50:07.808  INFO 8544 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 57626 (http) with context path ''
+2021-08-19 15:50:07.819  INFO 8544 --- [main] c.e.d.IntegerationTests.EmployeeTests    : Started EmployeeTests in 7.117 seconds (JVM running for 8.652)
+2021-08-19 15:50:08.732  INFO 8544 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-08-19 15:50:08.735  INFO 8544 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-08-19 15:50:08.752  INFO 8544 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

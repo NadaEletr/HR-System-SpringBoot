@@ -17,6 +17,7 @@ import java.util.Set;
 @JsonIgnoreProperties(value={"hibernateLazyInitializer"})
 public class Employee {
     @Id
+
     @Column(name="employee_id")
     private int employeeId;
     @Column(name = "employee_name")
@@ -163,7 +164,6 @@ public class Employee {
     }
 
     public void setGrossSalary(Double grossSalary) {
-
         this.grossSalary = grossSalary;
         this.netSalary=0.85*grossSalary-500;
     }

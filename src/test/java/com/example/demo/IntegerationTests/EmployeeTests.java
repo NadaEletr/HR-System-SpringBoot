@@ -44,22 +44,22 @@ public class EmployeeTests {
 
     @Test
     public void getEmployeeSalary() throws Exception {
-        Employee employee = employeeService.getEmployeeInfoByID(1);
+        Employee employee = employeeService.getEmployeeInfoByID(3);
         SalaryDTO salaryDTO = new SalaryDTO(employee);
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(salaryDTO);
-        mockMvc.perform(MockMvcRequestBuilders.get("/HR/getSalaries")
+        mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get/Salaries")
                 .param("id", String.valueOf(employee.getEmployeeId())))
                 .andExpect(status().isOk()).andExpect((content().json(body)));
     }
     @Test
     public void getEmployee() throws Exception {
-        int id =1;
+        int id =2;
         Employee employee = employeeService.getEmployeeInfoByID(id);
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(employee);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/HR/getEmployeeInfo")
+        mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get")
                 .param("id",String.valueOf(id))).andExpect(status().isOk())
                 .andExpect((content().json(body)));
 
@@ -72,7 +72,7 @@ public class EmployeeTests {
         ObjectMapper objectMapper = new ObjectMapper();
 
         String body = objectMapper.writeValueAsString(employees);
-        mockMvc.perform(MockMvcRequestBuilders.get("/HR/getEmpInTeam")
+        mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get/team")
                 .param("id", String.valueOf(teamId))).andExpect(content().json(body)).andExpect(jsonPath("$",hasSize(employees.size())))
                 .andExpect(status().isOk());
 
@@ -85,14 +85,14 @@ public class EmployeeTests {
         Employee employee  = new Employee();
         employee.setName("mohamed");
         employee.setGender('M');
-        employee.setEmployeeId(6);
+        employee.setEmployeeId(20);
         employee.setGrossSalary(1223330d);
         employee.setTeam(team.get());
         employee.setDepartment(department.get());
         System.out.println(employee.getTeam());
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(employee);
-        mockMvc.perform(MockMvcRequestBuilders.post("/HR/add").contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(MockMvcRequestBuilders.post("/HR/employee/add").contentType(MediaType.APPLICATION_JSON)
                 .content(body)).andExpect(status().isCreated()).andExpect(content().json(body));
     }
     @Test
@@ -105,7 +105,7 @@ public class EmployeeTests {
         updateEmployee.setName("mayar");
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(updateEmployee);
-       mockMvc.perform(MockMvcRequestBuilders.put("/HR/updateEmp")
+       mockMvc.perform(MockMvcRequestBuilders.put("/HR/employee/update")
                .contentType(MediaType.APPLICATION_JSON).content(body)
                .param("id",String.valueOf(employeeId)))
                .andExpect(status().isOk());
@@ -114,11 +114,11 @@ public class EmployeeTests {
 
     @Test
     public void deleteEmployee() throws Exception {
-        int id=1;
+        int id=2;
         String message ="employee is deleted";
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(message);
-        mockMvc.perform(MockMvcRequestBuilders.delete("/HR/deleteEmp").param("id",String.valueOf(id))
+        mockMvc.perform(MockMvcRequestBuilders.delete("/HR/employee/delete").param("id",String.valueOf(id))
         ).andExpect(status().isOk()).andExpect(content().string(message));
 
     }
@@ -130,7 +130,7 @@ public class EmployeeTests {
         List<Employee> employeesUnderManger= employeeRepository.findAllByManagerEmployeeId(employeeManager.getEmployeeId());
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(employeesUnderManger);
-        mockMvc.perform(MockMvcRequestBuilders.get("/HR/getEmployees/underManager").param("id",String.valueOf(employeeManager.getEmployeeId()))
+        mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get/SomeManager").param("id",String.valueOf(employeeManager.getEmployeeId()))
         ).andExpect(status().isOk()).andExpect(content().json(body));
 
     }
@@ -141,7 +141,7 @@ public class EmployeeTests {
         List<Employee> employeesUnderManger= employeeRepository.findAllUnderSomeManager(managerId);
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(employeesUnderManger);
-        mockMvc.perform(MockMvcRequestBuilders.get("/HR/getEmployees/SomeManager").param("id",String.valueOf(managerId))
+        mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get/SomeManager").param("id",String.valueOf(managerId))
         ).andExpect(status().isOk()).andExpect(content().json(body));
 
     }
@@ -152,7 +152,7 @@ public class EmployeeTests {
         String message = "manager "+id+" is deleted";
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(message);
-        mockMvc.perform(MockMvcRequestBuilders.delete("/HR/delete/manager").param("id",String.valueOf(id))
+        mockMvc.perform(MockMvcRequestBuilders.delete("/HR/employee/delete/manager").param("id",String.valueOf(id))
         ).andExpect(status().isOk()).andExpect(content().string(message));
     }
 

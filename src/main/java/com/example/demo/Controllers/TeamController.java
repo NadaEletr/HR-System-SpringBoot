@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping(value = "/HR")
+@RequestMapping(value = "/HR/Teams")
 public class TeamController {
     @Autowired
     TeamService teamService;
-    @PostMapping(value = "/addTeam", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity<Teams> addNewEmployee(@RequestBody Teams team) throws NotFoundException {
         Teams newTeam = teamService.addTeam(team);

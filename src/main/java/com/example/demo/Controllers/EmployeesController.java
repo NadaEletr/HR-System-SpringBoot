@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/HR")
+@RequestMapping(value = "/HR/employee")
 public class EmployeesController {
     @Autowired
     EmployeeService employeeService;
@@ -25,21 +25,21 @@ public class EmployeesController {
     }
 
 
-    @GetMapping(value = "/getEmployeeInfo", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity<Employee> getEmployeeInfo(@RequestParam("id") String id) {
         Employee newEmployee = employeeService.getEmployeeInfoByID(Integer.parseInt(id));
         return new ResponseEntity<>(newEmployee, HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/deleteEmp")
+    @DeleteMapping(value = "/delete")
     public String deleteEmp(@RequestParam("id") String id) throws NotFoundException {
         employeeService.deleteEmployee(Integer.parseInt(id));
         return "employee is deleted";
 
     }
 
-    @PutMapping(value = "/updateEmp", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Employee> updateEmployee(@RequestBody Employee EmployeeToModify, @RequestParam String id) {
         Employee originalEmployeeModified = employeeService.getEmployeeInfoByID(Integer.parseInt(id));
         employeeService.updateEmployee(EmployeeToModify, originalEmployeeModified);
@@ -47,28 +47,28 @@ public class EmployeesController {
     }
 
 
-    @GetMapping(value = "/getSalaries", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/get/Salaries", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity<SalaryDTO> getEmployeeSalaries(@RequestParam("id") String id)  {
         SalaryDTO employeeSalary=employeeService.getEmployeeSalary(Integer.parseInt(id));
         return new ResponseEntity<>(employeeSalary, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/getEmpInTeam", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/get/team", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     List<Employee> getEmployeesInTeam(@RequestParam("id") String id) {
 
         return employeeService.getEmployeesInTeam(Integer.parseInt(id));
     }
 
-    @GetMapping(value = "/getEmployees/underManager", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/get/underManager", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     List<Employee> getEmployeesUnderManager(@RequestParam("id") String id)  {
 
         return employeeService.getEmployeesUnderManger(Integer.parseInt(id));
     }
 
-    @GetMapping(value = "/getEmployees/SomeManager", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/get/SomeManager", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     List<Employee> getEmployeesUnderSomeManager(@RequestParam("id") String id) {
 

@@ -32,7 +32,7 @@ public class TeamTests {
         addTeam.setTeamId(7);
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(addTeam);
-        mockMvc.perform(MockMvcRequestBuilders.post("/HR/addTeam").contentType(MediaType.APPLICATION_JSON).content(body))
+        mockMvc.perform(MockMvcRequestBuilders.post("/HR/Teams/add").contentType(MediaType.APPLICATION_JSON).content(body))
                 .andExpect(status().isCreated()).andExpect(content().json(body));
     }
 
