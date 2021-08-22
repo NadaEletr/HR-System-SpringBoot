@@ -14,7 +14,5 @@ import java.util.List;
 @Repository
 public interface TeamRepository extends JpaRepository<Teams, Integer> {
 
-
-
-    boolean existsByTeamName(String teamName);
+   boolean existsByTeamName(String teamName);
 }

@@ -1,15 +1,10 @@
 package com.example.demo.Classes;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -165,7 +160,7 @@ public class Employee {
 
     public void setGrossSalary(Double grossSalary) {
         this.grossSalary = grossSalary;
-        this.netSalary=0.85*grossSalary-500;
+
     }
 
     public Double getNetSalary() {
@@ -182,6 +177,7 @@ public class Employee {
 
     public void setNetSalary(Double netSalary) {
         this.netSalary = netSalary;
+
     }
 }
 
