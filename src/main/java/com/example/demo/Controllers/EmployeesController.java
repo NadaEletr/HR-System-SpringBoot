@@ -46,7 +46,6 @@ public class EmployeesController {
         return new ResponseEntity<>(originalEmployeeModified, HttpStatus.OK);
     }
 
-
     @GetMapping(value = "/get/Salaries", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity<SalaryDTO> getEmployeeSalaries(@RequestParam("id") String id)  {

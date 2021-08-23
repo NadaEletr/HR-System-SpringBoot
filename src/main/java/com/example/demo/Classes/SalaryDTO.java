@@ -11,7 +11,6 @@ public class SalaryDTO {
         }
     }
 
-
     public double getNetSalary() {
         return netSalary;
     }

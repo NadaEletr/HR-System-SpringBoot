@@ -6,7 +6,6 @@ import com.example.demo.Repositories.EmployeeRepository;
 import com.example.demo.errors.ConflictException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.server.DelegatingServerHttpResponse;
 import org.springframework.stereotype.Service;
 import com.example.demo.errors.NotFoundException;
 
@@ -18,8 +17,6 @@ public class EmployeeService {
 
     @Autowired
     public EmployeeRepository employeeRepository;
-
-
     public Employee saveEmployee(Employee employee) {
         if (employeeRepository.existsById(employee.getEmployeeId())) {
             throw new ConflictException("this employee is already added");
@@ -35,9 +32,7 @@ public class EmployeeService {
         }
         getNetSalary(employee);
         return employeeRepository.save(employee);
-
     }
-
     public void getNetSalary(Employee employee) {
         final double taxRatio = 0.85;
         final double insurance = 500;
@@ -52,14 +47,12 @@ public class EmployeeService {
         employee.setNetSalary(netSalary);
     }
 
-
     public Employee getEmployeeInfoByID(int id) throws NotFoundException {
         if (employeeRepository.existsById(id) == false) {
             throw new NotFoundException("no employee with this ID");
         }
         return employeeRepository.getById(id);
     }
-
 
     public void deleteEmployee(int id) throws NotFoundException {
         if (employeeRepository.existsById(id) == false) {
@@ -76,7 +69,7 @@ public class EmployeeService {
 
     public Employee updateEmployee(Employee updateEmployee, Employee originalEmployee) throws NotFoundException {
 
-        Employee.transferEmployee(updateEmployee, originalEmployee);
+       transferEmployee(updateEmployee, originalEmployee);
 
         return employeeRepository.save(originalEmployee);
     }
@@ -119,7 +112,49 @@ public class EmployeeService {
             employeeRepository.save(employee);
         }
         deleteEmployee(mangerID);
-
+    }
+    public void transferEmployee(Employee updateEmployee, Employee originalEmployee)
+    {
+        if(updateEmployee.getName() !=null)
+        {
+            originalEmployee.setName(updateEmployee.getName());
+        }
+        if(updateEmployee.getEmployees()!=null)
+        {
+            originalEmployee.setEmployees(updateEmployee.getEmployees());
+        }
+        if(updateEmployee.getGraduation_date()!=null)
+        {
+            originalEmployee.setGraduation_date(updateEmployee.getGraduation_date());
+        }
+        if(updateEmployee.getBirthDate()!= null)
+        {
+            originalEmployee.setBirthDate(updateEmployee.getBirthDate());
+        }
+        if(updateEmployee.getManager()!=null)
+        {
+            originalEmployee.setManager(updateEmployee.getManager());
+        }
+        if(updateEmployee.getGender()!='\0')
+        {
+            originalEmployee.setGender(updateEmployee.getGender());
+        }
+        if(updateEmployee.getDepartment() !=null)
+        {
+            originalEmployee.setDepartment(updateEmployee.getDepartment());
+        }
+        if(updateEmployee.getTeam() !=null)
+        {
+            originalEmployee.setTeam(updateEmployee.getTeam());
+        }
+        if(updateEmployee.getGrossSalary()!=0d)
+        {
+            originalEmployee.setGrossSalary(updateEmployee.getGrossSalary());
+        }
+        if(updateEmployee.getNetSalary()!=0d)
+        {
+            getNetSalary(originalEmployee);
+        }
 
     }
 }

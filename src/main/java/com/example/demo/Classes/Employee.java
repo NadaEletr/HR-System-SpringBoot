@@ -20,7 +20,7 @@ public class Employee {
     //@Column(name = "Birth_date")
     //private String Birthdate; // comment
     @Column(name = "graduation_date")
-    private Date graduation_date;
+    private java.util.Date graduation_date;
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
@@ -43,47 +43,7 @@ public class Employee {
     @Column(name="net_salary")
     private double netSalary;
 
-    public static void transferEmployee (Employee updateEmployee, Employee originalEmployee)
-    {
-        if(updateEmployee.name !=null)
-        {
-            originalEmployee.setName(updateEmployee.name);
-        }
-        if(updateEmployee.employees!=null)
-        {
-            originalEmployee.setEmployees(updateEmployee.getEmployees());
-        }
-        if(updateEmployee.graduation_date!=null)
-        {
-            originalEmployee.setGraduation_date(updateEmployee.graduation_date);
-        }
-        if(updateEmployee.birthDate!= null)
-        {
-            originalEmployee.setBirthDate(updateEmployee.birthDate);
-        }
-        if(updateEmployee.manager!=null)
-        {
-            originalEmployee.setManager(updateEmployee.manager);
-        }
-        if(updateEmployee.gender!='\0')
-        {
-            originalEmployee.setGender(updateEmployee.gender);
-        }
-        if(updateEmployee.department !=null)
-        {
-            originalEmployee.setDepartment(updateEmployee.department);
-        }
-        if(updateEmployee.team !=null)
-        {
-            originalEmployee.setTeam(updateEmployee.team);
-        }
-        if(updateEmployee.grossSalary!=0d)
-        {
-            originalEmployee.setGrossSalary(updateEmployee.grossSalary);
 
-        }
-
-    }
 
     public Employee() {
 
@@ -129,11 +89,11 @@ public class Employee {
         this.employeeId = employeeId;
     }
 
-    public Date getGraduation_date() {
+    public java.util.Date getGraduation_date() {
         return graduation_date;
     }
 
-    public void setGraduation_date(Date graduation_date) {
+    public void setGraduation_date(java.util.Date graduation_date) {
         this.graduation_date = graduation_date;
     }
 

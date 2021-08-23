@@ -28,8 +28,7 @@ public class TeamTests {
     @Test
     public void addTeam() throws Exception {
         Teams addTeam = new Teams();
-        addTeam.setTeamName("a7");
-        addTeam.setTeamId(7);
+        addTeam.setTeamName("a3");
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(addTeam);
         mockMvc.perform(MockMvcRequestBuilders.post("/HR/Teams/add").contentType(MediaType.APPLICATION_JSON).content(body))

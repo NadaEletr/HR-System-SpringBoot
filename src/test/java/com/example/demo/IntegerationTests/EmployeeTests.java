@@ -19,12 +19,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -65,7 +66,6 @@ public class EmployeeTests {
         mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get")
                 .param("id", String.valueOf(id))).andExpect(status().isOk())
                 .andExpect((content().json(body)));
-
     }
 
     @Test
@@ -79,7 +79,6 @@ public class EmployeeTests {
         mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get/team")
                 .param("id", String.valueOf(teamId))).andExpect(content().json(body)).andExpect(jsonPath("$", hasSize(employees.size())))
                 .andExpect(status().isOk());
-
     }
 
     @Test
@@ -87,28 +86,24 @@ public class EmployeeTests {
         Optional<Teams> team = teamRepository.findById(2);
         Optional<Department> department = departmentRepository.findById(1);
         Employee employee = new Employee();
-        employee.setName("mohamed");
+        employee.setName("youssef");
         employee.setGender('M');
-        employee.setEmployeeId(23);
         employee.setGrossSalary(1223330d);
         employee.setTeam(team.get());
         employee.setDepartment(department.get());
         System.out.println(employee.getTeam());
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(employee);
-        employee.setNetSalary((employee.getGrossSalary()*0.85-500));
+        employee.setNetSalary((employee.getGrossSalary() * 0.85 - 500));
         String Result = objectMapper.writeValueAsString(employee);
         mockMvc.perform(MockMvcRequestBuilders.post("/HR/employee/add").contentType(MediaType.APPLICATION_JSON)
                 .content(body)).andExpect(status().isCreated())
                 .andExpect(content().json(Result));
-
-
     }
 
     @Test
     public void updateEmployee() throws Exception {
-
-        int employeeId = 3;
+        int employeeId = 1;
         Employee updateEmployee = new Employee();
         updateEmployee.setEmployeeId(employeeId);
         updateEmployee.setGender('F');
@@ -121,7 +116,6 @@ public class EmployeeTests {
                 .andExpect(status().isOk());
     }
 
-
     @Test
     public void deleteEmployee() throws Exception {
         int id = 2;
@@ -130,19 +124,16 @@ public class EmployeeTests {
         String body = objectMapper.writeValueAsString(message);
         mockMvc.perform(MockMvcRequestBuilders.delete("/HR/employee/delete").param("id", String.valueOf(id))
         ).andExpect(status().isOk()).andExpect(content().string(message));
-
     }
 
     @Test
     public void getEmployeeUnderManager() throws Exception {
-
         Employee employeeManager = employeeRepository.getById(8);
         List<Employee> employeesUnderManger = employeeRepository.findAllByManagerEmployeeId(employeeManager.getEmployeeId());
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(employeesUnderManger);
         mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get/SomeManager").param("id", String.valueOf(employeeManager.getEmployeeId()))
         ).andExpect(status().isOk()).andExpect(content().json(body));
-
     }
 
     @Test
@@ -153,7 +144,6 @@ public class EmployeeTests {
         String body = objectMapper.writeValueAsString(employeesUnderManger);
         mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get/SomeManager").param("id", String.valueOf(managerId))
         ).andExpect(status().isOk()).andExpect(content().json(body));
-
     }
 
     @Test
