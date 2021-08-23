@@ -35,7 +35,7 @@
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
+			<scope>h2</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -123,8 +123,15 @@
 				<artifactId>flyway-maven-plugin</artifactId>
 				<version>5.2.4</version>
 			</plugin>
-
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<configuration>
+					<argLine>-Dspring.profiles.active=test</argLine>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
+
 
 </project>
