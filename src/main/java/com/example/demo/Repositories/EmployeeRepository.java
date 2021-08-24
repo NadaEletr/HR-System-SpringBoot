@@ -28,9 +28,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
     List<Employee> findAllByManagerEmployeeId(int employeeId);
 
-
     @Query(
-            value = "with recursive cte as ( \n" +
+            value = "with recursive 'cte' as ( \n" +
                     "            select     employee_id, birthdate, gender, graduation_date, gross_salary, employee_name, net_salary, department_id, manager_id, team_id\n" +
                     "\t\t\n" +
                     "              from       employee\n" +
@@ -43,6 +42,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
                     "            )\n" +
                     "            select * from cte; "
             , nativeQuery = true)
+
     List<Employee> findAllUnderSomeManager(@Param("employeeId")int employeeId);
 
 

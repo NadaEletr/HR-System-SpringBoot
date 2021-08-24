@@ -1,6 +1,13 @@
 package com.example.demo.IntegerationTests;
 
 import com.example.demo.Classes.Department;
+import com.example.demo.Repositories.DepartmentRepository;
+import com.example.demo.Services.DepartmentService;
+import com.example.demo.Services.EmployeeService;
+import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.ExpectedDatabase;
+import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,27 +15,53 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @ExtendWith(SpringExtension.class)
+@ActiveProfiles("test")
+@TestExecutionListeners({
+
+        DependencyInjectionTestExecutionListener.class,
+        DbUnitTestExecutionListener.class
+})
 public class DepartmentTests {
     @Autowired
     MockMvc mockMvc;
+    @Autowired
+    DepartmentService departmentService;
+    @Autowired
+    DepartmentRepository departmentRepository;
     @Test
+   @DatabaseSetup("/data.xml")
+   //@ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT,value = "/expected.xml")
     public  void whenAddDepartmentReturnDepartment() throws Exception {
         Department department  = new Department();
-        department.setDepartmentName("design");
-//        department.setDepartmentId(5);
+        department.setDepartmentName("sw");
+        department.setDepartmentId(1);
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(department);
         mockMvc.perform(MockMvcRequestBuilders.post("/HR/department/add").contentType(MediaType.APPLICATION_JSON)
-                .content(body)).andExpect(status().isCreated()).andExpect(content().json(body));
+                .content(body)).andExpect(status().isCreated());
+        Department resultDepartment= departmentRepository.getById(department.getDepartmentId());
+        assertEquals(resultDepartment.getDepartmentId(),department.getDepartmentId());
+        assertEquals(resultDepartment.getDepartmentName(),department.getDepartmentName());
+
+
+        // Department department = departmentService.saveEmployee();
+
     }
 }

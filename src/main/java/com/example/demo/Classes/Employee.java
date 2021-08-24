@@ -20,7 +20,7 @@ public class Employee {
     //@Column(name = "Birth_date")
     //private String Birthdate; // comment
     @Column(name = "graduation_date")
-    private java.util.Date graduation_date;
+    private Date graduation_date;
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
@@ -89,11 +89,11 @@ public class Employee {
         this.employeeId = employeeId;
     }
 
-    public java.util.Date getGraduation_date() {
+    public Date getGraduation_date() {
         return graduation_date;
     }
 
-    public void setGraduation_date(java.util.Date graduation_date) {
+    public void setGraduation_date(Date graduation_date) {
         this.graduation_date = graduation_date;
     }
 
