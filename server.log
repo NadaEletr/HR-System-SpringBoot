@@ -6606,3 +6606,246 @@ java.lang.IllegalArgumentException: No enum constant com.example.demo.Classes.Ge
 2021-08-25 15:04:15.306  INFO 6404 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2021-08-25 15:04:15.310  INFO 6404 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2021-08-25 15:04:15.315  INFO 6404 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-08-25 15:04:58.963  INFO 8136 --- [main] com.example.demo.DemoApplication         : Starting DemoApplication using Java 16.0.2 on DESKTOP-6JICA1R with PID 8136 (E:\phase1 Orange kabs'\HR-System-SpringBoot\target\classes started by Nada Eletr in E:\phase1 Orange kabs'\HR-System-SpringBoot)
+2021-08-25 15:04:58.968  INFO 8136 --- [main] com.example.demo.DemoApplication         : No active profile set, falling back to default profiles: default
+2021-08-25 15:04:59.554  INFO 8136 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-25 15:04:59.604  INFO 8136 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 42 ms. Found 3 JPA repository interfaces.
+2021-08-25 15:04:59.994  INFO 8136 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2021-08-25 15:04:59.996  INFO 8136 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-25 15:04:59.996  INFO 8136 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-25 15:05:00.110  INFO 8136 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-25 15:05:00.110  INFO 8136 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1089 ms
+2021-08-25 15:05:00.220  INFO 8136 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-08-25 15:05:00.698  INFO 8136 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-08-25 15:05:00.773  INFO 8136 --- [main] o.f.c.internal.license.VersionPrinter    : Flyway Community Edition 7.14.0 by Redgate
+2021-08-25 15:05:00.773  INFO 8136 --- [main] o.f.c.i.database.base.BaseDatabaseType   : Database: jdbc:mysql://localhost:3306/hr (MySQL 8.0)
+2021-08-25 15:05:00.959  INFO 8136 --- [main] o.f.core.internal.command.DbValidate     : Successfully validated 2 migrations (execution time 00:00.045s)
+2021-08-25 15:05:01.139  INFO 8136 --- [main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table `hr`.`flyway_schema_history` ...
+2021-08-25 15:05:01.366  INFO 8136 --- [main] o.f.core.internal.command.DbMigrate      : Current version of schema `hr`: << Empty Schema >>
+2021-08-25 15:05:01.390  INFO 8136 --- [main] o.f.core.internal.command.DbMigrate      : Migrating schema `hr` to version "1 - init"
+2021-08-25 15:05:01.655  INFO 8136 --- [main] o.f.core.internal.command.DbMigrate      : Migrating schema `hr` to version "2 - init"
+2021-08-25 15:05:01.705  INFO 8136 --- [main] o.f.core.internal.command.DbMigrate      : Successfully applied 2 migrations to schema `hr`, now at version v2 (execution time 00:00.355s)
+2021-08-25 15:05:01.858  INFO 8136 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-25 15:05:01.900  INFO 8136 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-25 15:05:02.035  INFO 8136 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-25 15:05:02.143  INFO 8136 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2021-08-25 15:05:02.773  INFO 8136 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-25 15:05:02.775  INFO 8136 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-25 15:05:03.677  INFO 8136 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2021-08-25 15:05:03.685  INFO 8136 --- [main] com.example.demo.DemoApplication         : Started DemoApplication in 5.089 seconds (JVM running for 5.734)
+2021-08-25 15:07:02.053  INFO 5484 --- [main] c.e.d.IntegerationTests.DepartmentTests  : Starting DepartmentTests using Java 16.0.2 on DESKTOP-6JICA1R with PID 5484 (started by Nada Eletr in E:\phase1 Orange kabs'\HR-System-SpringBoot)
+2021-08-25 15:07:02.054  INFO 5484 --- [main] c.e.d.IntegerationTests.DepartmentTests  : The following profiles are active: test
+2021-08-25 15:07:03.032  INFO 5484 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-25 15:07:03.152  INFO 5484 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 107 ms. Found 3 JPA repository interfaces.
+2021-08-25 15:07:04.479  INFO 5484 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2021-08-25 15:07:04.494  INFO 5484 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-25 15:07:04.495  INFO 5484 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-25 15:07:04.672  INFO 5484 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-25 15:07:04.672  INFO 5484 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2596 ms
+2021-08-25 15:07:04.966  INFO 5484 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-08-25 15:07:05.223  INFO 5484 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-08-25 15:07:05.299  INFO 5484 --- [main] o.f.c.internal.license.VersionPrinter    : Flyway Community Edition 7.14.0 by Redgate
+2021-08-25 15:07:05.299  INFO 5484 --- [main] o.f.c.i.database.base.BaseDatabaseType   : Database: jdbc:h2:mem:hr (H2 1.4)
+2021-08-25 15:07:05.474  INFO 5484 --- [main] o.f.core.internal.command.DbValidate     : Successfully validated 2 migrations (execution time 00:00.051s)
+2021-08-25 15:07:05.496  INFO 5484 --- [main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "PUBLIC"."flyway_schema_history" ...
+2021-08-25 15:07:05.569  INFO 5484 --- [main] o.f.core.internal.command.DbMigrate      : Current version of schema "PUBLIC": << Empty Schema >>
+2021-08-25 15:07:05.580  INFO 5484 --- [main] o.f.core.internal.command.DbMigrate      : Migrating schema "PUBLIC" to version "1 - init"
+2021-08-25 15:07:05.626  INFO 5484 --- [main] o.f.core.internal.command.DbMigrate      : Migrating schema "PUBLIC" to version "2 - init"
+2021-08-25 15:07:05.644  INFO 5484 --- [main] o.f.core.internal.command.DbMigrate      : Successfully applied 2 migrations to schema "PUBLIC", now at version v2 (execution time 00:00.083s)
+2021-08-25 15:07:05.904  INFO 5484 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-25 15:07:06.004  INFO 5484 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-25 15:07:06.368  INFO 5484 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-25 15:07:06.653  INFO 5484 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2021-08-25 15:07:07.678  INFO 5484 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-25 15:07:07.688  INFO 5484 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-25 15:07:09.640  INFO 5484 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2021-08-25 15:07:09.640  INFO 5484 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-25 15:07:09.641  INFO 5484 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2021-08-25 15:07:09.765  INFO 5484 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 50520 (http) with context path ''
+2021-08-25 15:07:09.781  INFO 5484 --- [main] c.e.d.IntegerationTests.DepartmentTests  : Started DepartmentTests in 8.321 seconds (JVM running for 9.691)
+2021-08-25 15:07:09.949  WARN 5484 --- [main] o.dbunit.dataset.AbstractTableMetaData   : Potential problem found: The configured data type factory 'class org.dbunit.dataset.datatype.DefaultDataTypeFactory' might cause problems with the current database 'H2' (e.g. some datatypes may not be supported properly). In rare cases you might see this message because the list of supported database products is incomplete (list=[derby]). If so please request a java-class update via the forums.If you are using your own IDataTypeFactory extending DefaultDataTypeFactory, ensure that you override getValidDbProducts() to specify the supported database products.
+2021-08-25 15:07:09.966  WARN 5484 --- [main] o.dbunit.dataset.AbstractTableMetaData   : Potential problem found: The configured data type factory 'class org.dbunit.dataset.datatype.DefaultDataTypeFactory' might cause problems with the current database 'H2' (e.g. some datatypes may not be supported properly). In rare cases you might see this message because the list of supported database products is incomplete (list=[derby]). If so please request a java-class update via the forums.If you are using your own IDataTypeFactory extending DefaultDataTypeFactory, ensure that you override getValidDbProducts() to specify the supported database products.
+2021-08-25 15:07:09.975  WARN 5484 --- [main] o.dbunit.dataset.AbstractTableMetaData   : Potential problem found: The configured data type factory 'class org.dbunit.dataset.datatype.DefaultDataTypeFactory' might cause problems with the current database 'H2' (e.g. some datatypes may not be supported properly). In rare cases you might see this message because the list of supported database products is incomplete (list=[derby]). If so please request a java-class update via the forums.If you are using your own IDataTypeFactory extending DefaultDataTypeFactory, ensure that you override getValidDbProducts() to specify the supported database products.
+2021-08-25 15:07:10.397  INFO 5484 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-08-25 15:07:10.401  INFO 5484 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-08-25 15:07:10.404  INFO 5484 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-08-25 15:07:49.448  INFO 12012 --- [main] c.e.demo.IntegerationTests.TeamTests     : Starting TeamTests using Java 16.0.2 on DESKTOP-6JICA1R with PID 12012 (started by Nada Eletr in E:\phase1 Orange kabs'\HR-System-SpringBoot)
+2021-08-25 15:07:49.450  INFO 12012 --- [main] c.e.demo.IntegerationTests.TeamTests     : The following profiles are active: test
+2021-08-25 15:07:50.519  INFO 12012 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-25 15:07:50.618  INFO 12012 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 85 ms. Found 3 JPA repository interfaces.
+2021-08-25 15:07:51.677  INFO 12012 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2021-08-25 15:07:51.692  INFO 12012 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-25 15:07:51.693  INFO 12012 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-25 15:07:51.881  INFO 12012 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-25 15:07:51.881  INFO 12012 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2398 ms
+2021-08-25 15:07:52.239  INFO 12012 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-08-25 15:07:52.495  INFO 12012 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-08-25 15:07:52.596  INFO 12012 --- [main] o.f.c.internal.license.VersionPrinter    : Flyway Community Edition 7.14.0 by Redgate
+2021-08-25 15:07:52.598  INFO 12012 --- [main] o.f.c.i.database.base.BaseDatabaseType   : Database: jdbc:h2:mem:hr (H2 1.4)
+2021-08-25 15:07:52.799  INFO 12012 --- [main] o.f.core.internal.command.DbValidate     : Successfully validated 2 migrations (execution time 00:00.074s)
+2021-08-25 15:07:52.815  INFO 12012 --- [main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "PUBLIC"."flyway_schema_history" ...
+2021-08-25 15:07:52.887  INFO 12012 --- [main] o.f.core.internal.command.DbMigrate      : Current version of schema "PUBLIC": << Empty Schema >>
+2021-08-25 15:07:52.901  INFO 12012 --- [main] o.f.core.internal.command.DbMigrate      : Migrating schema "PUBLIC" to version "1 - init"
+2021-08-25 15:07:52.947  INFO 12012 --- [main] o.f.core.internal.command.DbMigrate      : Migrating schema "PUBLIC" to version "2 - init"
+2021-08-25 15:07:52.968  INFO 12012 --- [main] o.f.core.internal.command.DbMigrate      : Successfully applied 2 migrations to schema "PUBLIC", now at version v2 (execution time 00:00.089s)
+2021-08-25 15:07:53.190  INFO 12012 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-25 15:07:53.289  INFO 12012 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-25 15:07:53.535  INFO 12012 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-25 15:07:53.708  INFO 12012 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2021-08-25 15:07:54.736  INFO 12012 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-25 15:07:54.748  INFO 12012 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-25 15:07:56.363  INFO 12012 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2021-08-25 15:07:56.363  INFO 12012 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-25 15:07:56.365  INFO 12012 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 2 ms
+2021-08-25 15:07:56.497  INFO 12012 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 58064 (http) with context path ''
+2021-08-25 15:07:56.509  INFO 12012 --- [main] c.e.demo.IntegerationTests.TeamTests     : Started TeamTests in 7.638 seconds (JVM running for 8.977)
+2021-08-25 15:07:56.699  WARN 12012 --- [main] o.dbunit.dataset.AbstractTableMetaData   : Potential problem found: The configured data type factory 'class org.dbunit.dataset.datatype.DefaultDataTypeFactory' might cause problems with the current database 'H2' (e.g. some datatypes may not be supported properly). In rare cases you might see this message because the list of supported database products is incomplete (list=[derby]). If so please request a java-class update via the forums.If you are using your own IDataTypeFactory extending DefaultDataTypeFactory, ensure that you override getValidDbProducts() to specify the supported database products.
+2021-08-25 15:07:56.712  WARN 12012 --- [main] o.dbunit.dataset.AbstractTableMetaData   : Potential problem found: The configured data type factory 'class org.dbunit.dataset.datatype.DefaultDataTypeFactory' might cause problems with the current database 'H2' (e.g. some datatypes may not be supported properly). In rare cases you might see this message because the list of supported database products is incomplete (list=[derby]). If so please request a java-class update via the forums.If you are using your own IDataTypeFactory extending DefaultDataTypeFactory, ensure that you override getValidDbProducts() to specify the supported database products.
+2021-08-25 15:07:56.721  WARN 12012 --- [main] o.dbunit.dataset.AbstractTableMetaData   : Potential problem found: The configured data type factory 'class org.dbunit.dataset.datatype.DefaultDataTypeFactory' might cause problems with the current database 'H2' (e.g. some datatypes may not be supported properly). In rare cases you might see this message because the list of supported database products is incomplete (list=[derby]). If so please request a java-class update via the forums.If you are using your own IDataTypeFactory extending DefaultDataTypeFactory, ensure that you override getValidDbProducts() to specify the supported database products.
+2021-08-25 15:07:57.287  INFO 12012 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-08-25 15:07:57.291  INFO 12012 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-08-25 15:07:57.295  INFO 12012 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-08-25 15:08:34.153  INFO 17820 --- [main] c.e.d.IntegerationTests.DepartmentTests  : Starting DepartmentTests using Java 16.0.2 on DESKTOP-6JICA1R with PID 17820 (started by Nada Eletr in E:\phase1 Orange kabs'\HR-System-SpringBoot)
+2021-08-25 15:08:34.158  INFO 17820 --- [main] c.e.d.IntegerationTests.DepartmentTests  : The following profiles are active: test
+2021-08-25 15:08:35.175  INFO 17820 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-25 15:08:35.301  INFO 17820 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 113 ms. Found 3 JPA repository interfaces.
+2021-08-25 15:08:36.474  INFO 17820 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2021-08-25 15:08:36.488  INFO 17820 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-25 15:08:36.489  INFO 17820 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-25 15:08:36.663  INFO 17820 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-25 15:08:36.664  INFO 17820 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2479 ms
+2021-08-25 15:08:36.959  INFO 17820 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-08-25 15:08:37.217  INFO 17820 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-08-25 15:08:37.297  INFO 17820 --- [main] o.f.c.internal.license.VersionPrinter    : Flyway Community Edition 7.14.0 by Redgate
+2021-08-25 15:08:37.298  INFO 17820 --- [main] o.f.c.i.database.base.BaseDatabaseType   : Database: jdbc:h2:mem:hr (H2 1.4)
+2021-08-25 15:08:37.416  INFO 17820 --- [main] o.f.core.internal.command.DbValidate     : Successfully validated 2 migrations (execution time 00:00.030s)
+2021-08-25 15:08:37.434  INFO 17820 --- [main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "PUBLIC"."flyway_schema_history" ...
+2021-08-25 15:08:37.515  INFO 17820 --- [main] o.f.core.internal.command.DbMigrate      : Current version of schema "PUBLIC": << Empty Schema >>
+2021-08-25 15:08:37.530  INFO 17820 --- [main] o.f.core.internal.command.DbMigrate      : Migrating schema "PUBLIC" to version "1 - init"
+2021-08-25 15:08:37.572  INFO 17820 --- [main] o.f.core.internal.command.DbMigrate      : Migrating schema "PUBLIC" to version "2 - init"
+2021-08-25 15:08:37.593  INFO 17820 --- [main] o.f.core.internal.command.DbMigrate      : Successfully applied 2 migrations to schema "PUBLIC", now at version v2 (execution time 00:00.085s)
+2021-08-25 15:08:37.833  INFO 17820 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-25 15:08:37.949  INFO 17820 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-25 15:08:38.140  INFO 17820 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-25 15:08:38.312  INFO 17820 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2021-08-25 15:08:39.216  INFO 17820 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-25 15:08:39.228  INFO 17820 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-25 15:08:41.144  INFO 17820 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2021-08-25 15:08:41.144  INFO 17820 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-25 15:08:41.148  INFO 17820 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 4 ms
+2021-08-25 15:08:41.292  INFO 17820 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 56614 (http) with context path ''
+2021-08-25 15:08:41.309  INFO 17820 --- [main] c.e.d.IntegerationTests.DepartmentTests  : Started DepartmentTests in 7.704 seconds (JVM running for 9.257)
+2021-08-25 15:08:41.465  WARN 17820 --- [main] o.dbunit.dataset.AbstractTableMetaData   : Potential problem found: The configured data type factory 'class org.dbunit.dataset.datatype.DefaultDataTypeFactory' might cause problems with the current database 'H2' (e.g. some datatypes may not be supported properly). In rare cases you might see this message because the list of supported database products is incomplete (list=[derby]). If so please request a java-class update via the forums.If you are using your own IDataTypeFactory extending DefaultDataTypeFactory, ensure that you override getValidDbProducts() to specify the supported database products.
+2021-08-25 15:08:41.477  WARN 17820 --- [main] o.dbunit.dataset.AbstractTableMetaData   : Potential problem found: The configured data type factory 'class org.dbunit.dataset.datatype.DefaultDataTypeFactory' might cause problems with the current database 'H2' (e.g. some datatypes may not be supported properly). In rare cases you might see this message because the list of supported database products is incomplete (list=[derby]). If so please request a java-class update via the forums.If you are using your own IDataTypeFactory extending DefaultDataTypeFactory, ensure that you override getValidDbProducts() to specify the supported database products.
+2021-08-25 15:08:41.486  WARN 17820 --- [main] o.dbunit.dataset.AbstractTableMetaData   : Potential problem found: The configured data type factory 'class org.dbunit.dataset.datatype.DefaultDataTypeFactory' might cause problems with the current database 'H2' (e.g. some datatypes may not be supported properly). In rare cases you might see this message because the list of supported database products is incomplete (list=[derby]). If so please request a java-class update via the forums.If you are using your own IDataTypeFactory extending DefaultDataTypeFactory, ensure that you override getValidDbProducts() to specify the supported database products.
+2021-08-25 15:08:41.940  INFO 17820 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-08-25 15:08:41.943  INFO 17820 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-08-25 15:08:41.946  INFO 17820 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-08-25 15:09:30.976  INFO 28172 --- [main] c.e.d.IntegerationTests.DepartmentTests  : Starting DepartmentTests using Java 16.0.2 on DESKTOP-6JICA1R with PID 28172 (started by Nada Eletr in E:\phase1 Orange kabs'\HR-System-SpringBoot)
+2021-08-25 15:09:30.976  INFO 28172 --- [main] c.e.d.IntegerationTests.DepartmentTests  : The following profiles are active: test
+2021-08-25 15:09:32.276  INFO 28172 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-25 15:09:32.385  INFO 28172 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 95 ms. Found 3 JPA repository interfaces.
+2021-08-25 15:09:33.679  INFO 28172 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2021-08-25 15:09:33.722  INFO 28172 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-25 15:09:33.723  INFO 28172 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-25 15:09:33.905  INFO 28172 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-25 15:09:33.907  INFO 28172 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2911 ms
+2021-08-25 15:09:34.204  INFO 28172 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-08-25 15:09:34.462  INFO 28172 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-08-25 15:09:34.513  INFO 28172 --- [main] o.f.c.internal.license.VersionPrinter    : Flyway Community Edition 7.14.0 by Redgate
+2021-08-25 15:09:34.513  INFO 28172 --- [main] o.f.c.i.database.base.BaseDatabaseType   : Database: jdbc:h2:mem:hr (H2 1.4)
+2021-08-25 15:09:34.617  INFO 28172 --- [main] o.f.core.internal.command.DbValidate     : Successfully validated 2 migrations (execution time 00:00.032s)
+2021-08-25 15:09:34.634  INFO 28172 --- [main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "PUBLIC"."flyway_schema_history" ...
+2021-08-25 15:09:34.709  INFO 28172 --- [main] o.f.core.internal.command.DbMigrate      : Current version of schema "PUBLIC": << Empty Schema >>
+2021-08-25 15:09:34.724  INFO 28172 --- [main] o.f.core.internal.command.DbMigrate      : Migrating schema "PUBLIC" to version "1 - init"
+2021-08-25 15:09:34.782  INFO 28172 --- [main] o.f.core.internal.command.DbMigrate      : Migrating schema "PUBLIC" to version "2 - init"
+2021-08-25 15:09:34.825  INFO 28172 --- [main] o.f.core.internal.command.DbMigrate      : Successfully applied 2 migrations to schema "PUBLIC", now at version v2 (execution time 00:00.129s)
+2021-08-25 15:09:35.109  INFO 28172 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-25 15:09:35.189  INFO 28172 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-25 15:09:35.392  INFO 28172 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-25 15:09:35.549  INFO 28172 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2021-08-25 15:09:36.447  INFO 28172 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-25 15:09:36.459  INFO 28172 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-25 15:09:38.180  INFO 28172 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2021-08-25 15:09:38.181  INFO 28172 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-25 15:09:38.182  INFO 28172 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2021-08-25 15:09:38.299  INFO 28172 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 56622 (http) with context path ''
+2021-08-25 15:09:38.310  INFO 28172 --- [main] c.e.d.IntegerationTests.DepartmentTests  : Started DepartmentTests in 7.922 seconds (JVM running for 9.322)
+2021-08-25 15:09:38.453  WARN 28172 --- [main] o.dbunit.dataset.AbstractTableMetaData   : Potential problem found: The configured data type factory 'class org.dbunit.dataset.datatype.DefaultDataTypeFactory' might cause problems with the current database 'H2' (e.g. some datatypes may not be supported properly). In rare cases you might see this message because the list of supported database products is incomplete (list=[derby]). If so please request a java-class update via the forums.If you are using your own IDataTypeFactory extending DefaultDataTypeFactory, ensure that you override getValidDbProducts() to specify the supported database products.
+2021-08-25 15:09:38.470  WARN 28172 --- [main] o.dbunit.dataset.AbstractTableMetaData   : Potential problem found: The configured data type factory 'class org.dbunit.dataset.datatype.DefaultDataTypeFactory' might cause problems with the current database 'H2' (e.g. some datatypes may not be supported properly). In rare cases you might see this message because the list of supported database products is incomplete (list=[derby]). If so please request a java-class update via the forums.If you are using your own IDataTypeFactory extending DefaultDataTypeFactory, ensure that you override getValidDbProducts() to specify the supported database products.
+2021-08-25 15:09:38.481  WARN 28172 --- [main] o.dbunit.dataset.AbstractTableMetaData   : Potential problem found: The configured data type factory 'class org.dbunit.dataset.datatype.DefaultDataTypeFactory' might cause problems with the current database 'H2' (e.g. some datatypes may not be supported properly). In rare cases you might see this message because the list of supported database products is incomplete (list=[derby]). If so please request a java-class update via the forums.If you are using your own IDataTypeFactory extending DefaultDataTypeFactory, ensure that you override getValidDbProducts() to specify the supported database products.
+2021-08-25 15:09:39.305  INFO 28172 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-08-25 15:09:39.308  INFO 28172 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-08-25 15:09:39.313  INFO 28172 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-08-25 15:10:05.695  INFO 17564 --- [main] c.e.d.IntegerationTests.DepartmentTests  : Starting DepartmentTests using Java 16.0.2 on DESKTOP-6JICA1R with PID 17564 (started by Nada Eletr in E:\phase1 Orange kabs'\HR-System-SpringBoot)
+2021-08-25 15:10:05.697  INFO 17564 --- [main] c.e.d.IntegerationTests.DepartmentTests  : The following profiles are active: test
+2021-08-25 15:10:06.619  INFO 17564 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-25 15:10:06.728  INFO 17564 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 99 ms. Found 3 JPA repository interfaces.
+2021-08-25 15:10:07.913  INFO 17564 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2021-08-25 15:10:07.932  INFO 17564 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-25 15:10:07.933  INFO 17564 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-25 15:10:08.105  INFO 17564 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-25 15:10:08.105  INFO 17564 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2388 ms
+2021-08-25 15:10:08.417  INFO 17564 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-08-25 15:10:08.706  INFO 17564 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-08-25 15:10:08.771  INFO 17564 --- [main] o.f.c.internal.license.VersionPrinter    : Flyway Community Edition 7.14.0 by Redgate
+2021-08-25 15:10:08.772  INFO 17564 --- [main] o.f.c.i.database.base.BaseDatabaseType   : Database: jdbc:h2:mem:hr (H2 1.4)
+2021-08-25 15:10:08.887  INFO 17564 --- [main] o.f.core.internal.command.DbValidate     : Successfully validated 2 migrations (execution time 00:00.033s)
+2021-08-25 15:10:08.905  INFO 17564 --- [main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "PUBLIC"."flyway_schema_history" ...
+2021-08-25 15:10:08.979  INFO 17564 --- [main] o.f.core.internal.command.DbMigrate      : Current version of schema "PUBLIC": << Empty Schema >>
+2021-08-25 15:10:08.996  INFO 17564 --- [main] o.f.core.internal.command.DbMigrate      : Migrating schema "PUBLIC" to version "1 - init"
+2021-08-25 15:10:09.043  INFO 17564 --- [main] o.f.core.internal.command.DbMigrate      : Migrating schema "PUBLIC" to version "2 - init"
+2021-08-25 15:10:09.061  INFO 17564 --- [main] o.f.core.internal.command.DbMigrate      : Successfully applied 2 migrations to schema "PUBLIC", now at version v2 (execution time 00:00.093s)
+2021-08-25 15:10:09.277  INFO 17564 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-25 15:10:09.379  INFO 17564 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-25 15:10:09.615  INFO 17564 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-25 15:10:09.830  INFO 17564 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2021-08-25 15:10:10.732  INFO 17564 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-25 15:10:10.744  INFO 17564 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-25 15:10:12.365  INFO 17564 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2021-08-25 15:10:12.365  INFO 17564 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-25 15:10:12.366  INFO 17564 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2021-08-25 15:10:12.496  INFO 17564 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 58456 (http) with context path ''
+2021-08-25 15:10:12.506  INFO 17564 --- [main] c.e.d.IntegerationTests.DepartmentTests  : Started DepartmentTests in 7.404 seconds (JVM running for 8.8)
+2021-08-25 15:10:12.634  WARN 17564 --- [main] o.dbunit.dataset.AbstractTableMetaData   : Potential problem found: The configured data type factory 'class org.dbunit.dataset.datatype.DefaultDataTypeFactory' might cause problems with the current database 'H2' (e.g. some datatypes may not be supported properly). In rare cases you might see this message because the list of supported database products is incomplete (list=[derby]). If so please request a java-class update via the forums.If you are using your own IDataTypeFactory extending DefaultDataTypeFactory, ensure that you override getValidDbProducts() to specify the supported database products.
+2021-08-25 15:10:12.654  WARN 17564 --- [main] o.dbunit.dataset.AbstractTableMetaData   : Potential problem found: The configured data type factory 'class org.dbunit.dataset.datatype.DefaultDataTypeFactory' might cause problems with the current database 'H2' (e.g. some datatypes may not be supported properly). In rare cases you might see this message because the list of supported database products is incomplete (list=[derby]). If so please request a java-class update via the forums.If you are using your own IDataTypeFactory extending DefaultDataTypeFactory, ensure that you override getValidDbProducts() to specify the supported database products.
+2021-08-25 15:10:12.662  WARN 17564 --- [main] o.dbunit.dataset.AbstractTableMetaData   : Potential problem found: The configured data type factory 'class org.dbunit.dataset.datatype.DefaultDataTypeFactory' might cause problems with the current database 'H2' (e.g. some datatypes may not be supported properly). In rare cases you might see this message because the list of supported database products is incomplete (list=[derby]). If so please request a java-class update via the forums.If you are using your own IDataTypeFactory extending DefaultDataTypeFactory, ensure that you override getValidDbProducts() to specify the supported database products.
+2021-08-25 15:10:13.224  INFO 17564 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-08-25 15:10:13.228  INFO 17564 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-08-25 15:10:13.238  INFO 17564 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-08-25 15:10:54.497  INFO 3520 --- [main] c.e.d.IntegerationTests.DepartmentTests  : Starting DepartmentTests using Java 16.0.2 on DESKTOP-6JICA1R with PID 3520 (started by Nada Eletr in E:\phase1 Orange kabs'\HR-System-SpringBoot)
+2021-08-25 15:10:54.499  INFO 3520 --- [main] c.e.d.IntegerationTests.DepartmentTests  : The following profiles are active: test
+2021-08-25 15:10:55.451  INFO 3520 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-25 15:10:55.566  INFO 3520 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 97 ms. Found 3 JPA repository interfaces.
+2021-08-25 15:10:56.735  INFO 3520 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2021-08-25 15:10:56.760  INFO 3520 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-08-25 15:10:56.761  INFO 3520 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.50]
+2021-08-25 15:10:57.067  INFO 3520 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-08-25 15:10:57.067  INFO 3520 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2541 ms
+2021-08-25 15:10:57.380  INFO 3520 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-08-25 15:10:57.658  INFO 3520 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-08-25 15:10:57.709  INFO 3520 --- [main] o.f.c.internal.license.VersionPrinter    : Flyway Community Edition 7.14.0 by Redgate
+2021-08-25 15:10:57.710  INFO 3520 --- [main] o.f.c.i.database.base.BaseDatabaseType   : Database: jdbc:h2:mem:hr (H2 1.4)
+2021-08-25 15:10:57.815  INFO 3520 --- [main] o.f.core.internal.command.DbValidate     : Successfully validated 2 migrations (execution time 00:00.029s)
+2021-08-25 15:10:57.833  INFO 3520 --- [main] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "PUBLIC"."flyway_schema_history" ...
+2021-08-25 15:10:57.907  INFO 3520 --- [main] o.f.core.internal.command.DbMigrate      : Current version of schema "PUBLIC": << Empty Schema >>
+2021-08-25 15:10:57.923  INFO 3520 --- [main] o.f.core.internal.command.DbMigrate      : Migrating schema "PUBLIC" to version "1 - init"
+2021-08-25 15:10:57.974  INFO 3520 --- [main] o.f.core.internal.command.DbMigrate      : Migrating schema "PUBLIC" to version "2 - init"
+2021-08-25 15:10:57.996  INFO 3520 --- [main] o.f.core.internal.command.DbMigrate      : Successfully applied 2 migrations to schema "PUBLIC", now at version v2 (execution time 00:00.096s)
+2021-08-25 15:10:58.197  INFO 3520 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-25 15:10:58.306  INFO 3520 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-25 15:10:58.484  INFO 3520 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-25 15:10:58.640  INFO 3520 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2021-08-25 15:10:59.447  INFO 3520 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-08-25 15:10:59.454  INFO 3520 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-08-25 15:11:01.024  INFO 3520 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring TestDispatcherServlet ''
+2021-08-25 15:11:01.025  INFO 3520 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-25 15:11:01.026  INFO 3520 --- [main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2021-08-25 15:11:01.148  INFO 3520 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 58514 (http) with context path ''
+2021-08-25 15:11:01.159  INFO 3520 --- [main] c.e.d.IntegerationTests.DepartmentTests  : Started DepartmentTests in 7.231 seconds (JVM running for 8.778)
+2021-08-25 15:11:01.312  WARN 3520 --- [main] o.dbunit.dataset.AbstractTableMetaData   : Potential problem found: The configured data type factory 'class org.dbunit.dataset.datatype.DefaultDataTypeFactory' might cause problems with the current database 'H2' (e.g. some datatypes may not be supported properly). In rare cases you might see this message because the list of supported database products is incomplete (list=[derby]). If so please request a java-class update via the forums.If you are using your own IDataTypeFactory extending DefaultDataTypeFactory, ensure that you override getValidDbProducts() to specify the supported database products.
+2021-08-25 15:11:01.327  WARN 3520 --- [main] o.dbunit.dataset.AbstractTableMetaData   : Potential problem found: The configured data type factory 'class org.dbunit.dataset.datatype.DefaultDataTypeFactory' might cause problems with the current database 'H2' (e.g. some datatypes may not be supported properly). In rare cases you might see this message because the list of supported database products is incomplete (list=[derby]). If so please request a java-class update via the forums.If you are using your own IDataTypeFactory extending DefaultDataTypeFactory, ensure that you override getValidDbProducts() to specify the supported database products.
+2021-08-25 15:11:01.336  WARN 3520 --- [main] o.dbunit.dataset.AbstractTableMetaData   : Potential problem found: The configured data type factory 'class org.dbunit.dataset.datatype.DefaultDataTypeFactory' might cause problems with the current database 'H2' (e.g. some datatypes may not be supported properly). In rare cases you might see this message because the list of supported database products is incomplete (list=[derby]). If so please request a java-class update via the forums.If you are using your own IDataTypeFactory extending DefaultDataTypeFactory, ensure that you override getValidDbProducts() to specify the supported database products.
+2021-08-25 15:11:01.871  INFO 3520 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-08-25 15:11:01.877  INFO 3520 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-08-25 15:11:01.884  INFO 3520 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

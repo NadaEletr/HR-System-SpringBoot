@@ -50,18 +50,13 @@ public class DepartmentTests {
    //@ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT,value = "/expected.xml")
     public  void whenAddDepartmentReturnDepartment() throws Exception {
         Department department  = new Department();
-        department.setDepartmentName("sw");
-        department.setDepartmentId(1);
+        department.setDepartmentName("networks");
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(department);
         mockMvc.perform(MockMvcRequestBuilders.post("/HR/department/add").contentType(MediaType.APPLICATION_JSON)
                 .content(body)).andExpect(status().isCreated());
         Department resultDepartment= departmentRepository.getById(department.getDepartmentId());
-        assertEquals(resultDepartment.getDepartmentId(),department.getDepartmentId());
         assertEquals(resultDepartment.getDepartmentName(),department.getDepartmentName());
-
-
-        // Department department = departmentService.saveEmployee();
-
+        assertEquals(resultDepartment.getDepartmentId(),department.getDepartmentId());
     }
 }
