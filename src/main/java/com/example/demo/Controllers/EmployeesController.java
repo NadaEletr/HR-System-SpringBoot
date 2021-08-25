@@ -32,12 +32,12 @@ public class EmployeesController {
         return new ResponseEntity<>(newEmployee, HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/delete")
-    public String deleteEmp(@RequestParam("id") String id) throws NotFoundException {
-        employeeService.deleteEmployee(Integer.parseInt(id));
-        return "employee is deleted";
-
-    }
+//    @DeleteMapping(value = "/delete")
+//    public String deleteEmp(@RequestParam("id") String id) throws NotFoundException {
+//        employeeService.deleteEmployee(Integer.parseInt(id));
+//        return "employee is deleted";
+//
+//    }
 
     @PutMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Employee> updateEmployee(@RequestBody Employee EmployeeToModify, @RequestParam String id) {
@@ -74,10 +74,10 @@ public class EmployeesController {
         return employeeService.getEmployeesOnSpeceficManger(Integer.parseInt(id));
     }
 
-    @DeleteMapping(value = "/delete/manager")
+    @DeleteMapping(value = "/delete")
     public String deleteManager(@RequestParam("id") String id)  {
         employeeService.deleteManager(Integer.parseInt(id));
-        return "manager "+id+" is deleted";
+        return "employee "+id+" is deleted";
 
     }
 

@@ -1,9 +1,6 @@
 package com.example.demo.IntegerationTests;
 
-import com.example.demo.Classes.Department;
-import com.example.demo.Classes.Employee;
-import com.example.demo.Classes.SalaryDTO;
-import com.example.demo.Classes.Teams;
+import com.example.demo.Classes.*;
 import com.example.demo.Repositories.DepartmentRepository;
 import com.example.demo.Repositories.EmployeeRepository;
 import com.example.demo.Repositories.TeamRepository;
@@ -73,7 +70,7 @@ public class EmployeeTests {
 
     @Test
     public void getEmployee() throws Exception {
-        int id = 2;
+        int id = 1;
         Employee employee = employeeRepository.getById(id);
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(employee);
@@ -100,7 +97,7 @@ public class EmployeeTests {
         Employee manager = employeeRepository.getById(1);
         Employee employee = new Employee();
         employee.setName("youssef");
-        employee.setGender('M');
+        employee.setGender(Gender.Male);
         employee.setGrossSalary(1223330d);
         employee.setTeam(team.get());
         employee.setDepartment(department.get());
@@ -124,7 +121,7 @@ public class EmployeeTests {
         Employee employee=employeeRepository.getById(employeeId);
         Employee updateEmployee = new Employee();
         updateEmployee.setEmployeeId(employeeId);
-        updateEmployee.setGender('F');
+        updateEmployee.setGender(Gender.Female);
         updateEmployee.setName("sara");
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(updateEmployee);
@@ -137,17 +134,17 @@ public class EmployeeTests {
         assertEquals(employee.getGender(),updateEmployee.getGender());
     }
 
-    @Test
-    public void deleteEmployee() throws Exception {
-        int id = 2;
-        String message = "employee is deleted";
-        Employee employeeToDelete=employeeRepository.getById(id);
-        ObjectMapper objectMapper = new ObjectMapper();
-        String body = objectMapper.writeValueAsString(message);
-        mockMvc.perform(MockMvcRequestBuilders.delete("/HR/employee/delete").param("id", String.valueOf(id))
-        ).andExpect(status().isOk()).andExpect(content().string(message));
-        assertEquals(employeeService.existsById(employeeToDelete.getEmployeeId()),false);
-    }
+//    @Test
+//    public void deleteEmployee() throws Exception {
+//        int id = 2;
+//        String message = "employee is deleted";
+//        Employee employeeToDelete=employeeRepository.getById(id);
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        String body = objectMapper.writeValueAsString(message);
+//        mockMvc.perform(MockMvcRequestBuilders.delete("/HR/employee/delete").param("id", String.valueOf(id))
+//        ).andExpect(status().isOk()).andExpect(content().string(message));
+//        assertEquals(employeeService.existsById(employeeToDelete.getEmployeeId()),false);
+//    }
 
     @Test
     public void getEmployeeUnderManager() throws Exception {
@@ -155,29 +152,30 @@ public class EmployeeTests {
         List<Employee> employeesUnderManger = employeeRepository.findAllByManagerEmployeeId(employeeManager.getEmployeeId());
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(employeesUnderManger);
-        mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get/SomeManager").param("id", String.valueOf(employeeManager.getEmployeeId()))
+        mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get/underManager").param("id", String.valueOf(employeeManager.getEmployeeId()))
         ).andExpect(status().isOk()).andExpect(content().json(body));
     }
 
-//    @Test
-//    public void getEmployeeUnderSomeManager() throws Exception {
-//        int managerId = 3;
-//        List<Employee> employeesUnderManger = employeeRepository.findAllUnderSomeManager(managerId);
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        String body = objectMapper.writeValueAsString(employeesUnderManger);
-//        mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get/SomeManager").param("id", String.valueOf(managerId))
-//        ).andExpect(status().isOk()).andExpect(content().json(body));
-//    }
-//
-//    @Test
-//    public void deleteManagerAndUpdateEmployee() throws Exception {
-//        int id = 8;
-//        String message = "manager " + id + " is deleted";
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        String body = objectMapper.writeValueAsString(message);
-//        mockMvc.perform(MockMvcRequestBuilders.delete("/HR/employee/delete/manager").param("id", String.valueOf(id))
-//        ).andExpect(status().isOk()).andExpect(content().string(message));
-//    }
+    @Test
+    public void getEmployeeUnderSomeManager() throws Exception {
+        int managerId = 1;
+        List<Employee> employeesUnderManger = employeeRepository.findAllUnderSomeManager(managerId);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String body = objectMapper.writeValueAsString(employeesUnderManger);
+        mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get/SomeManager").param("id", String.valueOf(managerId))
+        ).andExpect(status().isOk()).andExpect(content().json(body));
+    }
 
+    @Test
+    public void deleteEmployee() throws Exception {
+        int id = 2;
+        String message = "employee " + id + " is deleted";
+        Employee employeeToDelete=employeeRepository.getById(id);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String body = objectMapper.writeValueAsString(message);
+        mockMvc.perform(MockMvcRequestBuilders.delete("/HR/employee/delete").param("id", String.valueOf(id))
+        ).andExpect(status().isOk()).andExpect(content().string(message));
+        assertEquals(employeeRepository.existsById(employeeToDelete.getEmployeeId()),false);
+    }
 
 }

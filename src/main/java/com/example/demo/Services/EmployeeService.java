@@ -55,8 +55,13 @@ public class EmployeeService {
     }
 
     public void deleteEmployee(int id) throws NotFoundException {
+        Employee employeeToBeDeleted=employeeRepository.getById(id);
         if (employeeRepository.existsById(id) == false) {
             throw new NotFoundException("no employee with this ID");
+        }
+        if(employeeToBeDeleted.getManager()==null)
+        {
+            throw new ConflictException("cannot delete this manager!");
         }
         employeeRepository.deleteById(id);
 
@@ -135,7 +140,7 @@ public class EmployeeService {
         {
             originalEmployee.setManager(updateEmployee.getManager());
         }
-        if(updateEmployee.getGender()!='\0')
+        if(updateEmployee.getGender()!=null)
         {
             originalEmployee.setGender(updateEmployee.getGender());
         }

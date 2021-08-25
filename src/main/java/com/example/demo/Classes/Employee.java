@@ -26,7 +26,8 @@ public class Employee {
     private Department department;
 
     @Column(name = "gender")
-    private char gender;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
     @ManyToOne
     @JoinColumn(name = "manager_id")
     private Employee manager;
@@ -106,11 +107,11 @@ public class Employee {
         this.name = name;
     }
 
-    public char getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(char gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 

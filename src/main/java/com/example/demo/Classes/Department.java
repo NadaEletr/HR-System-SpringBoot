@@ -10,7 +10,6 @@ import java.util.Set;
 @Table(name = "department")
 public class Department {
     @Id
-
     int departmentId;
     @Column(name = "department_name")
     String departmentName;

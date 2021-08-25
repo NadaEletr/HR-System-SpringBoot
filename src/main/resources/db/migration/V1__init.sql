@@ -1,6 +1,6 @@
 create table teams
 (
-    team_id   int   AUTO_INCREMENT  not null
+    team_id   int   AUTO_INCREMENT   not null
         primary key,
     team_name varchar(255) null
 );
@@ -14,8 +14,8 @@ create table department
 
 create table employee
 (
-    employee_id     int AUTO_INCREMENT primary key,
-    gender          char         null,
+    employee_id     int AUTO_INCREMENT  primary key,
+    gender          VARCHAR(255)        null,
     graduation_date date         null,
     employee_name   varchar(255) null,
     gross_salary    double       null,

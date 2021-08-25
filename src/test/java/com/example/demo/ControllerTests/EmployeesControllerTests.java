@@ -1,6 +1,7 @@
 package com.example.demo.ControllerTests;
 
 import com.example.demo.Classes.Employee;
+import com.example.demo.Classes.Gender;
 import com.example.demo.Services.EmployeeService;
 import javassist.NotFoundException;
 import org.junit.jupiter.api.Test;
@@ -43,7 +44,7 @@ public class EmployeesControllerTests {
     {
         Employee employee  = new Employee();
         employee.setName("sara");
-        employee.setGender('F');
+        employee.setGender(Gender.Female);
         employee.setEmployeeId(3);
         given(employeeService.saveEmployee(employee)).willReturn(employee);
         ObjectMapper objectMapper = new ObjectMapper();
@@ -56,7 +57,7 @@ public class EmployeesControllerTests {
     public void getEmployee() throws Exception {
         Employee employee = new Employee();
         employee.setName("sara");
-        employee.setGender('F');
+        employee.setGender(Gender.Female);
         employee.setEmployeeId(2);
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(employee.getEmployeeId());

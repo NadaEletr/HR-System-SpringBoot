@@ -1,6 +1,7 @@
 package com.example.demo.ServicesTest;
 
 import com.example.demo.Classes.Employee;
+import com.example.demo.Classes.Gender;
 import com.example.demo.Services.EmployeeService;
 import com.example.demo.DemoApplication;
 import javassist.NotFoundException;
@@ -31,7 +32,7 @@ public class EmployeeServiceTest {
     public  void whenAddEmployee_ReturnEmployee() throws NotFoundException {
         Employee employee = new Employee();
         employee.setName("ahmed");
-        employee.setGender('M');
+        employee.setGender(Gender.Male);
         employee.setGrossSalary(120000d);
         Employee result =  employeeService.saveEmployee(employee);
         assertThat(result).usingRecursiveComparison().isEqualTo(employee);
