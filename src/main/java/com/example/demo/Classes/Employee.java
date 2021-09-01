@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -52,7 +53,7 @@ public class Employee {
     private double netSalary;
     @OneToMany(mappedBy = "employee")
     @JsonIgnore
-    private Set<Vacations> vacations;
+    private List<Vacations> vacations;
     @Column(name="acceptable_leaves")
     private int acceptableLeaves;
     @JsonIgnore
@@ -196,19 +197,19 @@ public class Employee {
         this.salaryHistories = salaryHistories;
     }
 
-    public Set<Vacations> getVacations() {
+    public List<Vacations> getVacations() {
         return vacations;
     }
 
-    public void setVacations(Set<Vacations> vacations) {
+    public void setVacations(List<Vacations> vacations) {
         this.vacations = vacations;
     }
 
-    public int getAcceptableLeaves() {
+    public Integer getAcceptableLeaves() {
         return acceptableLeaves;
     }
 
-    public void setAcceptableLeaves(int acceptableLeaves) {
+    public void setAcceptableLeaves(Integer acceptableLeaves) {
         this.acceptableLeaves = acceptableLeaves;
     }
 }

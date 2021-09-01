@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SalaryHistoryRepository extends JpaRepository<SalaryHistory,Integer> {
-    SalaryHistory getByEmployeeId(int nationalId);
+   // SalaryHistory getByEmployeeId(int nationalId);
 }

@@ -46,10 +46,10 @@ public class EmployeeService {
         {
             employee.setAcceptableLeaves(AllowedVacations.getEXPERIENCED());
         }
-        getNetSalary(employee);
+        CalcNetSalary(employee);
         return employeeRepository.save(employee);
     }
-    public void getNetSalary(Employee employee) {
+    public void CalcNetSalary(Employee employee) {
         final double taxRatio = 0.85;
         final double insurance = 500;
         double netSalary;
@@ -174,42 +174,51 @@ public class EmployeeService {
         }
         if(updateEmployee.getNetSalary()!=0d)
         {
-            getNetSalary(originalEmployee);
+            CalcNetSalary(originalEmployee);
         }
     }
-
-    public void checkExceededDays(Vacations vacations ,Employee employee)
-    {
-        int countLeaves=employeeRepository.countEmployeeExceededDays(vacations.getEmployee().getNationalId())+1;
-       if(employee.getAcceptableLeaves()==AllowedVacations.LessEXPERIENCED&&countLeaves>AllowedVacations.LessEXPERIENCED)
-       {
-           vacations.setExceeded(1);
-       }
-       else if (employee.getAcceptableLeaves()==AllowedVacations.EXPERIENCED &&countLeaves>AllowedVacations.EXPERIENCED)
-       {
-           vacations.setExceeded(1);
-       }
-       else
-       {
-           vacations.setExceeded(0);
-       }
-
-    }
-
-
-    public void recordLeave(int id) {
-        Employee employee= getEmployeeInfoByID(id);
-        Date date = Date.valueOf(LocalDate.now());
-        employee.setLeaves(employee.getLeaves()+1);
-        Vacations vacations =new Vacations(date);
-        vacations.setEmployee(employee);
-       //        int currentYear= date.getYear()+1900;
-        checkExceededDays(vacations,employee);
-        employee.getVacations().add(vacations);
-        vacationRepository.save(vacations);
+    public void addRaises(int id,double raises) {
+        Employee employee=getEmployeeInfoByID(id);
+        employee.setGrossSalary(employee.getGrossSalary()+raises);
+        CalcNetSalary(employee);
         employeeRepository.save(employee);
-
-
-
     }
+
+
+//    public void checkExceededDays(Vacations vacations ,Employee employee)
+//    {
+//        int countLeaves=employeeRepository.countEmployeeExceededDays(vacations.getEmployee().getNationalId())+1;
+//       if(employee.getAcceptableLeaves()==AllowedVacations.LessEXPERIENCED&&countLeaves>AllowedVacations.LessEXPERIENCED)
+//       {
+//           vacations.setExceeded(1);
+//
+//
+//       }
+//       else if (employee.getAcceptableLeaves()==AllowedVacations.EXPERIENCED &&countLeaves>AllowedVacations.EXPERIENCED)
+//       {
+//           vacations.setExceeded(1);
+//       }
+//       else
+//       {
+//           vacations.setExceeded(0);
+//       }
+//
+//    }
+//
+//
+//
+//
+//    public void recordLeave(int id) {
+//        Employee employee= getEmployeeInfoByID(id);
+//        Date date = Date.valueOf(LocalDate.now());
+//        employee.setLeaves(employee.getLeaves()+1);
+//        Vacations vacations =new Vacations(date);
+//        vacations.setEmployee(employee);
+//       //        int currentYear= date.getYear()+1900;
+//        checkExceededDays(vacations,employee);
+//        employee.getVacations().add(vacations);
+//        vacationRepository.save(vacations);
+//        employeeRepository.save(employee);
+//
+//    }
 }

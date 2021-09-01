@@ -26,8 +26,7 @@ public class SalaryHistory {
     @ManyToOne
     @JoinColumn(name="employee_id")
     private Employee employee;
-    @Column(name = "acceptable_leaves")
-    private int acceptableLeaves;
+
     public SalaryHistory() {
     }
 
@@ -99,11 +98,4 @@ public class SalaryHistory {
         this.employee = employee;
     }
 
-    public int getAcceptableLeaves() {
-        return acceptableLeaves;
-    }
-
-    public void setAcceptableLeaves(int acceptableLeaves) {
-        this.acceptableLeaves = acceptableLeaves;
-    }
 }

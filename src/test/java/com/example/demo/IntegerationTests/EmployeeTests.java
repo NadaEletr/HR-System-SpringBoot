@@ -1,10 +1,7 @@
 package com.example.demo.IntegerationTests;
 
 import com.example.demo.Classes.*;
-import com.example.demo.Repositories.DepartmentRepository;
-import com.example.demo.Repositories.EmployeeRepository;
-import com.example.demo.Repositories.SalaryHistoryRepository;
-import com.example.demo.Repositories.TeamRepository;
+import com.example.demo.Repositories.*;
 import com.example.demo.Services.EmployeeService;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -54,7 +51,8 @@ public class EmployeeTests {
 
     @Autowired
     TeamRepository teamRepository;
-
+    @Autowired
+    VacationRepository vacationRepository;
     @Autowired
     DepartmentRepository departmentRepository;
     @Autowired
@@ -182,23 +180,42 @@ public class EmployeeTests {
         assertEquals(employeeRepository.existsById(employeeToDelete.getNationalId()),false);
     }
     @Test
-    public void recordLeaves() throws Exception {
-        int id=3;
-        Employee employee=employeeRepository.getById(id);
-        String message = "your absence are "+(employee.getLeaves()+1);;
-        ObjectMapper objectMapper = new ObjectMapper();
-        String body = objectMapper.writeValueAsString(message);
-        mockMvc.perform(MockMvcRequestBuilders.post("/HR/employee/record/leave").param("id", String.valueOf(id))
-        ).andExpect(status().isOk()).andExpect(content().string(message));
+    public void recordLeaves()
+    {
+        int id=1;
+        Employee employee = employeeRepository.getById(id);
     }
     @Test
-    public void getSalaryHistory()
-    {
-        int id =1;
-        Employee employee = employeeRepository.getById(id);
-        SalaryHistory salaryHistory=salaryHistoryRepository.getByEmployeeId(employee.getNationalId());
-
+    public void addRaises() throws Exception {
+        int id=1;
+        double raises=2500;
+        Employee employee=employeeService.getEmployeeInfoByID(id);
+        String message = "raises is added";
+        employee.setGrossSalary(employee.getGrossSalary()+raises);
+        mockMvc.perform(MockMvcRequestBuilders.post("/HR/employee/add/raises").param("id", String.valueOf(id)).param("raises",String.valueOf(raises))
+        ).andExpect(status().isOk()).andExpect(content().string(message));
+        Employee employee1 = employeeRepository.getById(employee.getNationalId());
+        assertEquals(employee.getGrossSalary(),employee1.getGrossSalary());
     }
+
+//    @Test
+//    public void recordLeaves() throws Exception {
+//        int id=3;
+//        Employee employee=employeeRepository.getById(id);
+//        String message = "your absence are "+(employee.getLeaves()+1);;
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        String body = objectMapper.writeValueAsString(message);
+//        mockMvc.perform(MockMvcRequestBuilders.post("/HR/employee/record/leave").param("id", String.valueOf(id))
+//        ).andExpect(status().isOk()).andExpect(content().string(message));
+//    }
+//    @Test
+//    public void getSalaryHistory()
+//    {
+//        int id =1;
+//        Employee employee = employeeRepository.getById(id);
+//        //SalaryHistory salaryHistory=salaryHistoryRepository.getByEmployeeId(employee.getNationalId());
+//
+//    }
 
 
 }
