@@ -26,27 +26,29 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     List<Employee> findAllByTeamTeamId(int teamId);
 
 
-    List<Employee> findAllByManagerEmployeeId(int employeeId);
+    List<Employee> findAllByManagerNationalId(int employeeId);
+
 
 
 
     @Query(
-            value = "with recursive cte(employee_id, birthdate, gender, graduation_date, gross_salary, employee_name,net_salary, department_id, manager_id, team_id ) as ( \n" +
-                    "            select     employee_id, birthdate, gender, graduation_date, gross_salary, employee_name,net_salary, department_id, manager_id, team_id \n" +
+            value = "with recursive cte(national_id,first_name,last_name,degree,leaves,years_of_experience,birthdate, gender, graduation_date, gross_salary,net_salary, department_id, manager_id, team_id ) as ( \n" +
+                    "            select     national_id,first_name,last_name,leaves,degree,years_of_experience,birthdate, gender, graduation_date, gross_salary,net_salary, department_id, manager_id, team_id \n" +
                     "\t\t\n" +
                     "              from       employee\n" +
                     "             where      manager_id =:employeeId\n" +
                     "             union all\n" +
-                    "             select     p.employee_id, p.birthdate, p.gender, p.graduation_date, p.gross_salary, p.employee_name, p.net_salary, p.department_id, p.manager_id, p.team_id\n" +
+                    "             select    p.national_id,p.first_name,p.last_name,p.leaves,p.degree,p.years_of_experience,p.birthdate, p.gender, p.graduation_date, p.gross_salary,p.net_salary,p.department_id, p.manager_id, p.team_id \n" +
                     "             from       employee p\n" +
                     "            inner join cte\n" +
-                    "                   on p.manager_id = cte.employee_id\n" +
+                    "                   on p.manager_id = cte.national_id\n" +
                     "            )\n" +
                     "            select * from cte; "
             , nativeQuery = true)
     List<Employee> findAllUnderSomeManager(@Param("employeeId")int employeeId);
 
-
+    @Query("SELECT COUNT(v) FROM Vacations v WHERE v.employee.nationalId=?1")
+    int countEmployeeExceededDays(int employee_id);
 }
 
 

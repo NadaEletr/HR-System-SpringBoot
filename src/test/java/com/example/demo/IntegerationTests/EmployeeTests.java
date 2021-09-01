@@ -3,6 +3,7 @@ package com.example.demo.IntegerationTests;
 import com.example.demo.Classes.*;
 import com.example.demo.Repositories.DepartmentRepository;
 import com.example.demo.Repositories.EmployeeRepository;
+import com.example.demo.Repositories.SalaryHistoryRepository;
 import com.example.demo.Repositories.TeamRepository;
 import com.example.demo.Services.EmployeeService;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
@@ -20,6 +21,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.testcontainers.shaded.com.fasterxml.jackson.core.JsonProcessingException;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.transaction.Transactional;
@@ -55,6 +57,8 @@ public class EmployeeTests {
 
     @Autowired
     DepartmentRepository departmentRepository;
+    @Autowired
+    SalaryHistoryRepository salaryHistoryRepository;
 
     @Test
     public void getEmployeeSalary() throws Exception {
@@ -64,7 +68,7 @@ public class EmployeeTests {
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(salaryDTO);
         mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get/Salaries")
-                .param("id", String.valueOf(employee.getEmployeeId())))
+                .param("id", String.valueOf(employee.getNationalId())))
                 .andExpect(status().isOk()).andExpect((content().json(body)));
     }
 
@@ -77,7 +81,7 @@ public class EmployeeTests {
         mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get")
                 .param("id", String.valueOf(id))).andExpect(status().isOk())
                 .andExpect((content().json(body)));
-        assertEquals(employee.getEmployeeId(),id);
+        assertEquals(employee.getNationalId(),id);
     }
     @Test
     public void getEmployeesInTeam() throws Exception {
@@ -96,7 +100,7 @@ public class EmployeeTests {
         Optional<Department> department = departmentRepository.findById(1);
         Employee manager = employeeRepository.getById(1);
         Employee employee = new Employee();
-        employee.setName("youssef");
+        employee.setFirst_name("youssef");
         employee.setGender(Gender.Male);
         employee.setGrossSalary(1223330d);
         employee.setTeam(team.get());
@@ -110,9 +114,9 @@ public class EmployeeTests {
         mockMvc.perform(MockMvcRequestBuilders.post("/HR/employee/add").contentType(MediaType.APPLICATION_JSON)
                 .content(body)).andExpect(status().isCreated())
                 .andExpect(content().json(Result));
-        Employee resultEmployee= employeeRepository.getById(employee.getEmployeeId());
-        assertEquals(resultEmployee.getEmployeeId(),employee.getEmployeeId());
-        assertEquals(resultEmployee.getName(),resultEmployee.getName());
+        Employee resultEmployee= employeeRepository.getById(employee.getNationalId());
+        assertEquals(resultEmployee.getNationalId(),employee.getNationalId());
+        assertEquals(resultEmployee.getFirst_name(),resultEmployee.getFirst_name());
     }
 
     @Test
@@ -120,17 +124,17 @@ public class EmployeeTests {
         int employeeId = 1;
         Employee employee=employeeRepository.getById(employeeId);
         Employee updateEmployee = new Employee();
-        updateEmployee.setEmployeeId(employeeId);
+        updateEmployee.setNationalId(employeeId);
         updateEmployee.setGender(Gender.Female);
-        updateEmployee.setName("sara");
+        updateEmployee.setFirst_name("sara");
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(updateEmployee);
         mockMvc.perform(MockMvcRequestBuilders.put("/HR/employee/update")
                 .contentType(MediaType.APPLICATION_JSON).content(body)
                 .param("id", String.valueOf(employeeId)))
                 .andExpect(status().isOk());
-        assertEquals(employee.getEmployeeId(),employeeId);
-        assertEquals(employee.getName(),updateEmployee.getName());
+        assertEquals(employee.getNationalId(),employeeId);
+        assertEquals(employee.getFirst_name(),updateEmployee.getFirst_name());
         assertEquals(employee.getGender(),updateEmployee.getGender());
     }
 
@@ -149,10 +153,10 @@ public class EmployeeTests {
     @Test
     public void getEmployeeUnderManager() throws Exception {
         Employee employeeManager = employeeRepository.getById(1);
-        List<Employee> employeesUnderManger = employeeRepository.findAllByManagerEmployeeId(employeeManager.getEmployeeId());
+        List<Employee> employeesUnderManger = employeeRepository.findAllByManagerNationalId(employeeManager.getNationalId());
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(employeesUnderManger);
-        mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get/underManager").param("id", String.valueOf(employeeManager.getEmployeeId()))
+        mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get/underManager").param("id", String.valueOf(employeeManager.getNationalId()))
         ).andExpect(status().isOk()).andExpect(content().json(body));
     }
 
@@ -175,7 +179,26 @@ public class EmployeeTests {
         String body = objectMapper.writeValueAsString(message);
         mockMvc.perform(MockMvcRequestBuilders.delete("/HR/employee/delete").param("id", String.valueOf(id))
         ).andExpect(status().isOk()).andExpect(content().string(message));
-        assertEquals(employeeRepository.existsById(employeeToDelete.getEmployeeId()),false);
+        assertEquals(employeeRepository.existsById(employeeToDelete.getNationalId()),false);
     }
+    @Test
+    public void recordLeaves() throws Exception {
+        int id=3;
+        Employee employee=employeeRepository.getById(id);
+        String message = "your absence are "+(employee.getLeaves()+1);;
+        ObjectMapper objectMapper = new ObjectMapper();
+        String body = objectMapper.writeValueAsString(message);
+        mockMvc.perform(MockMvcRequestBuilders.post("/HR/employee/record/leave").param("id", String.valueOf(id))
+        ).andExpect(status().isOk()).andExpect(content().string(message));
+    }
+    @Test
+    public void getSalaryHistory()
+    {
+        int id =1;
+        Employee employee = employeeRepository.getById(id);
+        SalaryHistory salaryHistory=salaryHistoryRepository.getByEmployeeId(employee.getNationalId());
+
+    }
+
 
 }

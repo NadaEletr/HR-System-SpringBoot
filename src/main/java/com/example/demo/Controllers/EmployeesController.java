@@ -81,4 +81,13 @@ public class EmployeesController {
 
     }
 
+    @PostMapping(value = "/record/leave", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String
+     recordLeave(@RequestParam("id")int id) throws NotFoundException {
+        employeeService.recordLeave(id);
+        Employee employee =employeeService.getEmployeeInfoByID(id);
+        return "your absence are "+employee.getLeaves();
+    }
+
+
 }

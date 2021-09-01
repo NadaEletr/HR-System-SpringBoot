@@ -12,13 +12,20 @@ import java.util.Set;
 @JsonIgnoreProperties(value={"hibernateLazyInitializer"})
 public class Employee {
     @Id
+    @Column(name="national_id")
+    private int nationalId;
+    @Column(name = "first_name")
+    private String first_name;
+    @Column(name = "last_name")
+    private String last_name;
+    @Column(name = "leaves")
+    private Integer leaves=0;
+    @Column(name = "degree")
+    @Enumerated(EnumType.STRING)
+    private Degree degree;
+    @Column(name = "years_of_experience")
+    private Integer yearsOfExperience;
 
-    @Column(name="employee_id")
-    private int employeeId;
-    @Column(name = "employee_name")
-    private String name;
-    //@Column(name = "Birth_date")
-    //private String Birthdate; // comment
     @Column(name = "graduation_date")
     private Date graduation_date;
     @ManyToOne
@@ -43,7 +50,14 @@ public class Employee {
     private double grossSalary;
     @Column(name="net_salary")
     private double netSalary;
-
+    @OneToMany(mappedBy = "employee")
+    @JsonIgnore
+    private Set<Vacations> vacations;
+    @Column(name="acceptable_leaves")
+    private int acceptableLeaves;
+    @JsonIgnore
+    @OneToMany(mappedBy = "employee")
+    private Set<SalaryHistory> salaryHistories;
 
 
     public Employee() {
@@ -82,13 +96,6 @@ public class Employee {
         this.employees = employees;
     }
 
-    public int getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
-    }
 
     public Date getGraduation_date() {
         return graduation_date;
@@ -99,12 +106,12 @@ public class Employee {
     }
 
 
-    public String getName() {
-        return name;
+    public String getFirst_name() {
+        return first_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirst_name(String name) {
+        this.first_name = name;
     }
 
     public Gender getGender() {
@@ -139,6 +146,70 @@ public class Employee {
     public void setNetSalary(Double netSalary) {
         this.netSalary = netSalary;
 
+    }
+
+    public int getNationalId() {
+        return nationalId;
+    }
+
+    public void setNationalId(int nationalId) {
+        this.nationalId = nationalId;
+    }
+
+    public String getLast_name() {
+        return last_name;
+    }
+
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
+    }
+
+    public Degree getDegree() {
+        return degree;
+    }
+
+    public void setDegree(Degree degree) {
+        this.degree = degree;
+    }
+
+    public Integer getYearsOfExperience() {
+        return yearsOfExperience;
+    }
+
+    public void setYearsOfExperience(Integer yearsOfExperience) {
+        this.yearsOfExperience = yearsOfExperience;
+    }
+
+    public Integer getLeaves() {
+        return leaves;
+    }
+
+    public void setLeaves(Integer leaves) {
+        this.leaves = leaves;
+    }
+
+    public Set<SalaryHistory> getSalaryHistories() {
+        return salaryHistories;
+    }
+
+    public void setSalaryHistories(Set<SalaryHistory> salaryHistories) {
+        this.salaryHistories = salaryHistories;
+    }
+
+    public Set<Vacations> getVacations() {
+        return vacations;
+    }
+
+    public void setVacations(Set<Vacations> vacations) {
+        this.vacations = vacations;
+    }
+
+    public int getAcceptableLeaves() {
+        return acceptableLeaves;
+    }
+
+    public void setAcceptableLeaves(int acceptableLeaves) {
+        this.acceptableLeaves = acceptableLeaves;
     }
 }
 

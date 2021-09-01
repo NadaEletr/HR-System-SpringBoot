@@ -12,15 +12,22 @@ create table department
     department_name varchar(255) null
 );
 
+
 create table employee
 (
-    employee_id     int AUTO_INCREMENT  primary key,
+    national_id     int AUTO_INCREMENT  primary key,
+    first_name       VARCHAR(255)        null,
+    leaves          int          null,
+    last_name       VARCHAR(255)        null,
+    degree          VARCHAR(255)        null,
+    years_of_experience  int          null,
     gender          VARCHAR(255)        null,
     graduation_date date         null,
     employee_name   varchar(255) null,
     gross_salary    double       null,
     net_salary      double       null,
     team_id         int          null,
+    acceptable_leaves    int          null,
     department_id   int          null,
     birthdate       date         null,
     manager_id      int          null,
@@ -28,9 +35,43 @@ create table employee
     constraint employee_department_department_id_fk
         foreign key (department_id) references department (department_id),
     constraint employee_employee_employee_id_fk
-        foreign key (manager_id) references employee (employee_id),
+        foreign key (manager_id) references employee (national_id),
     constraint employee_teams_team_id_fk
         foreign key (team_id) references teams (team_id)
+
+
 );
+create table salary_history
+(
+    id          int auto_increment
+        primary key,
+    date        date null,
+    raises      double null,
+    deduction   double null,
+    bonus       double null,
+    exceeded_leaves  double        null,
+    taxes           double        null,
+    insurance       double        null,
+    net_salary   double null,
+    employee_id int null,
+    constraint salary_history_employee_employeeId_fk
+        foreign key (employee_id) references   employee  (national_id)
+);
+
+create table vacations
+(
+    id          int auto_increment
+        primary key,
+
+    date  date null,
+    employee_id int null,
+    exceeded       BIT  null,
+    constraint vacations_employee_employeeId_fk
+        foreign key (employee_id) references   employee  (national_id)
+
+);
+
+
+
 
 

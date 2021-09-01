@@ -17,8 +17,6 @@ public class Teams {
     private String teamName;
     @JsonIgnore
    @OneToMany(mappedBy = "team",cascade = CascadeType.ALL)
-
-
     Set<Employee> employees ;
 
     public int getTeamId() {
