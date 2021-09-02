@@ -28,6 +28,7 @@ create table employee
     net_salary      double       null,
     team_id         int          null,
     acceptable_leaves    int          null,
+    joined_year     date         null,
     department_id   int          null,
     birthdate       date         null,
     manager_id      int          null,
@@ -63,9 +64,10 @@ create table vacations
     id          int auto_increment
         primary key,
 
-    date  date null,
-    employee_id int null,
+    date  date null  ,
+    employee_id int null ,
     exceeded       BIT  null,
+    CONSTRAINT date_employee_id UNIQUE(employee_id, date),
     constraint vacations_employee_employeeId_fk
         foreign key (employee_id) references   employee  (national_id)
 

@@ -51,6 +51,8 @@ public class Employee {
     private double grossSalary;
     @Column(name="net_salary")
     private double netSalary;
+    @Column(name="joined_year")
+    private Date joinedYear;
     @OneToMany(mappedBy = "employee")
     @JsonIgnore
     private List<Vacations> vacations;
@@ -212,6 +214,15 @@ public class Employee {
     public void setAcceptableLeaves(Integer acceptableLeaves) {
         this.acceptableLeaves = acceptableLeaves;
     }
+
+    public Date getJoinedYear() {
+        return joinedYear;
+    }
+
+    public void setJoinedYear(Date joinedYear) {
+        this.joinedYear = joinedYear;
+    }
+
 }
 
 

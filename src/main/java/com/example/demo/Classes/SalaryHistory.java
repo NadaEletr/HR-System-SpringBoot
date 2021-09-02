@@ -18,7 +18,7 @@ public class SalaryHistory {
     @Column(name = "taxes")
     private double taxes;
     @Column(name = "insurance")
-    private final double insurance=500;
+    private  double insurance;
     @Column(name = "bonus")
     private double bonus;
     @Column(name = "net_salary")
@@ -70,7 +70,7 @@ public class SalaryHistory {
         this.taxes = taxes;
     }
 
-    public double getInsurance() {
+    public Double getInsurance() {
         return insurance;
     }
 
@@ -92,6 +92,10 @@ public class SalaryHistory {
 
     public Employee getEmployee() {
         return employee;
+    }
+
+    public void setInsurance(Double insurance) {
+        this.insurance = insurance;
     }
 
     public void setEmployee(Employee employee) {

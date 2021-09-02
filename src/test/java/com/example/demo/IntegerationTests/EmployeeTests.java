@@ -104,6 +104,8 @@ public class EmployeeTests {
         employee.setTeam(team.get());
         employee.setDepartment(department.get());
         employee.setManager(manager);
+        employee.setYearsOfExperience(10);
+        employee.setAcceptableLeaves(30);
         System.out.println(employee.getTeam());
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(employee);

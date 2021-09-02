@@ -8,7 +8,7 @@
     <department department_id="2" department_name="sw" />
     <teams team_id="1" team_name="a1"/>
     <teams team_id="2" team_name="a2"/>
-    <employee national_id="1" gender="Female"  first_name="nada" gross_salary="12000" net_salary="9700" team_id="1" department_id="1" birthdate="2000-9-8" leaves="1" acceptable_leaves="21" />
-    <employee national_id='2' gender='Female' first_name='sara' gross_salary="12000" net_salary="9700" team_id="1" department_id="1" manager_id="1" birthdate="2002-9-8" graduation_date="2020-5-6" leaves="1" acceptable_leaves="21"/>
-    <employee national_id='3' gender='Female' first_name='mariam' gross_salary="25000" net_salary="20750" team_id="1" department_id="2" manager_id="2" birthdate="2002-9-8" graduation_date="2020-5-6" leaves="0" acceptable_leaves="21" />
+    <employee national_id="1" gender="Female"  first_name="nada" gross_salary="12000" net_salary="9700" team_id="1" department_id="1" birthdate="2000-9-8" leaves="1" acceptable_leaves="21" degree="FRESH" />
+    <employee national_id='2' gender='Female' first_name='sara' gross_salary="12000" net_salary="9700" team_id="1" department_id="1" manager_id="1" birthdate="2002-9-8" graduation_date="2020-5-6" leaves="1" acceptable_leaves="21"  degree="FRESH"/>
+    <employee national_id='3' gender='Female' first_name='mariam' gross_salary="25000" net_salary="20750" team_id="1" department_id="2" manager_id="2" birthdate="2002-9-8" graduation_date="2020-5-6" leaves="0" acceptable_leaves="21"  degree="FRESH"/>
 </dataset>

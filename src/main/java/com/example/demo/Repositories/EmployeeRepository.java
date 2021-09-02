@@ -4,6 +4,7 @@ import com.example.demo.Classes.Department;
 import com.example.demo.Classes.Employee;
 import com.example.demo.Classes.Teams;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.query.Param;
@@ -48,6 +49,15 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
     @Query("SELECT e.leaves FROM Employee e WHERE e.nationalId=?1")
     int getLeaves(int employee_id);
+
+    @Modifying
+    @Query(value = "update Employee e set e.leaves=0 ")
+    void  updateYearlyLeaves();
+
+
+
+
+//(value = "update Employee e set e.leaves=0  ")
 
 }
 

@@ -1,13 +1,14 @@
 package com.example.demo.Services;
 
-import com.example.demo.Classes.AllowedVacations;
 import com.example.demo.Classes.Employee;
+import com.example.demo.Classes.Salaries;
 import com.example.demo.Classes.SalaryHistory;
 import com.example.demo.Repositories.EmployeeRepository;
 import com.example.demo.Repositories.SalaryHistoryRepository;
-import com.example.demo.Repositories.VacationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.sql.Date;
 
 @Service
 public class SalaryHistoryService {
@@ -47,6 +48,26 @@ public class SalaryHistoryService {
 //        }
 //        return false;
 //    }
+
+
+    public void calculateEmployeeMonthlySalary(int employeeId, Date date)
+    {
+       Employee employee= employeeService.getEmployeeInfoByID(employeeId);
+       SalaryHistory salaryHistory = new SalaryHistory();
+       salaryHistory.setDate(date);
+       double employeeTaxes=(Salaries.taxRatio)*employee.getGrossSalary();
+       salaryHistory.setTaxes(employeeTaxes);
+       salaryHistory.setInsurance(Salaries.insurance);
+       //salaryHistory.setExceededLeaves();
+        //set bonus
+        //set raises
+        double totalDeductions=Salaries.insurance+employeeTaxes;
+        salaryHistory.setNetSalary(employee.getGrossSalary()-totalDeductions);
+        salaryHistory.setEmployee(employee);
+        salaryHistoryRepository.save(salaryHistory);
+    }
+
+
 
 
 

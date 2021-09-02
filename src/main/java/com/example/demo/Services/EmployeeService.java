@@ -9,6 +9,8 @@ import com.example.demo.Repositories.VacationRepository;
 import com.example.demo.errors.ConflictException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import com.example.demo.errors.NotFoundException;
 
@@ -18,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Component
 public class EmployeeService {
 
 
@@ -185,40 +188,7 @@ public class EmployeeService {
     }
 
 
-//    public void checkExceededDays(Vacations vacations ,Employee employee)
-//    {
-//        int countLeaves=employeeRepository.countEmployeeExceededDays(vacations.getEmployee().getNationalId())+1;
-//       if(employee.getAcceptableLeaves()==AllowedVacations.LessEXPERIENCED&&countLeaves>AllowedVacations.LessEXPERIENCED)
-//       {
-//           vacations.setExceeded(1);
-//
-//
-//       }
-//       else if (employee.getAcceptableLeaves()==AllowedVacations.EXPERIENCED &&countLeaves>AllowedVacations.EXPERIENCED)
-//       {
-//           vacations.setExceeded(1);
-//       }
-//       else
-//       {
-//           vacations.setExceeded(0);
-//       }
-//
-//    }
-//
-//
-//
-//
-//    public void recordLeave(int id) {
-//        Employee employee= getEmployeeInfoByID(id);
-//        Date date = Date.valueOf(LocalDate.now());
-//        employee.setLeaves(employee.getLeaves()+1);
-//        Vacations vacations =new Vacations(date);
-//        vacations.setEmployee(employee);
-//       //        int currentYear= date.getYear()+1900;
-//        checkExceededDays(vacations,employee);
-//        employee.getVacations().add(vacations);
-//        vacationRepository.save(vacations);
-//        employeeRepository.save(employee);
-//
-//    }
+
+
+
 }
