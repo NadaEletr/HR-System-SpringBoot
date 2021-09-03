@@ -29,18 +29,18 @@ public class EmployeeService {
     @Autowired
     public VacationRepository vacationRepository;
     public Employee saveEmployee(Employee employee) {
-        if (employeeRepository.existsById(employee.getNationalId())) {
-            throw new ConflictException("this employee is already added");
-        }
-        if (employee.getDepartment() != null && employeeRepository.existsByDepartmentId(employee.getDepartment().getDepartmentId()) == false) {
-            throw new NotFoundException("this department does not exists");
-        }
-        if (employee.getTeam() != null && employeeRepository.existsByTeamId(employee.getTeam().getTeamId()) == false) {
-            throw new NotFoundException("this team does not exists");
-        }
-        if (employee.getManager() != null && !employeeRepository.existsById(employee.getManager().getNationalId())) {
-            throw new NotFoundException(" manager does not exists!");
-        }
+//        if (employeeRepository.existsById(employee.getNationalId())) {
+//            throw new ConflictException("this employee is already added");
+//        }
+//        if (employee.getDepartment() != null && employeeRepository.existsByDepartmentId(employee.getDepartment().getDepartmentId()) == false) {
+//            throw new NotFoundException("this department does not exists");
+//        }
+//        if (employee.getTeam() != null && employeeRepository.existsByTeamId(employee.getTeam().getTeamId()) == false) {
+//            throw new NotFoundException("this team does not exists");
+//        }
+//        if (employee.getManager() != null && !employeeRepository.existsById(employee.getManager().getNationalId())) {
+//            throw new NotFoundException(" manager does not exists!");
+//        }
         if(employee.getYearsOfExperience()<AllowedVacations.HIGHWORKINGYEARS)
         {
             employee.setAcceptableLeaves(AllowedVacations.getLessEXPERIENCED());
@@ -180,12 +180,13 @@ public class EmployeeService {
             CalcNetSalary(originalEmployee);
         }
     }
-    public void addRaises(int id,double raises) {
-        Employee employee=getEmployeeInfoByID(id);
-        employee.setGrossSalary(employee.getGrossSalary()+raises);
-        CalcNetSalary(employee);
-        employeeRepository.save(employee);
-    }
+//    public void addRaises(int id,double raises) {
+//        Employee employee=getEmployeeInfoByID(id);
+//
+//        employee.setGrossSalary(employee.getGrossSalary()+raises);
+//        CalcNetSalary(employee);
+//        employeeRepository.save(employee);
+//    }
 
 
 

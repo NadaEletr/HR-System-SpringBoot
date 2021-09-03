@@ -1,6 +1,7 @@
 package com.example.demo.Controllers;
 
 import com.example.demo.Classes.Employee;
+import com.example.demo.Classes.SalaryDTO;
 import com.example.demo.Classes.Teams;
 import com.example.demo.Repositories.EmployeeRepository;
 import com.example.demo.Services.EmployeeService;
@@ -27,5 +28,9 @@ public class VacationController {
         Employee employee =employeeService.getEmployeeInfoByID(id);
         return "your absence are "+employee.getLeaves();
     }
+    // get vacation table here
+
+
+
 
 }

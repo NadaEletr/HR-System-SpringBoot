@@ -1,16 +1,14 @@
 package com.example.demo.Repositories;
 
-import com.example.demo.Classes.Department;
 import com.example.demo.Classes.Employee;
-import com.example.demo.Classes.Teams;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
@@ -54,7 +52,10 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     @Query(value = "update Employee e set e.leaves=0 ")
     void  updateYearlyLeaves();
 
+    @Query("select e.nationalId from Employee e")
+    Stream<Integer> getAllByNationalId();
 
+//    Stream<Employee> getAllByNationalId();
 
 
 //(value = "update Employee e set e.leaves=0  ")

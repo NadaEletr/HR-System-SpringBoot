@@ -51,6 +51,8 @@ public class Employee {
     private double grossSalary;
     @Column(name="net_salary")
     private double netSalary;
+    @Column(name="salary_raise")
+    private double salaryRaise;
     @Column(name="joined_year")
     private Date joinedYear;
     @OneToMany(mappedBy = "employee")
@@ -60,7 +62,7 @@ public class Employee {
     private int acceptableLeaves;
     @JsonIgnore
     @OneToMany(mappedBy = "employee")
-    private Set<SalaryHistory> salaryHistories;
+    private List<SalaryHistory> salaryHistories;
 
 
     public Employee() {
@@ -191,11 +193,11 @@ public class Employee {
         this.leaves = leaves;
     }
 
-    public Set<SalaryHistory> getSalaryHistories() {
+    public List<SalaryHistory> getSalaryHistories() {
         return salaryHistories;
     }
 
-    public void setSalaryHistories(Set<SalaryHistory> salaryHistories) {
+    public void setSalaryHistories(List<SalaryHistory> salaryHistories) {
         this.salaryHistories = salaryHistories;
     }
 
@@ -223,6 +225,13 @@ public class Employee {
         this.joinedYear = joinedYear;
     }
 
+    public Double getSalaryRaise() {
+        return salaryRaise;
+    }
+
+    public void setSalaryRaise(Double salaryRaise) {
+        this.salaryRaise = salaryRaise;
+    }
 }
 
 

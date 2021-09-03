@@ -23,7 +23,7 @@ create table employee
     years_of_experience  int          null,
     gender          VARCHAR(255)        null,
     graduation_date date         null,
-    employee_name   varchar(255) null,
+    salary_raise     double       null,
     gross_salary    double       null,
     net_salary      double       null,
     team_id         int          null,

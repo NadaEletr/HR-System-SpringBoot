@@ -80,13 +80,13 @@ public class EmployeesController {
         return "employee "+id+" is deleted";
 
     }
-    @PostMapping(value = "/add/raises", produces = MediaType.APPLICATION_JSON_VALUE)
-    public
-    String addNewEmployee(@RequestParam("id") int id,@RequestParam("raises") double raises)
-    {
-        employeeService.addRaises(id,raises);
-        return "raises is added";
-    }
+//    @PostMapping(value = "/add/raises", produces = MediaType.APPLICATION_JSON_VALUE)
+//    public
+//    String addNewEmployee(@RequestParam("id") int id,@RequestParam("raises") double raises)
+//    {
+//        employeeService.addRaises(id,raises);
+//        return "raises is added";
+//    }
 
 
 

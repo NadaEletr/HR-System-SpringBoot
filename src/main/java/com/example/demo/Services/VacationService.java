@@ -37,5 +37,9 @@ public class VacationService {
             vacationRepository.save(vacations);
             employeeRepository.save(employee);
     }
+    public void checkExceededLeave(Employee employee)
+    {
+        
+    }
 
 }
