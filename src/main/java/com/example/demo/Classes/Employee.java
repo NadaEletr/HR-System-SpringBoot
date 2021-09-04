@@ -63,10 +63,20 @@ public class Employee {
     @JsonIgnore
     @OneToMany(mappedBy = "employee")
     private List<SalaryHistory> salaryHistories;
+    @OneToOne(mappedBy = "employee")
+    private UserAccount userAccount;
 
 
     public Employee() {
 
+    }
+
+    public UserAccount getUserAccount() {
+        return userAccount;
+    }
+
+    public void setUserAccount(UserAccount userAccount) {
+        this.userAccount = userAccount;
     }
 
     public Date getBirthDate() {

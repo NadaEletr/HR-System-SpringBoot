@@ -72,6 +72,17 @@ create table vacations
         foreign key (employee_id) references   employee  (national_id)
 
 );
+create table user_account
+(
+    userName       VARCHAR(255)
+        primary key,
+    password VARCHAR(255) null,
+        employee_id int null ,
+
+    constraint UserAccount_employee_employeeId_fk
+        foreign key (employee_id) references   employee  (national_id)
+
+);
 
 
 
