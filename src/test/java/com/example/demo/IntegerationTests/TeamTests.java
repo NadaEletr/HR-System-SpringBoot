@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -47,9 +48,10 @@ public class TeamTests {
     public void addTeam() throws Exception {
         Teams addTeam = new Teams();
         addTeam.setTeamName("a8");
+        addTeam.setTeamId(3);
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(addTeam);
-        mockMvc.perform(MockMvcRequestBuilders.post("/HR/Teams/add").contentType(MediaType.APPLICATION_JSON).content(body))
+        mockMvc.perform(MockMvcRequestBuilders.post("/HR/Teams/add").with(httpBasic("nada1","nada123")).contentType(MediaType.APPLICATION_JSON).content(body))
                 .andExpect(status().isCreated());
         Teams resultTeams = teamRepository.getById(addTeam.getTeamId());
         assertEquals(resultTeams.getTeamId(),addTeam.getTeamId());

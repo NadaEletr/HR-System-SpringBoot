@@ -26,6 +26,7 @@ import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -45,15 +46,17 @@ public class DepartmentTests {
     DepartmentService departmentService;
     @Autowired
     DepartmentRepository departmentRepository;
-    @Test
+
    @DatabaseSetup("/data.xml")
    //@ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT,value = "/expected.xml")
+   @Test
     public  void whenAddDepartmentReturnDepartment() throws Exception {
         Department department  = new Department();
         department.setDepartmentName("networks");
+        department.setDepartmentId(3);
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(department);
-        mockMvc.perform(MockMvcRequestBuilders.post("/HR/department/add").contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(MockMvcRequestBuilders.post("/HR/department/add").with(httpBasic("nada1","nada123")).contentType(MediaType.APPLICATION_JSON)
                 .content(body)).andExpect(status().isCreated());
         Department resultDepartment= departmentRepository.getById(department.getDepartmentId());
         assertEquals(resultDepartment.getDepartmentName(),department.getDepartmentName());

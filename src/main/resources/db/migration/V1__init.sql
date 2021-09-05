@@ -11,15 +11,14 @@ create table department
         primary key,
     department_name varchar(255) null
 );
-
-
 create table employee
 (
     national_id     int AUTO_INCREMENT  primary key,
+
     first_name       VARCHAR(255)        null,
     leaves          int          null,
     last_name       VARCHAR(255)        null,
-    degree          VARCHAR(255)        null,
+    employee_degree  VARCHAR(255)        null,
     years_of_experience  int          null,
     gender          VARCHAR(255)        null,
     graduation_date date         null,
@@ -74,11 +73,11 @@ create table vacations
 );
 create table user_account
 (
-    userName       VARCHAR(255)
+    user_name       VARCHAR(255)
         primary key,
     password VARCHAR(255) null,
-        employee_id int null ,
-
+    employee_id int null ,
+    roles  VARCHAR(255) null,
     constraint UserAccount_employee_employeeId_fk
         foreign key (employee_id) references   employee  (national_id)
 

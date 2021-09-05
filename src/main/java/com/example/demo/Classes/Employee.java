@@ -1,5 +1,6 @@
 package com.example.demo.Classes;
 
+import com.example.demo.Security.UserAccount;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -13,6 +14,7 @@ import java.util.Set;
 @JsonIgnoreProperties(value={"hibernateLazyInitializer"})
 public class Employee {
     @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="national_id")
     private int nationalId;
     @Column(name = "first_name")
@@ -21,7 +23,7 @@ public class Employee {
     private String last_name;
     @Column(name = "leaves")
     private Integer leaves=0;
-    @Column(name = "degree")
+    @Column(name = "employee_degree")
     @Enumerated(EnumType.STRING)
     private Degree degree;
     @Column(name = "years_of_experience")
@@ -40,7 +42,7 @@ public class Employee {
     @JoinColumn(name = "manager_id")
     private Employee manager;
     @JsonIgnore
-    @OneToMany(mappedBy = "manager")
+    @OneToMany(mappedBy = "manager",fetch=FetchType.EAGER)
     private Set<Employee> employees;
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="team_id")
@@ -50,20 +52,20 @@ public class Employee {
     @Column(name="gross_salary")
     private double grossSalary;
     @Column(name="net_salary")
-    private double netSalary;
+    private Double netSalary;
     @Column(name="salary_raise")
-    private double salaryRaise;
+    private Double salaryRaise;
     @Column(name="joined_year")
     private Date joinedYear;
     @OneToMany(mappedBy = "employee")
     @JsonIgnore
     private List<Vacations> vacations;
     @Column(name="acceptable_leaves")
-    private int acceptableLeaves;
+    private Integer acceptableLeaves;
     @JsonIgnore
     @OneToMany(mappedBy = "employee")
     private List<SalaryHistory> salaryHistories;
-    @OneToOne(mappedBy = "employee")
+    @OneToOne(mappedBy = "employee",cascade = CascadeType.ALL, orphanRemoval = true)
     private UserAccount userAccount;
 
 
@@ -242,6 +244,7 @@ public class Employee {
     public void setSalaryRaise(Double salaryRaise) {
         this.salaryRaise = salaryRaise;
     }
+
 }
 
 

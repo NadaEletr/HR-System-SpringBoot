@@ -112,13 +112,13 @@ public class SalaryHistoryService {
         }
         return salaryHistoryRepository.findAllByEmployee(employee);
     }
-
-    @Transactional
-    @Job(name = "Generate salary to all employees")
-    @Scheduled(cron="0 0 0 1 * *") //each month
-    public void generateSalaryAllEmployees() {
-        final Stream<Integer> Employees = employeeRepository.getAllByNationalId();
-        BackgroundJob.enqueue(Employees, (employeeId) -> calculateEmployeeMonthlySalary(employeeId));
-    }
+//
+//    @Transactional
+//    @Job(name = "Generate salary to all employees")
+//    @Scheduled(cron="0 0 0 1 * *") //each month
+//    public void generateSalaryAllEmployees() {
+//        final Stream<Integer> Employees = employeeRepository.getAllByNationalId();
+//        BackgroundJob.enqueue(Employees, (employeeId) -> calculateEmployeeMonthlySalary(employeeId));
+//    }
 
 }

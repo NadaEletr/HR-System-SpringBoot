@@ -3,20 +3,18 @@ package com.example.demo.Services;
 import com.example.demo.Classes.AllowedVacations;
 import com.example.demo.Classes.Employee;
 import com.example.demo.Classes.SalaryDTO;
-import com.example.demo.Classes.Vacations;
+import com.example.demo.Security.Roles;
+import com.example.demo.Security.UserAccount;
 import com.example.demo.Repositories.EmployeeRepository;
 import com.example.demo.Repositories.VacationRepository;
 import com.example.demo.errors.ConflictException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import com.example.demo.errors.NotFoundException;
 
-import java.sql.Date;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,19 +26,25 @@ public class EmployeeService {
     public EmployeeRepository employeeRepository;
     @Autowired
     public VacationRepository vacationRepository;
-    public Employee saveEmployee(Employee employee) {
-//        if (employeeRepository.existsById(employee.getNationalId())) {
-//            throw new ConflictException("this employee is already added");
-//        }
-//        if (employee.getDepartment() != null && employeeRepository.existsByDepartmentId(employee.getDepartment().getDepartmentId()) == false) {
-//            throw new NotFoundException("this department does not exists");
-//        }
-//        if (employee.getTeam() != null && employeeRepository.existsByTeamId(employee.getTeam().getTeamId()) == false) {
-//            throw new NotFoundException("this team does not exists");
-//        }
-//        if (employee.getManager() != null && !employeeRepository.existsById(employee.getManager().getNationalId())) {
-//            throw new NotFoundException(" manager does not exists!");
-//        }
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    UserAccountService userAccountService;
+    public Employee saveEmployee(Employee employee) throws Exception {
+        if (employeeRepository.existsById(employee.getNationalId())) {
+            throw new ConflictException("this employee is already added");
+        }
+        if (employee.getDepartment() != null && employeeRepository.existsByDepartmentId(employee.getDepartment().getDepartmentId()) == false) {
+            throw new NotFoundException("this department does not exists");
+        }
+
+        if (employee.getTeam() != null && employeeRepository.existsByTeamId(employee.getTeam().getTeamId()) == false) {
+            throw new NotFoundException("this team does not exists");
+        }
+
+        if (employee.getManager() != null && !employeeRepository.existsById(employee.getManager().getNationalId())) {
+            throw new NotFoundException(" manager does not exists!");
+        }
         if(employee.getYearsOfExperience()<AllowedVacations.HIGHWORKINGYEARS)
         {
             employee.setAcceptableLeaves(AllowedVacations.getLessEXPERIENCED());
@@ -49,9 +53,35 @@ public class EmployeeService {
         {
             employee.setAcceptableLeaves(AllowedVacations.getEXPERIENCED());
         }
+        System.out.println("+++++++++++"+employee.getLast_name());
         CalcNetSalary(employee);
         return employeeRepository.save(employee);
+
+
     }
+
+
+
+    public void generatePasswordAndUserName(Employee employee) throws Exception {
+        System.out.println("rrrrrrrrrrrrr"+employee.getNationalId());
+        Employee employee1= getEmployeeInfoByID(employee.getNationalId());
+        String username= employee1.getFirst_name()+employee1.getNationalId();
+        String password= employee1.getLast_name()+"@"+employee1.getNationalId();
+        UserAccount userAccount = new UserAccount();
+        userAccount.setUserName(username);
+        userAccount.setPassword(passwordEncoder.encode(password));
+        userAccount.setRoles(Roles.EMPLOYEE.name());
+        userAccount.setEmployee(employee1);
+        userAccountService.addUserAccount(userAccount);
+//        String username= employee1.getFirst_name()+employee1.getNationalId();
+//        String password= employee1.getLast_name()+"@"+employee1.getNationalId();
+//        employee1.getUserAccount().setUserName(username);
+//        employee1.getUserAccount().setPassword(passwordEncoder.encode(password));
+//        employee1.getUserAccount().setRoles("EMPLOYEE");
+//        userAccountService.addUserAccount(employee1.getUserAccount());
+
+    }
+
     public void CalcNetSalary(Employee employee) {
         final double taxRatio = 0.85;
         final double insurance = 500;
@@ -67,7 +97,7 @@ public class EmployeeService {
     }
 
     public Employee getEmployeeInfoByID(int id) throws NotFoundException {
-        if (employeeRepository.existsById(id) == false) {
+        if (!employeeRepository.existsById(id)) {
             throw new NotFoundException("no employee with this ID");
         }
         return employeeRepository.getById(id);
@@ -124,18 +154,18 @@ public class EmployeeService {
         return employeeRepository.findAllUnderSomeManager(mangerId);
     }
 
-    public void deleteManager(int mangerID) {
+    public void delete(int employeeId) {
 
-        Employee manager = getEmployeeInfoByID(mangerID);
-        if (manager.getManager() == null) {
+        Employee employee = getEmployeeInfoByID(employeeId);
+        if (employee.getManager() == null) {
             throw new NotFoundException(" can't delete employee with no manager");
         }
 
-        for (Employee employee : manager.getEmployees()) {
-            employee.setManager(manager.getManager());
+        for (Employee employee1 : employee.getEmployees()) {
+            employee1.setManager(employee.getManager());
             employeeRepository.save(employee);
         }
-        deleteEmployee(mangerID);
+        deleteEmployee(employeeId);
     }
     public void transferEmployee(Employee updateEmployee, Employee originalEmployee)
     {
@@ -171,11 +201,11 @@ public class EmployeeService {
         {
             originalEmployee.setTeam(updateEmployee.getTeam());
         }
-        if(updateEmployee.getGrossSalary()!=0d)
+        if(updateEmployee.getGrossSalary()!=null)
         {
             originalEmployee.setGrossSalary(updateEmployee.getGrossSalary());
         }
-        if(updateEmployee.getNetSalary()!=0d)
+        if(updateEmployee.getNetSalary()!=null)
         {
             CalcNetSalary(originalEmployee);
         }

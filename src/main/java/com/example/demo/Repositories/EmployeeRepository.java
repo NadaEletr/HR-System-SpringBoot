@@ -30,13 +30,13 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
 
     @Query(
-            value = "with recursive cte(national_id,first_name,last_name,degree,leaves,years_of_experience,birthdate, gender,acceptable_leaves, graduation_date, gross_salary,net_salary, department_id, manager_id, team_id ) as ( \n" +
-                    "            select     national_id,first_name,last_name,leaves,degree,years_of_experience,birthdate, gender,acceptable_leaves, graduation_date, gross_salary,net_salary, department_id, manager_id, team_id \n" +
+            value = "with recursive cte(national_id,first_name,last_name,employee_degree,leaves,years_of_experience,birthdate, gender,acceptable_leaves, graduation_date, gross_salary,net_salary, department_id, manager_id, team_id ) as ( \n" +
+                    "            select     national_id,first_name,last_name,leaves,employee_degree,years_of_experience,birthdate, gender,acceptable_leaves, graduation_date, gross_salary,net_salary, department_id, manager_id, team_id \n" +
                     "\t\t\n" +
-                    "              from       employee\n" +
+                    "              from       employee e\n" +
                     "             where      manager_id =:employeeId\n" +
                     "             union all\n" +
-                    "             select    p.national_id,p.first_name,p.last_name,p.leaves,p.degree,p.years_of_experience,p.birthdate, p.acceptable_leaves,p.gender, p.graduation_date, p.gross_salary,p.net_salary,p.department_id, p.manager_id, p.team_id \n" +
+                    "             select    p.national_id,p.first_name,p.last_name,p.leaves,p.employee_degree,p.years_of_experience,p.birthdate, p.acceptable_leaves,p.gender, p.graduation_date, p.gross_salary,p.net_salary,p.department_id, p.manager_id, p.team_id \n" +
                     "             from       employee p\n" +
                     "            inner join cte\n" +
                     "                   on p.manager_id = cte.national_id\n" +

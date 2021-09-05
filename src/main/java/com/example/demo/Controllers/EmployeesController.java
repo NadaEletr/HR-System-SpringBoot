@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,9 +19,11 @@ public class EmployeesController {
     EmployeeService employeeService;
 
     @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Secured("HR")
     public @ResponseBody
-    ResponseEntity<Employee> addNewEmployee(@RequestBody Employee employee) throws NotFoundException {
+    ResponseEntity<Employee> addNewEmployee(@RequestBody Employee employee) throws Exception {
         Employee newEmployee = employeeService.saveEmployee(employee);
+        employeeService.generatePasswordAndUserName(newEmployee);
         return new ResponseEntity<>(newEmployee, HttpStatus.CREATED);
     }
 
@@ -76,7 +79,7 @@ public class EmployeesController {
 
     @DeleteMapping(value = "/delete")
     public String deleteManager(@RequestParam("id") String id)  {
-        employeeService.deleteManager(Integer.parseInt(id));
+        employeeService.delete(Integer.parseInt(id));
         return "employee "+id+" is deleted";
 
     }

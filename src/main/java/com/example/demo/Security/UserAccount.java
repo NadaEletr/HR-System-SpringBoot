@@ -1,4 +1,6 @@
-package com.example.demo.Classes;
+package com.example.demo.Security;
+import com.example.demo.Classes.Employee;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,11 +17,13 @@ public class UserAccount {
     private String password;
 
     @OneToOne
+    @JsonIgnore
     @JoinColumn(name="employee_id")
     private Employee employee;
 
     @Column(name="roles")
-    private Roles roles;
+//    @Enumerated(EnumType.STRING)
+    private String roles;
 
     public String getUserName() {
         return userName;
@@ -44,13 +48,21 @@ public class UserAccount {
     public void setEmployee(Employee employee) {
         this.employee = employee;
     }
+
+    @JsonIgnore
     public List<String> getRolesList()
     {
-        if(this.roles.toString().length()>0)
+        if(this.roles.length()>0)
         {
-            return Arrays.asList(this.roles.toString().split(",")) ;
+            return Arrays.asList(this.roles.split(",")) ;
         }
         return new ArrayList<>();
     }
+    public String getRoles() {
+        return roles;
+    }
 
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
 }

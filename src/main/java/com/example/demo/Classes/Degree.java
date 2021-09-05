@@ -4,5 +4,7 @@ public enum Degree {
     FRESH,
     INTERMEDIATE,
     SENIOR,
-    ARCHITECT
+    ARCHITECT;
+
+
 }

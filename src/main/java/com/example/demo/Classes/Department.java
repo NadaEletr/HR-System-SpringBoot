@@ -10,11 +10,12 @@ import java.util.Set;
 @Table(name = "department")
 public class Department {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     int departmentId;
     @Column(name = "department_name")
     String departmentName;
     @JsonIgnore
-    @OneToMany(mappedBy = "department")
+    @OneToMany(mappedBy = "department" ,cascade = CascadeType.ALL)
     Set<Employee> employees;
 
     public Department()

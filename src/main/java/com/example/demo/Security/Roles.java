@@ -1,4 +1,4 @@
-package com.example.demo.Classes;
+package com.example.demo.Security;
 
 public enum Roles {
     HR,

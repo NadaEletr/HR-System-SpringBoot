@@ -16,7 +16,7 @@ public class Teams {
     @Column(name="team_name")
     private String teamName;
     @JsonIgnore
-   @OneToMany(mappedBy = "team",cascade = CascadeType.ALL)
+   @OneToMany(mappedBy = "team",cascade = CascadeType.ALL,fetch=FetchType.EAGER)
     Set<Employee> employees ;
 
     public int getTeamId() {
