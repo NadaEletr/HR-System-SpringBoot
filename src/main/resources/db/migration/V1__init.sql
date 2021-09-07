@@ -82,6 +82,20 @@ create table user_account
         foreign key (employee_id) references   employee  (national_id)
 
 );
+create table extra_payments
+(
+    id   int auto_increment
+        primary key,
+    bonus double null,
+    employee_id int null ,
+    raise  double null,
+    date DATE  null,
+--     CONSTRAINT date_employee UNIQUE(employee_id, date),
+    constraint extra_payments_employee_employeeId_fk
+        foreign key (employee_id) references   employee  (national_id)
+
+);
+
 
 
 

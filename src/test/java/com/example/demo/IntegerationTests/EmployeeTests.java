@@ -232,7 +232,7 @@ public class EmployeeTests {
 //    {
 //        int id =1;
 //        Employee employee = employeeRepository.getById(id);
-//        //SalaryHistory salaryHistory=salaryHistoryRepository.getByEmployeeId(employee.getNationalId());
+//        //SalaryDetails salaryHistory=salaryHistoryRepository.getByEmployeeId(employee.getNationalId());
 //
 //    }
 

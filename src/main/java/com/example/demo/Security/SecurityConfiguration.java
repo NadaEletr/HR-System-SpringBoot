@@ -25,6 +25,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 authorizeRequests().antMatchers("/HR/employee/**").hasRole(Roles.HR.name())
                 .antMatchers("/HR/Teams/**").hasRole(Roles.HR.name())
                 .antMatchers("/HR/department/**").hasRole(Roles.HR.name())
+                .antMatchers("/HR/SalaryHistory/add/extraPayments").hasRole(Roles.HR.name())
                 .and().httpBasic();
     }
     DaoAuthenticationProvider authenticationProvider()

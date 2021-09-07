@@ -34,7 +34,8 @@ public class Employee {
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
-
+    @OneToMany(mappedBy = "employee")
+    private List<ExtraPayments> extraPayments;
     @Column(name = "gender")
     @Enumerated(EnumType.STRING)
     private Gender gender;
@@ -64,7 +65,7 @@ public class Employee {
     private Integer acceptableLeaves;
     @JsonIgnore
     @OneToMany(mappedBy = "employee")
-    private List<SalaryHistory> salaryHistories;
+    private List<SalaryDetails> salaryHistories;
     @OneToOne(mappedBy = "employee",cascade = CascadeType.ALL, orphanRemoval = true)
     private UserAccount userAccount;
 
@@ -205,11 +206,11 @@ public class Employee {
         this.leaves = leaves;
     }
 
-    public List<SalaryHistory> getSalaryHistories() {
+    public List<SalaryDetails> getSalaryHistories() {
         return salaryHistories;
     }
 
-    public void setSalaryHistories(List<SalaryHistory> salaryHistories) {
+    public void setSalaryHistories(List<SalaryDetails> salaryHistories) {
         this.salaryHistories = salaryHistories;
     }
 

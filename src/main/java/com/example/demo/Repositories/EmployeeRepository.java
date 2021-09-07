@@ -53,7 +53,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     void  updateYearlyLeaves();
 
     @Query("select e.nationalId from Employee e")
-    Stream<Integer> getAllByNationalId();
+    List<Integer> getAllByNationalId();
 
 //    Stream<Employee> getAllByNationalId();
 

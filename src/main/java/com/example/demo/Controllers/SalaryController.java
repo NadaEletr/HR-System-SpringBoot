@@ -1,15 +1,11 @@
 package com.example.demo.Controllers;
 
 
-import com.example.demo.Classes.Employee;
-import com.example.demo.Classes.SalaryDTO;
-import com.example.demo.Classes.SalaryHistory;
-import com.example.demo.Services.SalaryHistoryService;
-import javassist.NotFoundException;
+import com.example.demo.Classes.ExtraPayments;
+import com.example.demo.Classes.SalaryDetails;
+import com.example.demo.Services.SalaryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,19 +14,27 @@ import java.util.List;
 @RequestMapping(value = "/HR/SalaryHistory")
 public class SalaryController {
 @Autowired
-SalaryHistoryService salaryHistoryService;
+SalaryService salaryService;
 
     @GetMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    List<SalaryHistory> getEmployeeSalaryHistory(@RequestParam("id") String id)  {
-        return salaryHistoryService.getEmployeeSalaryHistory(Integer.parseInt(id));
+    List<SalaryDetails> getEmployeeSalaryHistory(@RequestParam("id") String id)  {
+        return salaryService.getEmployeeSalaryHistory(Integer.parseInt(id));
     }
-    @PostMapping(value = "/add/raises", produces = MediaType.APPLICATION_JSON_VALUE)
+//    @PostMapping(value = "/add/raises", produces = MediaType.APPLICATION_JSON_VALUE)
+//    public
+//    String addNewEmployee(@RequestParam("id") int id,@RequestParam("raises") double raises)
+//    {
+//        salaryHistoryService.addRaise(id,raises);
+//        return "raises is added";
+//    }
+    @PostMapping(value = "/add/extraPayments", produces = MediaType.APPLICATION_JSON_VALUE)
     public
-    String addNewEmployee(@RequestParam("id") int id,@RequestParam("raises") double raises)
+    String addBonusAndRaise(@RequestBody ExtraPayments extraPayments)
     {
-        salaryHistoryService.addRaise(id,raises);
-        return "raises is added";
+        salaryService.addExtraPayments(extraPayments);
+        return "extra payments is added!";
     }
+
 
 }

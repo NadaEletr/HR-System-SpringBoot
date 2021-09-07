@@ -1,12 +1,16 @@
 package com.example.demo.Classes;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
+
 
 @Entity
 @Table(name="salary_history")
-public class SalaryHistory {
+public class SalaryDetails {
     @Id
+    @JsonIgnore
     @Column(name="id")
     private int id;
     @Column(name = "date")
@@ -24,10 +28,11 @@ public class SalaryHistory {
     @Column(name = "net_salary")
     private double netSalary;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name="employee_id")
     private Employee employee;
 
-    public SalaryHistory() {
+    public SalaryDetails() {
     }
 
     public int getId() {
@@ -97,9 +102,7 @@ public class SalaryHistory {
     public void setInsurance(Double insurance) {
         this.insurance = insurance;
     }
-
     public void setEmployee(Employee employee) {
         this.employee = employee;
     }
-
 }

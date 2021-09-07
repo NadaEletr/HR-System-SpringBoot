@@ -21,7 +21,7 @@ public class VacationService {
     EmployeeRepository employeeRepository;
 
     @Autowired
-    SalaryHistoryService salaryHistoryService;
+    SalaryService salaryHistoryService;
     public void recordLeave(int id) {
 
             Date date = Date.valueOf(LocalDate.now());
