@@ -1,11 +1,13 @@
 package com.example.demo.Services;
 
+import com.example.demo.Classes.AllowedVacations;
 import com.example.demo.Classes.Employee;
 import com.example.demo.Classes.Vacations;
 import com.example.demo.Repositories.EmployeeRepository;
 import com.example.demo.Repositories.VacationRepository;
 import com.example.demo.errors.ConflictException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -36,9 +38,24 @@ public class VacationService {
             vacationRepository.save(vacations);
             employeeRepository.save(employee);
     }
-    public void checkExceededLeave(Employee employee)
+    public double calculateExceededLeaves(Employee employee)
     {
+        int leaves=employee.getLeaves();
+        if(leaves>employee.getAcceptableLeaves())
+        {
+            final int workingDays=22;
+            double dayPayed=employee.getGrossSalary()/workingDays;
+            double exceededLeavesDeduction=(leaves- employee.getAcceptableLeaves())*dayPayed;
+            return exceededLeavesDeduction;
+        }
+        else{
+            return 0.0;
+        }
 
     }
+
+
+
+
 
 }

@@ -16,7 +16,7 @@ create table employee
     national_id     int AUTO_INCREMENT  primary key,
 
     first_name       VARCHAR(255)        null,
-    leaves          int          null,
+    leaves          int        not  null,
     last_name       VARCHAR(255)        null,
     employee_degree  VARCHAR(255)        null,
     years_of_experience  int          null,
@@ -47,7 +47,6 @@ create table salary_history
         primary key,
     date        date null,
     raises      double null,
-    deduction   double null,
     bonus       double null,
     exceeded_leaves  double        null,
     taxes           double        null,

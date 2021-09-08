@@ -28,9 +28,5 @@ public class VacationController {
         Employee employee =employeeService.getEmployeeInfoByID(id);
         return "your absence are "+employee.getLeaves();
     }
-    // get vacation table here
-
-
-
 
 }

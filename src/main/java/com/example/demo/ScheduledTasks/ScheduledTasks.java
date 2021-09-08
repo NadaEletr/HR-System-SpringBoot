@@ -14,6 +14,6 @@ public class ScheduledTasks {
     @Transactional
     @Scheduled(cron = "0 0 0 1 1 *")
     public void updateYearlyEmployeeLeaves() {
-        employeeRepository.updateYearlyLeaves();
+        employeeRepository.updateYearlyLeaves(0);
     }
 }

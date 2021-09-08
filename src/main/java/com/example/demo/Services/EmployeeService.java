@@ -201,11 +201,11 @@ public class EmployeeService {
         {
             originalEmployee.setTeam(updateEmployee.getTeam());
         }
-        if(updateEmployee.getGrossSalary()!=null)
+        if(updateEmployee.getGrossSalary()!=0d)
         {
             originalEmployee.setGrossSalary(updateEmployee.getGrossSalary());
         }
-        if(updateEmployee.getNetSalary()!=null)
+        if(updateEmployee.getNetSalary()!=0d)
         {
             CalcNetSalary(originalEmployee);
         }

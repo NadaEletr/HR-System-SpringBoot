@@ -21,13 +21,6 @@ SalaryService salaryService;
     List<SalaryDetails> getEmployeeSalaryHistory(@RequestParam("id") String id)  {
         return salaryService.getEmployeeSalaryHistory(Integer.parseInt(id));
     }
-//    @PostMapping(value = "/add/raises", produces = MediaType.APPLICATION_JSON_VALUE)
-//    public
-//    String addNewEmployee(@RequestParam("id") int id,@RequestParam("raises") double raises)
-//    {
-//        salaryHistoryService.addRaise(id,raises);
-//        return "raises is added";
-//    }
     @PostMapping(value = "/add/extraPayments", produces = MediaType.APPLICATION_JSON_VALUE)
     public
     String addBonusAndRaise(@RequestBody ExtraPayments extraPayments)

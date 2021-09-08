@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.sql.Date;
 import java.util.List;
 import java.util.Set;
@@ -62,7 +63,7 @@ public class Employee {
     @JsonIgnore
     private List<Vacations> vacations;
     @Column(name="acceptable_leaves")
-    private Integer acceptableLeaves;
+    private Integer acceptableLeaves=0;
     @JsonIgnore
     @OneToMany(mappedBy = "employee")
     private List<SalaryDetails> salaryHistories;
@@ -71,6 +72,7 @@ public class Employee {
 
 
     public Employee() {
+        this.leaves=0;
 
     }
 
@@ -203,7 +205,12 @@ public class Employee {
     }
 
     public void setLeaves(Integer leaves) {
-        this.leaves = leaves;
+        if(leaves==null)
+        {
+            this.leaves=0;
+        }
+        else
+            this.leaves = leaves;
     }
 
     public List<SalaryDetails> getSalaryHistories() {
