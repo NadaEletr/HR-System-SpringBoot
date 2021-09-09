@@ -2,14 +2,20 @@ package com.example.demo.IntegerationTests;
 
 import com.example.demo.Classes.Employee;
 import com.example.demo.Classes.ExtraPayments;
+import com.example.demo.Classes.SalaryDetails;
 import com.example.demo.Repositories.EmployeeRepository;
 import com.example.demo.Repositories.ExtraPaymentsRepository;
 import com.example.demo.Repositories.SalaryHistoryRepository;
+import com.example.demo.Repositories.UserAccountRepository;
+import com.example.demo.Security.UserAccount;
+import com.example.demo.Security.UserDetailPrincipalService;
 import com.example.demo.Services.EmployeeService;
 import com.example.demo.Services.SalaryService;
 import com.example.demo.errors.ConflictException;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.ExpectedDatabase;
+import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 import org.checkerframework.checker.units.qual.A;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
@@ -19,6 +25,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -30,7 +37,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.shaded.com.fasterxml.jackson.core.JsonProcessingException;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import static org.assertj.core.api.BDDAssumptions.given;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -65,6 +74,10 @@ public class SalariesTests {
     ExtraPaymentsRepository extraPaymentsRepository;
     @Autowired
     SalaryService salaryService;
+    @Autowired
+    UserAccountRepository userAccountRepository;
+    @Autowired
+    UserDetailPrincipalService userDetailPrincipalService;
     @Test
     public void addBonusAndRaise() throws Exception {
         int employeeId=1;
@@ -73,14 +86,13 @@ public class SalariesTests {
         extraPayments.setBonus(500);
         extraPayments.setEmployee(employee);
         extraPayments.setRaise(1000);
-        extraPayments.setId(1);
+        extraPayments.setId(2);
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(extraPayments);
-        mockMvc.perform(MockMvcRequestBuilders.post("/HR/SalaryHistory/add/extraPayments").with(httpBasic("nada1","nada123")).contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(MockMvcRequestBuilders.post("/SalaryHistory/add/extraPayments").with(httpBasic("nada1","nada123")).contentType(MediaType.APPLICATION_JSON)
                 .content(body)).andExpect(authenticated())
         .andExpect(status().isOk());
-        ExtraPayments extraPayments1= extraPaymentsRepository.getById(1);
-        System.out.println(extraPayments1.getId());
+        ExtraPayments extraPayments1= extraPaymentsRepository.getById(2);
         assertEquals(extraPayments1.getBonus(),extraPayments.getBonus());
         assertEquals(extraPayments1.getRaise(),extraPayments.getRaise());
         assertEquals(extraPayments1.getEmployee().getNationalId(),extraPayments.getEmployee().getNationalId());
@@ -94,10 +106,10 @@ public class SalariesTests {
         ExtraPayments extraPayments =new ExtraPayments();
         extraPayments.setBonus(-500);
         extraPayments.setEmployee(employee);
-        extraPayments.setId(2);
+        extraPayments.setId(3);
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(extraPayments);
-        mockMvc.perform(MockMvcRequestBuilders.post("/HR/SalaryHistory/add/extraPayments").with(httpBasic("nada1","nada123")).contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(MockMvcRequestBuilders.post("/SalaryHistory/add/extraPayments").with(httpBasic("nada1","nada123")).contentType(MediaType.APPLICATION_JSON)
                     .content(body)).andExpect(result -> assertTrue(result.getResolvedException() instanceof ConflictException))
                     .andExpect(status().isConflict()).andExpect(result -> assertEquals("bonus must be positive number",result.getResolvedException().getMessage()))
                 .andExpect(authenticated());
@@ -112,12 +124,20 @@ public class SalariesTests {
         ExtraPayments extraPayments =new ExtraPayments();
         extraPayments.setRaise(-100);
         extraPayments.setEmployee(employee);
-        extraPayments.setId(3);
+        extraPayments.setId(4);
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(extraPayments);
-        mockMvc.perform(MockMvcRequestBuilders.post("/HR/SalaryHistory/add/extraPayments").with(httpBasic("nada1","nada123")).contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(MockMvcRequestBuilders.post("/SalaryHistory/add/extraPayments").with(httpBasic("nada1","nada123")).contentType(MediaType.APPLICATION_JSON)
                 .content(body)).andExpect(result -> assertTrue(result.getResolvedException() instanceof ConflictException))
                 .andExpect(status().isConflict()).andExpect(result -> assertEquals("raise must be positive number",result.getResolvedException().getMessage())).andExpect(authenticated());
+
+    }
+    @Test
+   @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = "/data.xml")
+    public void testGetSalaryHistory() throws Exception {
+         UserAccount userAccount=userAccountRepository.getById("sara3");
+         mockMvc.perform(MockMvcRequestBuilders.get("/SalaryHistory/get")
+                 .with(httpBasic(userAccount.getUserName(),userAccount.getPassword())));
 
 
     }

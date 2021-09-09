@@ -73,13 +73,6 @@ public class EmployeeService {
         userAccount.setRoles(Roles.EMPLOYEE.name());
         userAccount.setEmployee(employee1);
         userAccountService.addUserAccount(userAccount);
-//        String username= employee1.getFirst_name()+employee1.getNationalId();
-//        String password= employee1.getLast_name()+"@"+employee1.getNationalId();
-//        employee1.getUserAccount().setUserName(username);
-//        employee1.getUserAccount().setPassword(passwordEncoder.encode(password));
-//        employee1.getUserAccount().setRoles("EMPLOYEE");
-//        userAccountService.addUserAccount(employee1.getUserAccount());
-
     }
 
     public void CalcNetSalary(Employee employee) {

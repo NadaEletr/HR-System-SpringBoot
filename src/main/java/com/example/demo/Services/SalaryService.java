@@ -66,14 +66,14 @@ public class SalaryService {
         return extraPaymentsRepository.save(extraPayments);
     }
 
-    @Scheduled(fixedDelay = 50000)
+    @Scheduled( cron = "0 0 0 25 * *")
     public void generateAllEmployeesMonthlySalary() throws Exception { // update employee each month Salary
         final List<Integer> Employees = employeeRepository.getAllByNationalId();
         for (Integer id : Employees) {
             this.calculateEmployeeMonthlySalary(id);
         }
     }
-//    cron = "0 0 0 25 * *"
+
 
     public void calculateEmployeeMonthlySalary(int employeeId) throws Exception { //modify this code
 

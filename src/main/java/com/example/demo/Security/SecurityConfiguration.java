@@ -25,9 +25,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 authorizeRequests().antMatchers("/HR/employee/**").hasRole(Roles.HR.name())
                 .antMatchers("/HR/Teams/**").hasRole(Roles.HR.name())
                 .antMatchers("/HR/department/**").hasRole(Roles.HR.name())
-                .antMatchers("/HR/SalaryHistory/add/extraPayments").hasRole(Roles.HR.name())
-                .antMatchers("/HR/SalaryHistory/get").hasRole(Roles.EMPLOYEE.name())
-                .and().httpBasic();
+                .antMatchers("/SalaryHistory/add/extraPayments").hasRole(Roles.HR.name())
+                .antMatchers("/SalaryHistory/get").hasRole(Roles.EMPLOYEE.name())
+                .antMatchers("/HR/Record/leave").hasRole(Roles.EMPLOYEE.name())
+                .antMatchers("/user/changePassword").hasRole(Roles.EMPLOYEE.name())
+                .and().httpBasic().and().sessionManagement().disable();
     }
     DaoAuthenticationProvider authenticationProvider()
     {
@@ -40,9 +42,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     {
         this.userDetailPrincipalService=userDetailPrincipalService;
     }
-    @Bean
-    PasswordEncoder passwordEncoder()
-    {
-        return new BCryptPasswordEncoder();
-    }
+        @Bean
+        PasswordEncoder passwordEncoder()
+        {
+            return new BCryptPasswordEncoder();
+        }
 }
