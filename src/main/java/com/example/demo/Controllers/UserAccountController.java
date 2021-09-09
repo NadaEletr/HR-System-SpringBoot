@@ -21,6 +21,9 @@ public class UserAccountController {
     @PutMapping(path = "/changePassword")
     @ResponseBody
     public String changePassword(@RequestBody String password)  {
+        if(password.length()<4){
+            throw new InvalidCredentialsException("week password!, password must be at least 4 characters");
+        }
         userDetailPrincipalService.changePassword(password);
         return "password is changed successfully";
     }

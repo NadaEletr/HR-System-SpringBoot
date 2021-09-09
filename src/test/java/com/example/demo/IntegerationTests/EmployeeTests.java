@@ -16,7 +16,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -27,6 +31,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.testcontainers.shaded.com.fasterxml.jackson.core.JsonProcessingException;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 
 import java.util.List;
@@ -71,6 +77,8 @@ public class EmployeeTests {
     UserDetailPrincipalService userDetailPrincipalService;
     @Autowired
     UserAccountRepository userAccountRepository;
+    @Autowired
+    PasswordEncoder passwordEncoder;
     @Test
     public void getEmployeeSalary() throws Exception {
         int id=1;
@@ -228,7 +236,19 @@ public class EmployeeTests {
         ).andExpect(result -> assertTrue(result.getResolvedException() instanceof ConflictException))
                 .andExpect(status().isConflict())
                 .andExpect(result -> assertEquals("you are already recorded this day !",result.getResolvedException().getMessage()));
+    }
 
+
+    @Test
+    public void changePassword() throws Exception { //check again 
+        ObjectMapper objectMapper = new ObjectMapper();
+        String message = "password is changed successfully";
+        String newPassword = "sara123";
+        String username = "sara3";
+        String body = objectMapper.writeValueAsString(newPassword);
+        mockMvc.perform(MockMvcRequestBuilders.put("/user/changePassword")
+                .with(httpBasic(username, "mohamed@3")).contentType(MediaType.APPLICATION_JSON).content(body)
+        ).andExpect(status().isOk()).andExpect(content().string(message));
     }
 
 
