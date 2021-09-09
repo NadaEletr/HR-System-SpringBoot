@@ -12,6 +12,7 @@ import java.util.Date;
 public interface VacationRepository  extends JpaRepository<Vacations, Integer> {
 
     boolean existsByEmployeeAndDate(Employee employee   , Date date);
+    Vacations findByEmployee(Employee employee);
 
 
 }

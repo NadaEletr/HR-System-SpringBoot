@@ -1,6 +1,7 @@
 package com.example.demo.IntegerationTests;
 
 import com.example.demo.Classes.*;
+import com.example.demo.Security.UserAccount;
 import com.example.demo.Security.UserDetailPrincipalService;
 import com.example.demo.Security.UserPrincipal;
 import com.example.demo.Repositories.*;
@@ -66,6 +67,8 @@ public class EmployeeTests {
     SalaryHistoryRepository salaryHistoryRepository;
     @Autowired
     UserDetailPrincipalService userDetailPrincipalService;
+    @Autowired
+    UserAccountRepository userAccountRepository;
     @Test
     public void getEmployeeSalary() throws Exception {
         int id=1;
@@ -198,43 +201,21 @@ public class EmployeeTests {
                .andExpect(content().string(message)).andExpect(authenticated());
 //        assertEquals(employeeRepository.existsById(id),false);
     }
-    @Test
-    public void recordLeaves()
-    {
-        int id=1;
-        Employee employee = employeeRepository.getById(id);
-    }
-//    @Test
-//    public void addRaises() throws Exception {
-//        int id=1;
-//        double raises=2500;
-//        Employee employee=employeeService.getEmployeeInfoByID(id);
-//        String message = "raises is added";
-//        employee.setGrossSalary(employee.getGrossSalary()+raises);
-//        mockMvc.perform(MockMvcRequestBuilders.post("/HR/employee/add/raises").param("id", String.valueOf(id)).param("raises",String.valueOf(raises))
-//        ).andExpect(status().isOk()).andExpect(content().string(message));
-//        Employee employee1 = employeeRepository.getById(employee.getNationalId());
-//        assertEquals(employee.getGrossSalary(),employee1.getGrossSalary());
-//    }
 
-//    @Test
-//    public void recordLeaves() throws Exception {
-//        int id=3;
-//        Employee employee=employeeRepository.getById(id);
-//        String message = "your absence are "+(employee.getLeaves()+1);;
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        String body = objectMapper.writeValueAsString(message);
-//        mockMvc.perform(MockMvcRequestBuilders.post("/HR/employee/record/leave").param("id", String.valueOf(id))
-//        ).andExpect(status().isOk()).andExpect(content().string(message));
-//    }
-//    @Test
-//    public void getSalaryHistory()
-//    {
-//        int id =1;
-//        Employee employee = employeeRepository.getById(id);
-//        //SalaryDetails salaryHistory=salaryHistoryRepository.getByEmployeeId(employee.getNationalId());
-//
-//    }
+
+    @Test
+    public void recordLeaves() throws Exception {
+        UserAccount userAccount = userAccountRepository.getById("sara3");
+        ObjectMapper objectMapper = new ObjectMapper();
+        String message = "your absence are " + (userAccount.getEmployee().getLeaves() + 1);
+        ;
+        String body = objectMapper.writeValueAsString(message);
+        mockMvc.perform(MockMvcRequestBuilders.post("/user/record/leave")
+                .with(httpBasic("sara3", "mohamed@3"))
+        ).andExpect(status().isOk()).andExpect(content().string(message));
+        Vacations vacation = vacationRepository.findByEmployee(userAccount.getEmployee());
+        assertEquals(vacation.getEmployee().getLeaves(), userAccount.getEmployee().getLeaves() + 1);
+    }
 
 
 }

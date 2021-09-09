@@ -137,7 +137,7 @@ public class SalariesTests {
     public void testGetSalaryHistory() throws Exception {
          UserAccount userAccount=userAccountRepository.getById("sara3");
          mockMvc.perform(MockMvcRequestBuilders.get("/SalaryHistory/get")
-                 .with(httpBasic(userAccount.getUserName(),userAccount.getPassword())));
+                 .with(httpBasic(userAccount.getUserName(),"mohamed@3")));
 
 
     }

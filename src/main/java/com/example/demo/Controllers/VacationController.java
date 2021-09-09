@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/HR/Record/leave")
+@RequestMapping(value = "/user/record/leave")
 public class VacationController {
     @Autowired
     VacationService vacationService;
