@@ -6,6 +6,7 @@ import com.example.demo.Security.UserDetailPrincipalService;
 import com.example.demo.Security.UserPrincipal;
 import com.example.demo.Repositories.*;
 import com.example.demo.Services.EmployeeService;
+import com.example.demo.errors.ConflictException;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
@@ -24,6 +25,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import org.testcontainers.shaded.com.fasterxml.jackson.core.JsonProcessingException;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 
@@ -208,13 +210,25 @@ public class EmployeeTests {
         UserAccount userAccount = userAccountRepository.getById("sara3");
         ObjectMapper objectMapper = new ObjectMapper();
         String message = "your absence are " + (userAccount.getEmployee().getLeaves() + 1);
-        ;
         String body = objectMapper.writeValueAsString(message);
         mockMvc.perform(MockMvcRequestBuilders.post("/user/record/leave")
                 .with(httpBasic("sara3", "mohamed@3"))
         ).andExpect(status().isOk()).andExpect(content().string(message));
         Vacations vacation = vacationRepository.findByEmployee(userAccount.getEmployee());
         assertEquals(vacation.getEmployee().getLeaves(), userAccount.getEmployee().getLeaves() + 1);
+    }
+    @Test
+    public void recordLeaveDuplicate() throws Exception {
+        UserAccount userAccount = userAccountRepository.getById("mariam2");
+        ObjectMapper objectMapper = new ObjectMapper();
+        String message = "your absence are " + (userAccount.getEmployee().getLeaves() + 1);
+        String body = objectMapper.writeValueAsString(message);
+        mockMvc.perform(MockMvcRequestBuilders.post("/user/record/leave")
+                .with(httpBasic("mariam2", "ahmed@2"))
+        ).andExpect(result -> assertTrue(result.getResolvedException() instanceof ConflictException))
+                .andExpect(status().isConflict())
+                .andExpect(result -> assertEquals("you are already recorded this day !",result.getResolvedException().getMessage()));
+
     }
 
 
