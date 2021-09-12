@@ -25,33 +25,36 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
     List<Employee> findAllByTeamTeamId(int teamId);
 
+    @Query("select case when count(e)> 0 then true else false end from Employee e where e.nationalId=?1 ")
+    Boolean existsByNationalId(String nationalId);
 
-    List<Employee> findAllByManagerNationalId(int employeeId);
+
+    List<Employee> findAllByManagerId(int employeeId);
     @Query(
-            value = "with recursive cte(national_id,first_name,last_name,employee_degree,leaves,years_of_experience,birthdate, gender,acceptable_leaves, graduation_date, gross_salary,net_salary, department_id, manager_id, team_id ) as ( \n" +
-                    "            select     national_id,first_name,last_name,leaves,employee_degree,years_of_experience,birthdate, gender,acceptable_leaves, graduation_date, gross_salary,net_salary, department_id, manager_id, team_id \n" +
+            value = "with recursive cte(id,national_id,first_name,last_name,employee_degree,leaves,years_of_experience,birthdate, gender,acceptable_leaves, graduation_date, gross_salary,net_salary, department_id, manager_id, team_id ) as ( \n" +
+                    "            select     id,national_id,first_name,last_name,leaves,employee_degree,years_of_experience,birthdate, gender,acceptable_leaves, graduation_date, gross_salary,net_salary, department_id, manager_id, team_id \n" +
                     "\t\t\n" +
                     "              from       employee e\n" +
                     "             where      manager_id =:employeeId\n" +
                     "             union all\n" +
-                    "             select    p.national_id,p.first_name,p.last_name,p.leaves,p.employee_degree,p.years_of_experience,p.birthdate, p.acceptable_leaves,p.gender, p.graduation_date, p.gross_salary,p.net_salary,p.department_id, p.manager_id, p.team_id \n" +
+                    "             select    p.national_id,p.id,p.first_name,p.last_name,p.leaves,p.employee_degree,p.years_of_experience,p.birthdate, p.acceptable_leaves,p.gender, p.graduation_date, p.gross_salary,p.net_salary,p.department_id, p.manager_id, p.team_id \n" +
                     "             from       employee p\n" +
                     "            inner join cte\n" +
-                    "                   on p.manager_id = cte.national_id\n" +
+                    "                   on p.manager_id = cte.id\n" +
                     "            )\n" +
                     "            select * from cte; "
             , nativeQuery = true)
     List<Employee> findAllUnderSomeManager(@Param("employeeId")int employeeId);
 
-    @Query("SELECT e.leaves FROM Employee e WHERE e.nationalId=?1")
+    @Query("SELECT e.leaves FROM Employee e WHERE e.id=?1")
     int setLeaves(int employee_id);
 
    @Transactional
    @Modifying
-    @Query( value = "update Employee e set e.leaves= :leaves where e.nationalId= :nationalId")
+    @Query( value = "update Employee e set e.leaves= :leaves where e.id= :nationalId")
     void  updateMonthlyLeaves(int leaves ,int nationalId);
 
-    @Query("select e.nationalId from Employee e")
+    @Query("select e.id from Employee e")
     List<Integer> getAllByNationalId();
 
     @Modifying

@@ -27,7 +27,6 @@ public class ExtraPaymentsService {
                  e.printStackTrace();
              }
          }
-
          return 0.0;
      }
 

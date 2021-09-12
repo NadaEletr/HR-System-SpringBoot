@@ -7,17 +7,21 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private UserDetailPrincipalService userDetailPrincipalService;
+
     @Override
-    protected void configure(AuthenticationManagerBuilder auth){
+    protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authenticationProvider());
     }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
@@ -29,22 +33,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/SalaryHistory/get").hasRole(Roles.EMPLOYEE.name())
                 .antMatchers("/user/record/leave").hasRole(Roles.EMPLOYEE.name())
                 .antMatchers("/user/changePassword").hasRole(Roles.EMPLOYEE.name())
-                .and().httpBasic().and().sessionManagement().disable();
+                .and().httpBasic().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);;
     }
-    DaoAuthenticationProvider authenticationProvider()
-    {
+
+    DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
         daoAuthenticationProvider.setUserDetailsService(this.userDetailPrincipalService);
         return daoAuthenticationProvider;
     }
-    SecurityConfiguration(UserDetailPrincipalService userDetailPrincipalService)
-    {
-        this.userDetailPrincipalService=userDetailPrincipalService;
+
+    SecurityConfiguration(UserDetailPrincipalService userDetailPrincipalService) {
+        this.userDetailPrincipalService = userDetailPrincipalService;
     }
-        @Bean
-        PasswordEncoder passwordEncoder()
-        {
-            return new BCryptPasswordEncoder();
-        }
+
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 }

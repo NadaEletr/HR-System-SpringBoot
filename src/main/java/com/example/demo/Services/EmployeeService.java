@@ -1,12 +1,13 @@
 package com.example.demo.Services;
 
+import com.example.demo.Classes.Absence;
 import com.example.demo.Classes.AllowedVacations;
 import com.example.demo.Classes.Employee;
 import com.example.demo.Classes.SalaryDTO;
 import com.example.demo.Security.Roles;
 import com.example.demo.Security.UserAccount;
 import com.example.demo.Repositories.EmployeeRepository;
-import com.example.demo.Repositories.VacationRepository;
+import com.example.demo.Repositories.AbsenceRepository;
 import com.example.demo.errors.ConflictException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +26,25 @@ public class EmployeeService {
     @Autowired
     public EmployeeRepository employeeRepository;
     @Autowired
-    public VacationRepository vacationRepository;
+    public AbsenceRepository absenceRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
     UserAccountService userAccountService;
     public Employee saveEmployee(Employee employee) throws Exception {
-        if (employeeRepository.existsById(employee.getNationalId())) {
+        checkBeforeSaving(employee);
+        generateAcceptedLeave(employee);
+        CalcNetSalary(employee);
+        return employeeRepository.save(employee);
+
+    }
+
+    private void checkBeforeSaving(Employee employee) {
+        if(employeeRepository.existsByNationalId(employee.getNationalId()))
+        {
+            throw new ConflictException("national id exists before !");
+        }
+        if (employeeRepository.existsById(employee.getId())) {
             throw new ConflictException("this employee is already added");
         }
         if (employee.getDepartment() != null && employeeRepository.existsByDepartmentId(employee.getDepartment().getDepartmentId()) == false) {
@@ -42,9 +55,14 @@ public class EmployeeService {
             throw new NotFoundException("this team does not exists");
         }
 
-        if (employee.getManager() != null && !employeeRepository.existsById(employee.getManager().getNationalId())) {
+        if (employee.getManager() != null && !employeeRepository.existsById(employee.getManager().getId())) {
             throw new NotFoundException(" manager does not exists!");
         }
+
+    }
+
+
+    public void generateAcceptedLeave(Employee employee) {
         if(employee.getYearsOfExperience()<AllowedVacations.HIGHWORKINGYEARS)
         {
             employee.setAcceptableLeaves(AllowedVacations.getLessEXPERIENCED());
@@ -53,20 +71,13 @@ public class EmployeeService {
         {
             employee.setAcceptableLeaves(AllowedVacations.getEXPERIENCED());
         }
-        System.out.println("+++++++++++"+employee.getLast_name());
-        CalcNetSalary(employee);
-        return employeeRepository.save(employee);
-
-
     }
 
 
-
     public void generatePasswordAndUserName(Employee employee) throws Exception {
-        System.out.println("rrrrrrrrrrrrr"+employee.getNationalId());
-        Employee employee1= getEmployeeInfoByID(employee.getNationalId());
-        String username= employee1.getFirst_name()+employee1.getNationalId();
-        String password= employee1.getLast_name()+"@"+employee1.getNationalId();
+        Employee employee1= getEmployeeInfoByID(employee.getId());
+        String username= employee1.getFirst_name()+employee.getLast_name();
+        String password= employee1.getLast_name()+"@"+employee1.getId();
         UserAccount userAccount = new UserAccount();
         userAccount.setUserName(username);
         userAccount.setPassword(passwordEncoder.encode(password));
@@ -96,18 +107,18 @@ public class EmployeeService {
         return employeeRepository.getById(id);
     }
 
-    public void deleteEmployee(int id) throws NotFoundException {
-        Employee employeeToBeDeleted=employeeRepository.getById(id);
-        if (employeeRepository.existsById(id) == false) {
-            throw new NotFoundException("no employee with this ID");
-        }
-        if(employeeToBeDeleted.getManager()==null)
-        {
-            throw new ConflictException("cannot delete this manager!");
-        }
-        employeeRepository.deleteById(id);
-
-    }
+//    public void deleteEmployee(int id) throws NotFoundException {
+//        Employee employeeToBeDeleted=employeeRepository.getById(id);
+//        if (employeeRepository.existsById(id) == false) {
+//            throw new NotFoundException("no employee with this ID");
+//        }
+//        if(employeeToBeDeleted.getManager()==null)
+//        {
+//            throw new NotFoundException("cannot delete this manager!");
+//        }
+//        employeeRepository.deleteById(id);
+//
+//    }
 
     public boolean existsById(int id) {
         return employeeRepository.existsById(id);
@@ -137,7 +148,7 @@ public class EmployeeService {
         if (employeeRepository.existsById(mangerId) == false) {
             throw new NotFoundException("no employee with this ID");
         }
-        return employeeRepository.findAllByManagerNationalId(mangerId);
+        return employeeRepository.findAllByManagerId(mangerId);
     }
 
     public List<Employee> getEmployeesOnSpeceficManger(int mangerId) {
@@ -158,7 +169,7 @@ public class EmployeeService {
             employee1.setManager(employee.getManager());
             employeeRepository.save(employee);
         }
-        deleteEmployee(employeeId);
+        employeeRepository.delete(employee);
     }
     public void transferEmployee(Employee updateEmployee, Employee originalEmployee)
     {
@@ -203,16 +214,6 @@ public class EmployeeService {
             CalcNetSalary(originalEmployee);
         }
     }
-//    public void addRaises(int id,double raises) {
-//        Employee employee=getEmployeeInfoByID(id);
-//
-//        employee.setGrossSalary(employee.getGrossSalary()+raises);
-//        CalcNetSalary(employee);
-//        employeeRepository.save(employee);
-//    }
-
-
-
 
 
 }

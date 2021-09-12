@@ -35,7 +35,7 @@ EmployeeRepository employeeRepository;
     public @ResponseBody
     List<SalaryDetails> getEmployeeSalaryHistory()  {
         UserAccount userAccount =userDetailPrincipalService.getCurrentUser();
-        return salaryService.getEmployeeSalaryHistory(userAccount.getEmployee().getNationalId());
+        return salaryService.getEmployeeSalaryHistory(userAccount.getEmployee().getId());
     }
     @PostMapping(value = "/add/extraPayments", produces = MediaType.APPLICATION_JSON_VALUE)
     public

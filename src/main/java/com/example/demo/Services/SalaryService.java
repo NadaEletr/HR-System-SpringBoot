@@ -7,25 +7,20 @@ import com.example.demo.Classes.SalaryDetails;
 import com.example.demo.Repositories.EmployeeRepository;
 import com.example.demo.Repositories.ExtraPaymentsRepository;
 import com.example.demo.Repositories.SalaryHistoryRepository;
-import com.example.demo.Repositories.VacationRepository;
+import com.example.demo.Repositories.AbsenceRepository;
 import com.example.demo.errors.ConflictException;
 import com.example.demo.errors.NotFoundException;
-import org.jobrunr.jobs.annotations.Job;
-import org.jobrunr.scheduling.BackgroundJob;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.sql.Date;
-import java.time.LocalDate;
 
 
 import java.util.Calendar;
 
 
 import java.util.List;
-import java.util.stream.Stream;
 
 @Service
 public class SalaryService {
@@ -36,9 +31,9 @@ public class SalaryService {
     @Autowired
     SalaryHistoryRepository salaryHistoryRepository;
     @Autowired
-    VacationService vacationService;
+    AbsenceService absenceService;
     @Autowired
-    VacationRepository vacationRepository;
+    AbsenceRepository absenceRepository;
     @Autowired
     ExtraPaymentsRepository extraPaymentsRepository;
     @Autowired
@@ -47,7 +42,7 @@ public class SalaryService {
 
     public ExtraPayments addExtraPayments(ExtraPayments extraPayments) {
 
-        if (!employeeService.existsById(extraPayments.getEmployee().getNationalId())) {
+        if (!employeeService.existsById(extraPayments.getEmployee().getId())) {
             throw new NotFoundException("no employee with this id !");
         }
         if (extraPayments.getBonus() < 0) {
@@ -83,7 +78,7 @@ public class SalaryService {
         SalaryDetails salaryDetails=CreateSalaryDetails(employee,date);
         salaryHistoryRepository.save(salaryDetails);
         if(employee.getLeaves()>employee.getAcceptableLeaves()){
-            employeeRepository.updateMonthlyLeaves(employee.getAcceptableLeaves(), employee.getNationalId());
+            employeeRepository.updateMonthlyLeaves(employee.getAcceptableLeaves(), employee.getId());
         }
     }
 
@@ -99,7 +94,7 @@ public class SalaryService {
         salaryDetails.setInsurance(Salaries.insurance);
         double employeeTaxes = (Salaries.taxRatio) * employee.getGrossSalary();
         salaryDetails.setTaxes(employeeTaxes);
-        double exceededLeaves = vacationService.calculateExceededLeaves(employee);
+        double exceededLeaves = absenceService.calculateExceededLeaves(employee);
         salaryDetails.setExceededLeaves(exceededLeaves);
         calculateNetSalary(salaryDetails);
         return salaryDetails;

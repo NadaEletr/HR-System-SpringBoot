@@ -113,8 +113,6 @@ public class SalariesTests {
                     .content(body)).andExpect(result -> assertTrue(result.getResolvedException() instanceof ConflictException))
                     .andExpect(status().isConflict()).andExpect(result -> assertEquals("bonus must be positive number",result.getResolvedException().getMessage()))
                 .andExpect(authenticated());
-
-
     }
 
     @Test

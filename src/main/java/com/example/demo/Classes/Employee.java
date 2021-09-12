@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.sql.Date;
 import java.util.List;
 import java.util.Set;
@@ -16,8 +15,10 @@ import java.util.Set;
 public class Employee {
     @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
+    private int id;
     @Column(name="national_id")
-    private int nationalId;
+    private String nationalId;
     @Column(name = "first_name")
     private String first_name;
     @Column(name = "last_name")
@@ -61,7 +62,7 @@ public class Employee {
     private Date joinedYear;
     @OneToMany(mappedBy = "employee")
     @JsonIgnore
-    private List<Vacations> vacations;
+    private List<Absence> absences;
     @Column(name="acceptable_leaves")
     private Integer acceptableLeaves=0;
     @JsonIgnore
@@ -151,6 +152,14 @@ public class Employee {
 
     }
 
+    public String getNationalId() {
+        return nationalId;
+    }
+
+    public void setNationalId(String nationalId) {
+        this.nationalId = nationalId;
+    }
+
     public Double getNetSalary() {
         return netSalary;
     }
@@ -168,12 +177,14 @@ public class Employee {
 
     }
 
-    public int getNationalId() {
-        return nationalId;
+
+
+    public int getId() {
+        return id;
     }
 
-    public void setNationalId(int nationalId) {
-        this.nationalId = nationalId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getLast_name() {
@@ -221,12 +232,12 @@ public class Employee {
         this.salaryHistories = salaryHistories;
     }
 
-    public List<Vacations> getVacations() {
-        return vacations;
+    public List<Absence> getAbsences() {
+        return absences;
     }
 
-    public void setVacations(List<Vacations> vacations) {
-        this.vacations = vacations;
+    public void setVacations(List<Absence> vacations) {
+        this.absences = vacations;
     }
 
     public Integer getAcceptableLeaves() {

@@ -3,23 +3,18 @@ package com.example.demo.IntegerationTests;
 import com.example.demo.Classes.*;
 import com.example.demo.Security.UserAccount;
 import com.example.demo.Security.UserDetailPrincipalService;
-import com.example.demo.Security.UserPrincipal;
 import com.example.demo.Repositories.*;
 import com.example.demo.Services.EmployeeService;
 import com.example.demo.errors.ConflictException;
+import com.example.demo.errors.NotFoundException;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.github.springtestdbunit.annotation.ExpectedDatabase;
-import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
@@ -29,7 +24,6 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import org.testcontainers.shaded.com.fasterxml.jackson.core.JsonProcessingException;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -43,6 +37,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,properties = "scheduling.enabled=false")
 @AutoConfigureMockMvc
@@ -68,7 +63,7 @@ public class EmployeeTests {
     @Autowired
     TeamRepository teamRepository;
     @Autowired
-    VacationRepository vacationRepository;
+    AbsenceRepository absenceRepository;
     @Autowired
     DepartmentRepository departmentRepository;
     @Autowired
@@ -87,7 +82,7 @@ public class EmployeeTests {
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(salaryDTO);
         mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get/Salaries").with(httpBasic("nada1","nada123"))
-                .param("id", String.valueOf(employee.getNationalId()))).andExpect(authenticated())
+                .param("id", String.valueOf(employee.getId()))).andExpect(authenticated())
                 .andExpect(status().isOk()).andExpect((content().json(body)));
     }
 
@@ -100,7 +95,7 @@ public class EmployeeTests {
         mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get").with(httpBasic("nada1","nada123")).
                 param("id", String.valueOf(id))).andExpect(status().isOk()).andExpect(authenticated())
                 .andExpect((content().json(body)));
-        assertEquals(employee.getNationalId(),id);
+
     }
     @Test
     public void getEmployeesInTeam() throws Exception {
@@ -113,34 +108,72 @@ public class EmployeeTests {
                 .andExpect(status().isOk());
     }
 
-
     @Test
     public void addEmployee() throws Exception {
         Optional<Teams> team = teamRepository.findById(1);
-       Optional<Department> department = departmentRepository.findById(1);
+        Optional<Department> department = departmentRepository.findById(1);
         Employee manager = employeeRepository.getById(1);
         Employee employee = new Employee();
         employee.setFirst_name("youssef");
         employee.setLast_name("hhh");
+        employee.setId(4);
         employee.setGender(Gender.Male);
         employee.setGrossSalary(1223330d);
-        employee.setNationalId(4);
-       employee.setTeam(team.get());
-//      employee.setDepartment(department.get());
-        //employee.setManager(manager);
+        employee.setNationalId("122");
+        employee.setTeam(team.get());
+        employee.setDepartment(department.get());
+        employee.setManager(manager);
         employee.setYearsOfExperience(10);
         employee.setAcceptableLeaves(30);
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(employee);
-        employee.setNetSalary((employee.getGrossSalary() * 0.85 - 500));
-
+        employeeService.CalcNetSalary(employee);
+        employeeService.generateAcceptedLeave(employee);
+        String response = objectMapper.writeValueAsString(employee);
         mockMvc.perform(MockMvcRequestBuilders.post("/HR/employee/add")
                 .with(httpBasic("nada1","nada123")).
                         contentType(MediaType.APPLICATION_JSON)
-                .content(body)).andDo(print()).andExpect(status().isCreated()).andExpect(authenticated());
-        Employee resultEmployee= employeeRepository.getById(employee.getNationalId());
-        assertEquals(resultEmployee.getNationalId(),employee.getNationalId());
-        assertEquals(resultEmployee.getFirst_name(),resultEmployee.getFirst_name());
+                .content(body)).andDo(print()).andExpect(status().isCreated())
+                .andExpect(authenticated()).andExpect(content().json(response));
+    }
+    @Test
+    public void duplicateNationalIdWhenAddingEmployee() throws Exception {
+        Employee employee = new Employee();
+        employee.setId(5);
+        employee.setFirst_name("nada");
+        employee.setLast_name("ibrahim");
+        employee.setGender(Gender.Male);
+        employee.setNationalId("123");
+        employee.setGrossSalary(1223330d);
+        employee.setYearsOfExperience(10);
+        employee.setAcceptableLeaves(30);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String body = objectMapper.writeValueAsString(employee);
+        employeeService.CalcNetSalary(employee);
+        employeeService.generateAcceptedLeave(employee);
+        mockMvc.perform(MockMvcRequestBuilders.post("/HR/employee/add").with(httpBasic("nada1","nada123")).contentType(MediaType.APPLICATION_JSON)
+                .content(body)).andExpect(result -> assertTrue(result.getResolvedException() instanceof ConflictException))
+                .andExpect(status().isConflict()).andExpect(result -> assertEquals("national id exists before !",result.getResolvedException().getMessage())).andExpect(authenticated());
+    }
+    @Test
+    public void duplicateIdWhenAddingEmployee() throws Exception {
+        Employee employee = new Employee();
+        employee.setId(2);
+        employee.setFirst_name("nada");
+        employee.setLast_name("ibrahim");
+        employee.setGender(Gender.Male);
+        employee.setNationalId("666");
+        employee.setGrossSalary(1223330d);
+        employee.setYearsOfExperience(10);
+        employee.setAcceptableLeaves(30);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String body = objectMapper.writeValueAsString(employee);
+        employeeService.CalcNetSalary(employee);
+        employeeService.generateAcceptedLeave(employee);
+        mockMvc.perform(MockMvcRequestBuilders.post("/HR/employee/add").with(httpBasic("nada1","nada123")).contentType(MediaType.APPLICATION_JSON)
+                .content(body)).andExpect(result -> assertTrue(result.getResolvedException() instanceof ConflictException))
+                .andExpect(status().isConflict()).andExpect(result -> assertEquals("this employee is already added",result.getResolvedException().getMessage())).andExpect(authenticated());
+
     }
 
     @Test
@@ -148,7 +181,7 @@ public class EmployeeTests {
         int employeeId = 1;
         Employee employee=employeeRepository.getById(employeeId);
         Employee updateEmployee = new Employee();
-        updateEmployee.setNationalId(employeeId);
+        updateEmployee.setId(employeeId);
         updateEmployee.setGender(Gender.Female);
         updateEmployee.setFirst_name("sara");
         ObjectMapper objectMapper = new ObjectMapper();
@@ -164,25 +197,15 @@ public class EmployeeTests {
         assertEquals(employee.getGender(),updateEmployee.getGender());
     }
 
-//    @Test
-//    public void deleteEmployee() throws Exception {
-//        int id = 2;
-//        String message = "employee is deleted";
-//        Employee employeeToDelete=employeeRepository.getById(id);
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        String body = objectMapper.writeValueAsString(message);
-//        mockMvc.perform(MockMvcRequestBuilders.delete("/HR/employee/delete").param("id", String.valueOf(id))
-//        ).andExpect(status().isOk()).andExpect(content().string(message));
-//        assertEquals(employeeService.existsById(employeeToDelete.getEmployeeId()),false);
-//    }
+
 
     @Test
     public void getEmployeeUnderManager() throws Exception {
         Employee employeeManager = employeeRepository.getById(1);
-        List<Employee> employeesUnderManger = employeeRepository.findAllByManagerNationalId(employeeManager.getNationalId());
+        List<Employee> employeesUnderManger = employeeRepository.findAllByManagerId(employeeManager.getId());
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(employeesUnderManger);
-        mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get/underManager").param("id", String.valueOf(employeeManager.getNationalId()))
+        mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get/underManager").param("id", String.valueOf(employeeManager.getId()))
                 .with(httpBasic("nada1","nada123"))
         ).andExpect(status().isOk()).andExpect(content().json(body));
     }
@@ -199,38 +222,48 @@ public class EmployeeTests {
     }
 
     @Test
-//    @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = "/expected.xml")
-    public void deleteEmployee() throws Exception { ///dont forget
-        int id = 2;
+    public void deleteEmployeeWithNoManager() throws Exception { ///dont forget
+        int id = 1;
         String message = "employee " + id + " is deleted";
         Employee employeeToDelete=employeeRepository.getById(id);
         mockMvc.perform(MockMvcRequestBuilders.delete("/HR/employee/delete")
-                .param("id", String.valueOf(employeeToDelete.getNationalId()))
+                .param("id", String.valueOf(employeeToDelete.getId()))
                 .with(httpBasic("nada1","nada123"))
-        ).andExpect(status().isOk())
-               .andExpect(content().string(message)).andExpect(authenticated());
-//        assertEquals(employeeRepository.existsById(id),false);
+        ).andExpect(status().isNotFound())
+               .andExpect(authenticated()).andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
+                .andExpect(result -> assertEquals(" can't delete employee with no manager",result.getResolvedException().getMessage())).andExpect(authenticated());
     }
+    @Test
+//    @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = "/expected.xml")
+    public void deleteEmployeeWithManager() throws Exception { //check
+        int id=3;
+        String message = "employee " + id + " is deleted";
+        Employee employeeToDelete=employeeRepository.getById(id);
+        mockMvc.perform(MockMvcRequestBuilders.delete("/HR/employee/delete")
+                .param("id", String.valueOf(employeeToDelete.getId()))
+                .with(httpBasic("nada1","nada123")))
+                .andExpect(status().isOk())
+                .andExpect(authenticated())
+                .andExpect(content().string(message));
 
+    }
+// test to delete account for deleted user
 
     @Test
     public void recordLeaves() throws Exception {
         UserAccount userAccount = userAccountRepository.getById("sara3");
         ObjectMapper objectMapper = new ObjectMapper();
-        String message = "your absence are " + (userAccount.getEmployee().getLeaves() + 1);
+        String message = "your Absence are " + (userAccount.getEmployee().getLeaves() + 1);
         String body = objectMapper.writeValueAsString(message);
         mockMvc.perform(MockMvcRequestBuilders.post("/user/record/leave")
                 .with(httpBasic("sara3", "mohamed@3"))
         ).andExpect(status().isOk()).andExpect(content().string(message));
-        Vacations vacation = vacationRepository.findByEmployee(userAccount.getEmployee());
-        assertEquals(vacation.getEmployee().getLeaves(), userAccount.getEmployee().getLeaves() + 1);
+        Absence absence = absenceRepository.findByEmployee(userAccount.getEmployee());
+        assertEquals(absence.getEmployee().getLeaves(), userAccount.getEmployee().getLeaves() + 1);
     }
     @Test
-    public void recordLeaveDuplicate() throws Exception {
+    public void recordLeaveDuplicate() throws Exception { //check date
         UserAccount userAccount = userAccountRepository.getById("mariam2");
-        ObjectMapper objectMapper = new ObjectMapper();
-        String message = "your absence are " + (userAccount.getEmployee().getLeaves() + 1);
-        String body = objectMapper.writeValueAsString(message);
         mockMvc.perform(MockMvcRequestBuilders.post("/user/record/leave")
                 .with(httpBasic("mariam2", "ahmed@2"))
         ).andExpect(result -> assertTrue(result.getResolvedException() instanceof ConflictException))
@@ -238,9 +271,8 @@ public class EmployeeTests {
                 .andExpect(result -> assertEquals("you are already recorded this day !",result.getResolvedException().getMessage()));
     }
 
-
     @Test
-    public void changePassword() throws Exception { //check again 
+    public void changePassword() throws Exception { //check again
         ObjectMapper objectMapper = new ObjectMapper();
         String message = "password is changed successfully";
         String newPassword = "sara123";

@@ -41,7 +41,7 @@ public class UserDetailPrincipalService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserAccount userAccount = this.userAccountRepository.getById(username);
+        UserAccount userAccount = this.userAccountRepository.findById(username).orElse(null);
         if (userAccount == null) {
             throw new InvalidCredentialsException("user not found");
         }
@@ -51,6 +51,7 @@ public class UserDetailPrincipalService implements UserDetailsService {
 
     public String getLoggedUserName() {
         SecurityContext context = SecurityContextHolder.getContext();
+
         Authentication authentication = context.getAuthentication();
         return authentication.getName();
     }
@@ -71,7 +72,7 @@ public class UserDetailPrincipalService implements UserDetailsService {
         if (!userAccount.isPresent()) {
             throw new InvalidCredentialsException("this account does not exists!");
         }
-        Optional<Employee> employee = employeeRepository.findById(userAccount.get().getEmployee().getNationalId());
+        Optional<Employee> employee = employeeRepository.findById(userAccount.get().getEmployee().getId());
         if (!employee.isPresent()) {
             throw new NotFoundException("this employee does not exists!");
         }
