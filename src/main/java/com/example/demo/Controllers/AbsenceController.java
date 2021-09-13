@@ -8,7 +8,7 @@ import com.example.demo.Security.UserAccount;
 import com.example.demo.Security.UserDetailPrincipalService;
 import com.example.demo.Services.EmployeeService;
 import com.example.demo.Services.AbsenceService;
-import javassist.NotFoundException;
+import com.example.demo.errors.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/user")
+@RequestMapping(value = "/absence")
 public class AbsenceController {
     @Autowired
     AbsenceService absenceService;
@@ -28,19 +28,27 @@ public class AbsenceController {
     UserDetailPrincipalService userDetailPrincipalService;
     @Autowired
     EmployeeRepository employeeRepository;
-    @PostMapping(value= "/record/leave",produces = MediaType.APPLICATION_JSON_VALUE)
+
+    @PostMapping(value = "/record", produces = MediaType.APPLICATION_JSON_VALUE)
     public String
     recordLeave() throws NotFoundException {
-        UserAccount userAccount =userDetailPrincipalService.getCurrentUser();
+        UserAccount userAccount = userDetailPrincipalService.getCurrentUser();
         absenceService.recordLeave(userAccount.getEmployee().getId());
-        return "your Absence are "+userAccount.getEmployee().getLeaves();
+        return "your Absence are " + userAccount.getEmployee().getLeaves();
     }
-    @GetMapping(value = "/getLeaves", produces = MediaType.APPLICATION_JSON_VALUE)
+
+    @GetMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-        List<Absence> getAbsence() {
-        UserAccount userAccount =userDetailPrincipalService.getCurrentUser();
+    List<Absence> getAbsence() {
+        UserAccount userAccount = userDetailPrincipalService.getCurrentUser();
         return absenceService.getAbsence(userAccount.getEmployee().getId());
     }
+//    @GetMapping(value = "/getLeaves", produces = MediaType.APPLICATION_JSON_VALUE)
+//    public @ResponseBody
+//    List<Absence> getEmployeeAbsence(@RequestParam("")) {
+//        UserAccount userAccount =userDetailPrincipalService.getCurrentUser();
+//        return absenceService.getAbsence(userAccount.getEmployee().getId());
+//    }
 
 
 }

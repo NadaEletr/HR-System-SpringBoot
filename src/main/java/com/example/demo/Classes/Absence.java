@@ -1,5 +1,7 @@
 package com.example.demo.Classes;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -13,6 +15,7 @@ public class Absence {
     Date date;
     @ManyToOne
     @JoinColumn(name="employee_id")
+    @JsonIgnore
     private Employee employee;
     public Absence(Date date) {
         this.id = id;

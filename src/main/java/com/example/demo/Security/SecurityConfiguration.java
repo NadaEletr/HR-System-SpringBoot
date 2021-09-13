@@ -31,9 +31,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/HR/department/**").hasRole(Roles.HR.name())
                 .antMatchers("/SalaryHistory/add/extraPayments").hasRole(Roles.HR.name())
                 .antMatchers("/SalaryHistory/get").hasRole(Roles.EMPLOYEE.name())
-                .antMatchers("/user/record/leave").hasRole(Roles.EMPLOYEE.name())
-                .antMatchers("/user/changePassword").hasRole(Roles.EMPLOYEE.name())
-                .and().httpBasic().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);;
+                .antMatchers("/absence/**").hasRole(Roles.EMPLOYEE.name())
+                .antMatchers("/absence/").hasRole(Roles.EMPLOYEE.name())
+                .and().httpBasic().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     DaoAuthenticationProvider authenticationProvider() {

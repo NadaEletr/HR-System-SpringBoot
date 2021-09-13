@@ -55,7 +55,7 @@ public class AbsenceService {
 
     public List<Absence> getAbsence(int id) {
         Employee employee = employeeService.getEmployeeInfoByID(id);
-        return absenceRepository.findAllByEmployee(employee);
+        return absenceRepository.findAllByEmployee_Id(employee.getId());
 
     }
 }

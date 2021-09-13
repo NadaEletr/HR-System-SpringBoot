@@ -249,27 +249,7 @@ public class EmployeeTests {
     }
 // test to delete account for deleted user
 
-    @Test
-    public void recordLeaves() throws Exception {
-        UserAccount userAccount = userAccountRepository.getById("sara3");
-        ObjectMapper objectMapper = new ObjectMapper();
-        String message = "your Absence are " + (userAccount.getEmployee().getLeaves() + 1);
-        String body = objectMapper.writeValueAsString(message);
-        mockMvc.perform(MockMvcRequestBuilders.post("/user/record/leave")
-                .with(httpBasic("sara3", "mohamed@3"))
-        ).andExpect(status().isOk()).andExpect(content().string(message));
-        Absence absence = absenceRepository.findByEmployee(userAccount.getEmployee());
-        assertEquals(absence.getEmployee().getLeaves(), userAccount.getEmployee().getLeaves() + 1);
-    }
-    @Test
-    public void recordLeaveDuplicate() throws Exception { //check date
-        UserAccount userAccount = userAccountRepository.getById("mariam2");
-        mockMvc.perform(MockMvcRequestBuilders.post("/user/record/leave")
-                .with(httpBasic("mariam2", "ahmed@2"))
-        ).andExpect(result -> assertTrue(result.getResolvedException() instanceof ConflictException))
-                .andExpect(status().isConflict())
-                .andExpect(result -> assertEquals("you are already recorded this day !",result.getResolvedException().getMessage()));
-    }
+
 
     @Test
     public void changePassword() throws Exception { //check again

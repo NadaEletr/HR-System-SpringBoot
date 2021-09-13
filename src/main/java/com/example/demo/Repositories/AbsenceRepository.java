@@ -15,5 +15,5 @@ public interface AbsenceRepository extends JpaRepository<Absence, Integer> {
     Absence findByEmployee(Employee employee);
 
 
-    List<Absence> findAllByEmployee(Employee employee);
+    List<Absence> findAllByEmployee_Id(int employee_id);
 }
