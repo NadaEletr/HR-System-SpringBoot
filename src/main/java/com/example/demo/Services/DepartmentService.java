@@ -18,8 +18,6 @@ public class DepartmentService {
         }
 
         return departmentRepository.save(department);
-
-
     }
 }
 

@@ -14,5 +14,5 @@ public interface TeamRepository extends JpaRepository<Teams, Integer> {
     boolean existsByTeamName(String teamName);
 
 
-    List<Teams> getAllByTeamName(String name);
+    Teams getByTeamName(String name);
 }

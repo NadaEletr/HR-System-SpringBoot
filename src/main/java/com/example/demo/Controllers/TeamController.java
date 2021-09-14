@@ -15,7 +15,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping(value = "/HR/Teams")
+@RequestMapping(value = "/Teams")
 public class TeamController {
     @Autowired
     TeamService teamService;
@@ -29,8 +29,8 @@ public class TeamController {
 
     @GetMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    List<Teams> getTeams(@RequestParam("name") String name) {
-        return teamService.getTeams(name);
+    Teams getTeams(@RequestParam("id") String id) {
+        return teamService.getTeams(Integer.parseInt(id));
     }
 
 }

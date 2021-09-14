@@ -2,9 +2,13 @@ package com.example.demo.IntegerationTests;
 
 import com.example.demo.Classes.Teams;
 import com.example.demo.Repositories.TeamRepository;
+import com.example.demo.Repositories.UserAccountRepository;
+import com.example.demo.Security.UserAccount;
 import com.example.demo.Services.TeamService;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.ExpectedDatabase;
+import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = "scheduling.enabled=false")
 @AutoConfigureMockMvc
 @ExtendWith(SpringExtension.class)
+@DatabaseSetup("/data.xml")
 @ActiveProfiles("test")
 @TestExecutionListeners({
 
@@ -42,23 +47,28 @@ public class TeamTests {
     TeamService teamService;
     @Autowired
     TeamRepository teamRepository;
+    @Autowired
+    UserAccountRepository userAccountRepository;
 
     @Test
-    @DatabaseSetup("/data.xml")
     public void addTeam() throws Exception {
         Teams addTeam = new Teams();
         addTeam.setTeamName("a8");
         addTeam.setTeamId(3);
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(addTeam);
-        mockMvc.perform(MockMvcRequestBuilders.post("/HR/Teams/add").with(httpBasic("nada1", "nada123")).contentType(MediaType.APPLICATION_JSON).content(body))
+        mockMvc.perform(MockMvcRequestBuilders.post("/Teams/add").with(httpBasic("nada1", "nada123")).contentType(MediaType.APPLICATION_JSON).content(body))
                 .andExpect(status().isCreated());
         Teams resultTeams = teamRepository.getById(addTeam.getTeamId());
         assertEquals(resultTeams.getTeamId(), addTeam.getTeamId());
         assertEquals(resultTeams.getTeamName(), addTeam.getTeamName());
-
-
     }
-
-
+    @Test
+    @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = "/data.xml")
+    public void testGetTeam() throws Exception {
+        int id =1;
+        UserAccount userAccount = userAccountRepository.getById("nada1");
+        mockMvc.perform(MockMvcRequestBuilders.get("/Teams/get").param("id", String.valueOf(id))
+                .with(httpBasic(userAccount.getUserName(), "nada123")));
+    }
 }

@@ -49,5 +49,4 @@ public class SalaryController {
     List<SalaryDetails> getEmployeeSalaryHistoryById(@RequestParam("id") String id) {
         return salaryService.getEmployeeSalaryHistory(Integer.parseInt(id));
     }
-
 }

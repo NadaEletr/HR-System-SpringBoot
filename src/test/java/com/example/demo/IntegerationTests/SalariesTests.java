@@ -138,8 +138,6 @@ public class SalariesTests {
         UserAccount userAccount = userAccountRepository.getById("sara3");
         mockMvc.perform(MockMvcRequestBuilders.get("/SalaryHistory/get")
                 .with(httpBasic(userAccount.getUserName(), "mohamed@3")));
-
-
     }
     @Test
     @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = "/data.xml")
@@ -148,9 +146,6 @@ public class SalariesTests {
         UserAccount userAccount = userAccountRepository.getById("nada1");
         mockMvc.perform(MockMvcRequestBuilders.get("/SalaryHistory/get").param("id", String.valueOf(id))
                 .with(httpBasic(userAccount.getUserName(), "nada123")));
-
-
     }
-
 
 }

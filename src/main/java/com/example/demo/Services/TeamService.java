@@ -22,17 +22,19 @@ public class TeamService {
         if (teamRepository.existsByTeamName(team.getTeamName())) {
             throw new ConflictException("team already exists !");
         }
-
+        if(teamRepository.existsById(team.getTeamId())){
+            throw new ConflictException("team already exists !");
+        }
         return teamRepository.save(team);
 
     }
 
 
-    public List<Teams> getTeams(String name) {
+    public Teams getTeams(int id) {
 
-        if (!teamRepository.existsByTeamName(name)) {
+        if (!teamRepository.existsById(id)) {
             throw new NotFoundException("team does not exists!");
         }
-        return teamRepository.getAllByTeamName(name);
+        return teamRepository.getById(id);
     }
 }

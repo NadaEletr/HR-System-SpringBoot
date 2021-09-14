@@ -1,16 +1,19 @@
 package com.example.demo.Classes;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.GenericGenerator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 import javax.persistence.*;
 import java.util.*;
 
 @Entity
 @Table(name = "teams")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Teams {
     @Id
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "team_id")
     private int teamId;
 
     @Column(name = "team_name")

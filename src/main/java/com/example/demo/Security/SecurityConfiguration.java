@@ -27,7 +27,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.
                 authorizeRequests().antMatchers("/HR/employee/**").hasRole(Roles.HR.name())
-                .antMatchers("/HR/Teams/**").hasRole(Roles.HR.name())
+                .antMatchers("/Teams/**").hasRole(Roles.HR.name())
                 .antMatchers("/HR/department/**").hasRole(Roles.HR.name())
                 .antMatchers("/SalaryHistory/add/extraPayments").hasRole(Roles.HR.name())
                 .antMatchers("/SalaryHistory/get").hasAnyRole(Roles.EMPLOYEE.name(),Roles.HR.name())
