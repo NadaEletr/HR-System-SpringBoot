@@ -1,11 +1,13 @@
 package com.example.demo.IntegerationTests;
 
 import com.example.demo.Classes.Department;
+import com.example.demo.Classes.Teams;
 import com.example.demo.Repositories.DepartmentRepository;
 import com.example.demo.Repositories.UserAccountRepository;
 import com.example.demo.Security.UserAccount;
 import com.example.demo.Services.DepartmentService;
 import com.example.demo.Services.EmployeeService;
+import com.example.demo.errors.ConflictException;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
@@ -28,6 +30,7 @@ import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -74,5 +77,17 @@ public class DepartmentTests {
         UserAccount userAccount = userAccountRepository.getById("nada1");
         mockMvc.perform(MockMvcRequestBuilders.get("/department/get").param("id", String.valueOf(id))
                 .with(httpBasic(userAccount.getUserName(), "nada123")));
+    }
+    @Test
+    public void testDuplicateNameWhenAdding() throws Exception {
+        UserAccount userAccount = userAccountRepository.getById("nada1");
+        Department department = new Department();
+        department.setDepartmentName("sw");
+        department.setDepartmentId(3);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String body = objectMapper.writeValueAsString(department);
+        mockMvc.perform(MockMvcRequestBuilders.post("/department/add")
+                .with(httpBasic(userAccount.getUserName(), "nada123")).contentType(MediaType.APPLICATION_JSON).content(body)).andExpect(result -> assertTrue(result.getResolvedException() instanceof ConflictException))
+                .andExpect(status().isConflict()).andExpect(result -> assertEquals("department already exists !", result.getResolvedException().getMessage()));
     }
 }
