@@ -4,6 +4,7 @@ import com.example.demo.Classes.Absence;
 import com.example.demo.Classes.AllowedVacations;
 import com.example.demo.Classes.Employee;
 import com.example.demo.Classes.SalaryDTO;
+import com.example.demo.Repositories.UserAccountRepository;
 import com.example.demo.Security.Roles;
 import com.example.demo.Security.UserAccount;
 import com.example.demo.Repositories.EmployeeRepository;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import com.example.demo.errors.NotFoundException;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -31,6 +33,8 @@ public class EmployeeService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     UserAccountService userAccountService;
+    @Autowired
+    UserAccountRepository userAccountRepository;
 
     public Employee saveEmployee(Employee employee) throws Exception {
         checkBeforeSaving(employee);
@@ -72,14 +76,14 @@ public class EmployeeService {
 
 
     public void generatePasswordAndUserName(Employee employee) throws Exception {
-        Employee employee1 = getEmployeeInfoByID(employee.getId());
-        String username = employee1.getFirst_name() + employee.getLast_name();
-        String password = employee1.getLast_name() + "@" + employee1.getId();
+
+        String username = employee.getFirst_name() + employee.getLast_name()+employee.getId();
+        String password = employee.getNationalId();
         UserAccount userAccount = new UserAccount();
         userAccount.setUserName(username);
         userAccount.setPassword(passwordEncoder.encode(password));
         userAccount.setRoles(Roles.EMPLOYEE.name());
-        userAccount.setEmployee(employee1);
+        userAccount.setEmployee(employee);
         userAccountService.addUserAccount(userAccount);
     }
 
@@ -153,6 +157,7 @@ public class EmployeeService {
         return employeeRepository.findAllUnderSomeManager(mangerId);
     }
 
+    @Transactional
     public void delete(int employeeId) {
 
         Employee employee = getEmployeeInfoByID(employeeId);
@@ -164,7 +169,11 @@ public class EmployeeService {
             employee1.setManager(employee.getManager());
             employeeRepository.save(employee);
         }
-        employeeRepository.delete(employee);
+        userAccountService.deleteAccount(employee);
+        employeeRepository.deleteById(employee.getId());
+
+
+
     }
 
     public void transferEmployee(Employee updateEmployee, Employee originalEmployee) {
@@ -195,7 +204,7 @@ public class EmployeeService {
         if (updateEmployee.getGrossSalary() != 0d) {
             originalEmployee.setGrossSalary(updateEmployee.getGrossSalary());
         }
-        if (updateEmployee.getNetSalary() != 0d) {
+        if (updateEmployee.getNetSalary() != null) {
             CalcNetSalary(originalEmployee);
         }
     }

@@ -14,4 +14,6 @@ public interface UserAccountRepository extends JpaRepository<UserAccount, String
     @Query("select u.password from  UserAccount u where u.employee=?1")
     String getPassword(Employee employee);
 
+    void deleteByEmployee(Employee employee);
+
 }

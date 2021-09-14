@@ -91,7 +91,7 @@ public class SalariesTests {
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(extraPayments);
         mockMvc.perform(MockMvcRequestBuilders.post("/SalaryHistory/add/extraPayments").with(httpBasic("nada1", "nada123")).contentType(MediaType.APPLICATION_JSON)
-                .content(body)).andExpect(authenticated())
+                .content(body))
                 .andExpect(status().isOk());
         ExtraPayments extraPayments1 = extraPaymentsRepository.getById(2);
         assertEquals(extraPayments1.getBonus(), extraPayments.getBonus());
@@ -113,7 +113,7 @@ public class SalariesTests {
         mockMvc.perform(MockMvcRequestBuilders.post("/SalaryHistory/add/extraPayments").with(httpBasic("nada1", "nada123")).contentType(MediaType.APPLICATION_JSON)
                 .content(body)).andExpect(result -> assertTrue(result.getResolvedException() instanceof ConflictException))
                 .andExpect(status().isConflict()).andExpect(result -> assertEquals("bonus must be positive number", result.getResolvedException().getMessage()))
-                .andExpect(authenticated());
+                ;
     }
 
     @Test
@@ -128,7 +128,7 @@ public class SalariesTests {
         String body = objectMapper.writeValueAsString(extraPayments);
         mockMvc.perform(MockMvcRequestBuilders.post("/SalaryHistory/add/extraPayments").with(httpBasic("nada1", "nada123")).contentType(MediaType.APPLICATION_JSON)
                 .content(body)).andExpect(result -> assertTrue(result.getResolvedException() instanceof ConflictException))
-                .andExpect(status().isConflict()).andExpect(result -> assertEquals("raise must be positive number", result.getResolvedException().getMessage())).andExpect(authenticated());
+                .andExpect(status().isConflict()).andExpect(result -> assertEquals("raise must be positive number", result.getResolvedException().getMessage()));
 
     }
 

@@ -1,11 +1,16 @@
 package com.example.demo.Classes;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.sql.Date;
 
 
 @Entity
 @Table(name = "extra_payments")
+@Getter
+@Setter
 public class ExtraPayments {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,43 +29,43 @@ public class ExtraPayments {
     @Column(name = "raise")
     private double raise;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public double getBonus() {
-        return bonus;
-    }
-
-    public void setBonus(double bonus) {
-        this.bonus = bonus;
-    }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public double getRaise() {
-        return raise;
-    }
-
-    public void setRaise(double raise) {
-        this.raise = raise;
-    }
+//    public int getId() {
+//        return id;
+//    }
+//
+//    public void setId(int id) {
+//        this.id = id;
+//    }
+//
+//    public double getBonus() {
+//        return bonus;
+//    }
+//
+//    public void setBonus(double bonus) {
+//        this.bonus = bonus;
+//    }
+//
+//    public Employee getEmployee() {
+//        return employee;
+//    }
+//
+//    public void setEmployee(Employee employee) {
+//        this.employee = employee;
+//    }
+//
+//    public Date getDate() {
+//        return date;
+//    }
+//
+//    public void setDate(Date date) {
+//        this.date = date;
+//    }
+//
+//    public double getRaise() {
+//        return raise;
+//    }
+//
+//    public void setRaise(double raise) {
+//        this.raise = raise;
+//    }
 }

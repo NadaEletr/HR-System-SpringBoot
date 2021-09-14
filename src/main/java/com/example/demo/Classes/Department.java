@@ -2,6 +2,9 @@ package com.example.demo.Classes;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;
@@ -10,6 +13,8 @@ import java.util.Set;
 @Entity
 @Table(name = "department")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@Getter
+@Setter
 public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,29 +29,29 @@ public class Department {
 
     }
 
-    public int getDepartmentId() {
-        return departmentId;
-    }
-
-    public void setDepartmentId(int departmentId) {
-        this.departmentId = departmentId;
-    }
-
-    public String getDepartmentName() {
-        return departmentName;
-    }
-
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
-    }
-
-    public Set<Employee> getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(Set<Employee> employees) {
-        this.employees = employees;
-    }
-
+//    public int getDepartmentId() {
+//        return departmentId;
+//    }
+//
+//    public void setDepartmentId(int departmentId) {
+//        this.departmentId = departmentId;
+//    }
+//
+//    public String getDepartmentName() {
+//        return departmentName;
+//    }
+//
+//    public void setDepartmentName(String departmentName) {
+//        this.departmentName = departmentName;
+//    }
+//
+//    public Set<Employee> getEmployees() {
+//        return employees;
+//    }
+//
+//    public void setEmployees(Set<Employee> employees) {
+//        this.employees = employees;
+//    }
+//
 
 }

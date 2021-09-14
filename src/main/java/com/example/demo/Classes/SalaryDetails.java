@@ -1,6 +1,8 @@
 package com.example.demo.Classes;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -8,6 +10,8 @@ import java.util.Date;
 
 @Entity
 @Table(name = "salary_history")
+@Getter
+@Setter
 public class SalaryDetails {
     @Id
     @JsonIgnore
@@ -35,75 +39,75 @@ public class SalaryDetails {
     public SalaryDetails() {
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public double getRaises() {
-        return raises;
-    }
-
-    public void setRaises(double raises) {
-        this.raises = raises;
-    }
-
-    public double getExceededLeaves() {
-        return exceededLeaves;
-    }
-
-    public void setExceededLeaves(double exceededLeaves) {
-        this.exceededLeaves = exceededLeaves;
-    }
-
-    public double getTaxes() {
-        return taxes;
-    }
-
-    public void setTaxes(double taxes) {
-        this.taxes = taxes;
-    }
-
-    public Double getInsurance() {
-        return insurance;
-    }
-
-    public double getBonus() {
-        return bonus;
-    }
-
-    public void setBonus(double bonus) {
-        this.bonus = bonus;
-    }
-
-    public double getNetSalary() {
-        return netSalary;
-    }
-
-    public void setNetSalary(double netSalary) {
-        this.netSalary = netSalary;
-    }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setInsurance(Double insurance) {
-        this.insurance = insurance;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
+//    public int getId() {
+//        return id;
+//    }
+//
+//    public void setId(int id) {
+//        this.id = id;
+//    }
+//
+//    public Date getDate() {
+//        return date;
+//    }
+//
+//    public void setDate(Date date) {
+//        this.date = date;
+//    }
+//
+//    public double getRaises() {
+//        return raises;
+//    }
+//
+//    public void setRaises(double raises) {
+//        this.raises = raises;
+//    }
+//
+//    public double getExceededLeaves() {
+//        return exceededLeaves;
+//    }
+//
+//    public void setExceededLeaves(double exceededLeaves) {
+//        this.exceededLeaves = exceededLeaves;
+//    }
+//
+//    public double getTaxes() {
+//        return taxes;
+//    }
+//
+//    public void setTaxes(double taxes) {
+//        this.taxes = taxes;
+//    }
+//
+//    public Double getInsurance() {
+//        return insurance;
+//    }
+//
+//    public double getBonus() {
+//        return bonus;
+//    }
+//
+//    public void setBonus(double bonus) {
+//        this.bonus = bonus;
+//    }
+//
+//    public double getNetSalary() {
+//        return netSalary;
+//    }
+//
+//    public void setNetSalary(double netSalary) {
+//        this.netSalary = netSalary;
+//    }
+//
+//    public Employee getEmployee() {
+//        return employee;
+//    }
+//
+//    public void setInsurance(Double insurance) {
+//        this.insurance = insurance;
+//    }
+//
+//    public void setEmployee(Employee employee) {
+//        this.employee = employee;
+//    }
 }

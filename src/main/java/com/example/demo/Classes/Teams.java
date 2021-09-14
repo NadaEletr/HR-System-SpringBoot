@@ -2,6 +2,8 @@ package com.example.demo.Classes;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
 
 
 import javax.persistence.*;
@@ -9,6 +11,8 @@ import java.util.*;
 
 @Entity
 @Table(name = "teams")
+@Getter
+@Setter
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Teams {
     @Id
@@ -22,29 +26,29 @@ public class Teams {
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     Set<Employee> employees;
 
-    public int getTeamId() {
-        return teamId;
-    }
-
-    public void setTeamId(int teamId) {
-        this.teamId = teamId;
-    }
-
-    public String getTeamName() {
-        return teamName;
-    }
-
-    public void setTeamName(String teamName) {
-        this.teamName = teamName;
-    }
-
-    public Set<Employee> getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(Set<Employee> employees) {
-        this.employees = employees;
-    }
+//    public int getTeamId() {
+//        return teamId;
+//    }
+//
+//    public void setTeamId(int teamId) {
+//        this.teamId = teamId;
+//    }
+//
+//    public String getTeamName() {
+//        return teamName;
+//    }
+//
+//    public void setTeamName(String teamName) {
+//        this.teamName = teamName;
+//    }
+//
+//    public Set<Employee> getEmployees() {
+//        return employees;
+//    }
+//
+//    public void setEmployees(Set<Employee> employees) {
+//        this.employees = employees;
+//    }
 
 
 }

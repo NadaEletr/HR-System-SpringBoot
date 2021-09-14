@@ -61,6 +61,10 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     @Modifying
     @Query(value = "update Employee e set e.leaves=?1")
     void updateYearlyLeaves(int i);
+
+    @Modifying
+    void deleteById(int id);
+
 }
 
 

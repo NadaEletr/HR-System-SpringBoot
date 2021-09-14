@@ -1,5 +1,6 @@
 package com.example.demo.Services;
 
+import com.example.demo.Classes.Employee;
 import com.example.demo.Security.UserAccount;
 import com.example.demo.Repositories.UserAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,4 +22,7 @@ public class UserAccountService {
         }
     }
 
+    public void deleteAccount(Employee employee) {
+       userAccountRepository.deleteByEmployee(employee);
+    }
 }

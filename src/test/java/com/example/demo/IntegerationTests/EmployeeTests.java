@@ -246,9 +246,10 @@ public class EmployeeTests {
                 .with(httpBasic("nada1", "nada123")))
                 .andExpect(status().isOk())
                 .andExpect(content().string(message));
+        assertEquals(employeeRepository.existsById(3),false);
 
     }
-// test to delete account for deleted user
+
 
 
     @Test
