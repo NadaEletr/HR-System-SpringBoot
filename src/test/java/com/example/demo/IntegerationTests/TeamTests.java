@@ -5,6 +5,7 @@ import com.example.demo.Repositories.TeamRepository;
 import com.example.demo.Repositories.UserAccountRepository;
 import com.example.demo.Security.UserAccount;
 import com.example.demo.Services.TeamService;
+import com.example.demo.errors.ConflictException;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
@@ -25,7 +26,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
+import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -58,7 +61,7 @@ public class TeamTests {
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(addTeam);
         mockMvc.perform(MockMvcRequestBuilders.post("/Teams/add").with(httpBasic("nada1", "nada123")).contentType(MediaType.APPLICATION_JSON).content(body))
-                .andExpect(status().isCreated());
+                .andExpect(status().isCreated()).andReturn();
         Teams resultTeams = teamRepository.getById(addTeam.getTeamId());
         assertEquals(resultTeams.getTeamId(), addTeam.getTeamId());
         assertEquals(resultTeams.getTeamName(), addTeam.getTeamName());
@@ -70,5 +73,19 @@ public class TeamTests {
         UserAccount userAccount = userAccountRepository.getById("nada1");
         mockMvc.perform(MockMvcRequestBuilders.get("/Teams/get").param("id", String.valueOf(id))
                 .with(httpBasic(userAccount.getUserName(), "nada123")));
+    }
+    @Test
+    public void testDuplicateTeamName() throws Exception {
+        UserAccount userAccount = userAccountRepository.getById("nada1");
+        Teams addTeam = new Teams();
+        addTeam.setTeamName("a2");
+        addTeam.setTeamId(3);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String body = objectMapper.writeValueAsString(addTeam);
+        mockMvc.perform(MockMvcRequestBuilders.post("/Teams/add")
+                .with(httpBasic(userAccount.getUserName(), "nada123")).contentType(MediaType.APPLICATION_JSON).content(body)).andExpect(result -> assertTrue(result.getResolvedException() instanceof ConflictException))
+                .andExpect(status().isConflict()).andExpect(result -> assertEquals("team already exists !", result.getResolvedException().getMessage()));
+        ;
+
     }
 }
