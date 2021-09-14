@@ -78,70 +78,79 @@ public class SalariesTests {
     UserAccountRepository userAccountRepository;
     @Autowired
     UserDetailPrincipalService userDetailPrincipalService;
+
     @Test
     public void addBonusAndRaise() throws Exception {
-        int employeeId=1;
-        Employee employee =employeeService.getEmployeeInfoByID(employeeId);
-        ExtraPayments extraPayments =new ExtraPayments();
+        int employeeId = 1;
+        Employee employee = employeeService.getEmployeeInfoByID(employeeId);
+        ExtraPayments extraPayments = new ExtraPayments();
         extraPayments.setBonus(500);
         extraPayments.setEmployee(employee);
         extraPayments.setRaise(1000);
         extraPayments.setId(2);
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(extraPayments);
-        mockMvc.perform(MockMvcRequestBuilders.post("/SalaryHistory/add/extraPayments").with(httpBasic("nada1","nada123")).contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(MockMvcRequestBuilders.post("/SalaryHistory/add/extraPayments").with(httpBasic("nada1", "nada123")).contentType(MediaType.APPLICATION_JSON)
                 .content(body)).andExpect(authenticated())
-        .andExpect(status().isOk());
-        ExtraPayments extraPayments1= extraPaymentsRepository.getById(2);
-        assertEquals(extraPayments1.getBonus(),extraPayments.getBonus());
-        assertEquals(extraPayments1.getRaise(),extraPayments.getRaise());
-        assertEquals(extraPayments1.getEmployee().getNationalId(),extraPayments.getEmployee().getNationalId());
-        assertEquals(extraPayments1.getId(),extraPayments.getId());
+                .andExpect(status().isOk());
+        ExtraPayments extraPayments1 = extraPaymentsRepository.getById(2);
+        assertEquals(extraPayments1.getBonus(), extraPayments.getBonus());
+        assertEquals(extraPayments1.getRaise(), extraPayments.getRaise());
+        assertEquals(extraPayments1.getEmployee().getNationalId(), extraPayments.getEmployee().getNationalId());
+        assertEquals(extraPayments1.getId(), extraPayments.getId());
     }
 
     @Test
     public void testWhenBonusIsNegative() throws Exception {
-        int employeeId=2;
-        Employee employee =employeeService.getEmployeeInfoByID(employeeId);
-        ExtraPayments extraPayments =new ExtraPayments();
+        int employeeId = 2;
+        Employee employee = employeeService.getEmployeeInfoByID(employeeId);
+        ExtraPayments extraPayments = new ExtraPayments();
         extraPayments.setBonus(-500);
         extraPayments.setEmployee(employee);
         extraPayments.setId(3);
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(extraPayments);
-        mockMvc.perform(MockMvcRequestBuilders.post("/SalaryHistory/add/extraPayments").with(httpBasic("nada1","nada123")).contentType(MediaType.APPLICATION_JSON)
-                    .content(body)).andExpect(result -> assertTrue(result.getResolvedException() instanceof ConflictException))
-                    .andExpect(status().isConflict()).andExpect(result -> assertEquals("bonus must be positive number",result.getResolvedException().getMessage()))
+        mockMvc.perform(MockMvcRequestBuilders.post("/SalaryHistory/add/extraPayments").with(httpBasic("nada1", "nada123")).contentType(MediaType.APPLICATION_JSON)
+                .content(body)).andExpect(result -> assertTrue(result.getResolvedException() instanceof ConflictException))
+                .andExpect(status().isConflict()).andExpect(result -> assertEquals("bonus must be positive number", result.getResolvedException().getMessage()))
                 .andExpect(authenticated());
     }
 
     @Test
     public void testWhenRaiseIsNegative() throws Exception {
-        int employeeId=3;
-        Employee employee =employeeService.getEmployeeInfoByID(employeeId);
-        ExtraPayments extraPayments =new ExtraPayments();
+        int employeeId = 3;
+        Employee employee = employeeService.getEmployeeInfoByID(employeeId);
+        ExtraPayments extraPayments = new ExtraPayments();
         extraPayments.setRaise(-100);
         extraPayments.setEmployee(employee);
         extraPayments.setId(4);
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(extraPayments);
-        mockMvc.perform(MockMvcRequestBuilders.post("/SalaryHistory/add/extraPayments").with(httpBasic("nada1","nada123")).contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(MockMvcRequestBuilders.post("/SalaryHistory/add/extraPayments").with(httpBasic("nada1", "nada123")).contentType(MediaType.APPLICATION_JSON)
                 .content(body)).andExpect(result -> assertTrue(result.getResolvedException() instanceof ConflictException))
-                .andExpect(status().isConflict()).andExpect(result -> assertEquals("raise must be positive number",result.getResolvedException().getMessage())).andExpect(authenticated());
+                .andExpect(status().isConflict()).andExpect(result -> assertEquals("raise must be positive number", result.getResolvedException().getMessage())).andExpect(authenticated());
+
+    }
+
+    @Test
+    @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = "/data.xml")
+    public void testEmployeeGetSalaryHistory() throws Exception {
+        UserAccount userAccount = userAccountRepository.getById("sara3");
+        mockMvc.perform(MockMvcRequestBuilders.get("/SalaryHistory/get")
+                .with(httpBasic(userAccount.getUserName(), "mohamed@3")));
+
 
     }
     @Test
-   @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = "/data.xml")
-    public void testGetSalaryHistory() throws Exception {
-         UserAccount userAccount=userAccountRepository.getById("sara3");
-         mockMvc.perform(MockMvcRequestBuilders.get("/SalaryHistory/get")
-                 .with(httpBasic(userAccount.getUserName(),"mohamed@3")));
+    @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = "/data.xml")
+    public void testHRGetSalaryHistory() throws Exception {
+        int id=1;
+        UserAccount userAccount = userAccountRepository.getById("nada1");
+        mockMvc.perform(MockMvcRequestBuilders.get("/SalaryHistory/get").param("id", String.valueOf(id))
+                .with(httpBasic(userAccount.getUserName(), "nada123")));
 
 
     }
-
-
-
 
 
 }

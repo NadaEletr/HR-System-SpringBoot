@@ -18,32 +18,36 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+
 @Slf4j
 @RestController
 @RequestMapping(value = "/SalaryHistory")
 public class SalaryController {
-@Autowired
-SalaryService salaryService;
-@Autowired
-UserAccountRepository userAccountRepository;
-@Autowired
-UserDetailPrincipalService userDetailPrincipalService;
-@Autowired
-EmployeeRepository employeeRepository;
+    @Autowired
+    SalaryService salaryService;
+    @Autowired
+    UserAccountRepository userAccountRepository;
+    @Autowired
+    UserDetailPrincipalService userDetailPrincipalService;
+    @Autowired
+    EmployeeRepository employeeRepository;
 
     @GetMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    List<SalaryDetails> getEmployeeSalaryHistory()  {
-        UserAccount userAccount =userDetailPrincipalService.getCurrentUser();
+    List<SalaryDetails> getEmployeeSalaryHistory() {
+        UserAccount userAccount = userDetailPrincipalService.getCurrentUser();
         return salaryService.getEmployeeSalaryHistory(userAccount.getEmployee().getId());
     }
+
     @PostMapping(value = "/add/extraPayments", produces = MediaType.APPLICATION_JSON_VALUE)
-    public
-    String addBonusAndRaise(@RequestBody ExtraPayments extraPayments)
-    {
+    public String addBonusAndRaise(@RequestBody ExtraPayments extraPayments) {
         salaryService.addExtraPayments(extraPayments);
         return "extra payments is added!";
     }
-
+    @GetMapping(value = "/get/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    List<SalaryDetails> getEmployeeSalaryHistoryById(@RequestParam("id") String id) {
+        return salaryService.getEmployeeSalaryHistory(Integer.parseInt(id));
+    }
 
 }

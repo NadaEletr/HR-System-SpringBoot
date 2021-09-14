@@ -25,7 +25,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,properties = "scheduling.enabled=false")
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = "scheduling.enabled=false")
 @AutoConfigureMockMvc
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
@@ -51,16 +51,14 @@ public class TeamTests {
         addTeam.setTeamId(3);
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(addTeam);
-        mockMvc.perform(MockMvcRequestBuilders.post("/HR/Teams/add").with(httpBasic("nada1","nada123")).contentType(MediaType.APPLICATION_JSON).content(body))
+        mockMvc.perform(MockMvcRequestBuilders.post("/HR/Teams/add").with(httpBasic("nada1", "nada123")).contentType(MediaType.APPLICATION_JSON).content(body))
                 .andExpect(status().isCreated());
         Teams resultTeams = teamRepository.getById(addTeam.getTeamId());
-        assertEquals(resultTeams.getTeamId(),addTeam.getTeamId());
-        assertEquals(resultTeams.getTeamName(),addTeam.getTeamName());
-
+        assertEquals(resultTeams.getTeamId(), addTeam.getTeamId());
+        assertEquals(resultTeams.getTeamName(), addTeam.getTeamName());
 
 
     }
-
 
 
 }

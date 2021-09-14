@@ -6,6 +6,10 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.quartz.JobDetail;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
+import org.quartz.impl.StdSchedulerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,6 +28,7 @@ import java.util.Set;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.quartz.JobBuilder.newJob;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -34,19 +39,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ScheduledTasksTests {
     @Autowired
     private ScheduledTaskHolder scheduledTaskHolder;
-    @Test
-    public void testYearlyCronTaskScheduled()
-    {
-//
-    }
+
+    
 
 
 }
-    //Set<ScheduledTask> scheduledTasks = scheduledTaskHolder.getScheduledTasks();
-//        scheduledTasks.forEach(scheduledTask -> scheduledTask.getTask().getRunnable().getClass().getDeclaredMethods());
-//        long count = scheduledTasks.stream()
-//                .filter(scheduledTask -> scheduledTask.getTask() instanceof CronTask)
-//                .map(scheduledTask -> (CronTask) scheduledTask.getTask())
-//                .filter(cronTask -> cronTask.getExpression().equals("0 0 0 1 1 *") && cronTask.toString().equals("nl.benooms.scheduledannotationplayground.FixedDateSchedule.OnceAYearCron"))
-//                .count();
-//        assertThat(count).isEqualTo(1L);

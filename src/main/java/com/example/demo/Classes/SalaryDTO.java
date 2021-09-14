@@ -5,7 +5,7 @@ public class SalaryDTO {
     private double grossSalary;
 
     public SalaryDTO(Employee employee) {
-        if(employee != null) {
+        if (employee != null) {
             this.netSalary = employee.getNetSalary();
             this.grossSalary = employee.getGrossSalary();
         }

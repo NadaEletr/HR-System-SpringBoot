@@ -11,17 +11,26 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping(value = "/HR/Teams")
 public class TeamController {
     @Autowired
     TeamService teamService;
+
     @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity<Teams> addNewEmployee(@RequestBody Teams team) throws NotFoundException {
         Teams newTeam = teamService.addTeam(team);
         return new ResponseEntity<>(newTeam, HttpStatus.CREATED);
+    }
+
+    @GetMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    List<Teams> getTeams(@RequestParam("name") String name) {
+        return teamService.getTeams(name);
     }
 
 }

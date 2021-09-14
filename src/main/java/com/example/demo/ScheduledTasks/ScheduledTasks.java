@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 public class ScheduledTasks {
     @Autowired
     EmployeeRepository employeeRepository;
+
     @Transactional
     @Scheduled(cron = "0 0 0 1 1 *")
     public void updateYearlyEmployeeLeaves() {

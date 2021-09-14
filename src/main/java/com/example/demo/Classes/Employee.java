@@ -11,20 +11,20 @@ import java.util.Set;
 
 @Entity
 @Table(name = "employee")
-@JsonIgnoreProperties(value={"hibernateLazyInitializer"})
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
 public class Employee {
     @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
-    @Column(name="national_id")
+    @Column(name = "national_id")
     private String nationalId;
     @Column(name = "first_name")
     private String first_name;
     @Column(name = "last_name")
     private String last_name;
     @Column(name = "leaves")
-    private Integer leaves=0;
+    private Integer leaves = 0;
     @Column(name = "employee_degree")
     @Enumerated(EnumType.STRING)
     private Degree degree;
@@ -45,35 +45,35 @@ public class Employee {
     @JoinColumn(name = "manager_id")
     private Employee manager;
     @JsonIgnore
-    @OneToMany(mappedBy = "manager",fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "manager", fetch = FetchType.EAGER)
     private Set<Employee> employees;
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name="team_id")
+    @JoinColumn(name = "team_id")
     private Teams team;
     @Column(name = "birthdate")
     private Date birthDate;
-    @Column(name="gross_salary")
+    @Column(name = "gross_salary")
     private double grossSalary;
-    @Column(name="net_salary")
+    @Column(name = "net_salary")
     private Double netSalary;
-    @Column(name="salary_raise")
+    @Column(name = "salary_raise")
     private Double salaryRaise;
-    @Column(name="joined_year")
+    @Column(name = "joined_year")
     private Date joinedYear;
     @OneToMany(mappedBy = "employee")
     @JsonIgnore
     private List<Absence> absences;
-    @Column(name="acceptable_leaves")
-    private Integer acceptableLeaves=0;
+    @Column(name = "acceptable_leaves")
+    private Integer acceptableLeaves = 0;
     @JsonIgnore
     @OneToMany(mappedBy = "employee")
     private List<SalaryDetails> salaryHistories;
-    @OneToOne(mappedBy = "employee",cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
     private UserAccount userAccount;
 
 
     public Employee() {
-        this.leaves=0;
+        this.leaves = 0;
 
     }
 
@@ -172,11 +172,10 @@ public class Employee {
         this.team = team;
     }
 
-    public void setNetSalary(Double netSalary) {
+    public void setNetSalary(double netSalary) {
         this.netSalary = netSalary;
 
     }
-
 
 
     public int getId() {
@@ -216,11 +215,9 @@ public class Employee {
     }
 
     public void setLeaves(Integer leaves) {
-        if(leaves==null)
-        {
-            this.leaves=0;
-        }
-        else
+        if (leaves == null) {
+            this.leaves = 0;
+        } else
             this.leaves = leaves;
     }
 

@@ -76,7 +76,7 @@ public class AbsenceTests {
         UserAccount userAccount = userAccountRepository.getById("sara3");
         ObjectMapper objectMapper = new ObjectMapper();
         List<Absence> absences = absenceRepository.findAllByEmployee_Id(userAccount.getEmployee().getId());
-        String expectedJson= objectMapper.writeValueAsString(absences);
+        String expectedJson = objectMapper.writeValueAsString(absences);
         mockMvc.perform(MockMvcRequestBuilders.get("/absence/get")
                 .with(httpBasic(userAccount.getUserName(), "mohamed@3"))
         ).andExpect(content().json(expectedJson));

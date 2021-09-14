@@ -5,23 +5,23 @@ import java.sql.Date;
 
 
 @Entity
-@Table(name="extra_payments")
+@Table(name = "extra_payments")
 public class ExtraPayments {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private int id;
 
-    @Column(name="bonus")
+    @Column(name = "bonus")
     private double bonus;
 
     @ManyToOne
-    @JoinColumn(name="employee_id")
+    @JoinColumn(name = "employee_id")
     private Employee employee;
 
-    @Column(name="date")
+    @Column(name = "date")
     private Date date;
-    @Column(name="raise")
+    @Column(name = "raise")
     private double raise;
 
     public int getId() {

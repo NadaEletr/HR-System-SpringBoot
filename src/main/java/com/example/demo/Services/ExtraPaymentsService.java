@@ -15,36 +15,32 @@ import java.sql.Date;
 @Slf4j
 public class ExtraPaymentsService {
     @Autowired
-     ExtraPaymentsRepository extraPaymentRepository;
+    ExtraPaymentsRepository extraPaymentRepository;
 
-     public double getBonus(Employee employee, Date date) throws Exception {
+    public double getBonus(Employee employee, Date date) throws Exception {
 
-         if(extraPaymentRepository.existsByEmployee(employee)){
-             try{
-                 return extraPaymentRepository.getBonusByDateAndEmployee(employee,date);
-             }catch (Exception e)
-             {
-                 e.printStackTrace();
-             }
-         }
-         return 0.0;
-     }
-
+        if (extraPaymentRepository.existsByEmployee(employee)) {
+            try {
+                return extraPaymentRepository.getBonusByDateAndEmployee(employee, date);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return 0.0;
+    }
 
 
-    public double getRaise(Employee employee, Date date){
-        if(extraPaymentRepository.existsByEmployee(employee))
-        {
-            try{
-                return extraPaymentRepository.getRaiseByDateAndEmployee(employee,date);
-            }catch (Exception e)
-            {
+    public double getRaise(Employee employee, Date date) {
+        if (extraPaymentRepository.existsByEmployee(employee)) {
+            try {
+                return extraPaymentRepository.getRaiseByDateAndEmployee(employee, date);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         return 0.0;
 
-     }
+    }
 
 
 }

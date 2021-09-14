@@ -23,6 +23,7 @@ public class DataSourceDBUnitTes extends DataSourceBasedDBTestCase {
         return new FlatXmlDataSetBuilder().build(getClass().getClassLoader()
                 .getResourceAsStream("data.xml"));
     }
+
     @Override
     protected DatabaseOperation getSetUpOperation() {
         return DatabaseOperation.REFRESH;

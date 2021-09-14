@@ -1,14 +1,14 @@
 package com.example.demo.errors;
+
 import org.springframework.http.HttpStatus;
 
 public class NotFoundException extends ApiBaseException {
-    public NotFoundException(String  message)
-    {
+    public NotFoundException(String message) {
         super(message);
     }
+
     @Override
-    public HttpStatus getStatusCode()
-    {
+    public HttpStatus getStatusCode() {
         return HttpStatus.NOT_FOUND;
     }
 }

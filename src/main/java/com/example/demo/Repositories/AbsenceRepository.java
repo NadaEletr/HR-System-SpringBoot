@@ -11,7 +11,8 @@ import java.util.List;
 @Repository
 public interface AbsenceRepository extends JpaRepository<Absence, Integer> {
 
-    boolean existsByEmployeeAndDate(Employee employee   , Date date);
+    boolean existsByEmployeeAndDate(Employee employee, Date date);
+
     Absence findByEmployee(Employee employee);
 
 

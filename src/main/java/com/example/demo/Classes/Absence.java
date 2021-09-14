@@ -7,16 +7,17 @@ import java.sql.Date;
 import java.time.LocalDate;
 
 @Entity
-@Table(name="Absence")
+@Table(name = "Absence")
 public class Absence {
     @Id
     int id;
-    @Column(name="Date")
+    @Column(name = "Date")
     Date date;
     @ManyToOne
-    @JoinColumn(name="employee_id")
+    @JoinColumn(name = "employee_id")
     @JsonIgnore
     private Employee employee;
+
     public Absence(Date date) {
         this.id = id;
         this.date = date;

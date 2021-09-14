@@ -36,7 +36,6 @@ public class EmployeesController {
     }
 
 
-
     @PutMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Employee> updateEmployee(@RequestBody Employee EmployeeToModify, @RequestParam String id) {
         Employee originalEmployeeModified = employeeService.getEmployeeInfoByID(Integer.parseInt(id));
@@ -46,8 +45,8 @@ public class EmployeesController {
 
     @GetMapping(value = "/get/Salaries", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    ResponseEntity<SalaryDTO> getEmployeeSalaries(@RequestParam("id") String id)  {
-        SalaryDTO employeeSalary=employeeService.getEmployeeSalary(Integer.parseInt(id));
+    ResponseEntity<SalaryDTO> getEmployeeSalaries(@RequestParam("id") String id) {
+        SalaryDTO employeeSalary = employeeService.getEmployeeSalary(Integer.parseInt(id));
         return new ResponseEntity<>(employeeSalary, HttpStatus.OK);
     }
 
@@ -60,7 +59,7 @@ public class EmployeesController {
 
     @GetMapping(value = "/get/underManager", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    List<Employee> getEmployeesUnderManager(@RequestParam("id") String id)  {
+    List<Employee> getEmployeesUnderManager(@RequestParam("id") String id) {
 
         return employeeService.getEmployeesUnderManger(Integer.parseInt(id));
     }
@@ -73,11 +72,12 @@ public class EmployeesController {
     }
 
     @DeleteMapping(value = "/delete")
-    public String deleteEmployee(@RequestParam("id") String id)  {
+    public String deleteEmployee(@RequestParam("id") String id) {
         employeeService.delete(Integer.parseInt(id));
-        return "employee "+id+" is deleted";
+        return "employee " + id + " is deleted";
 
     }
+
 
 
 

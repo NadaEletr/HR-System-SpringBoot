@@ -4,20 +4,20 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.*;
 
 @Entity
-@Table(name="teams")
+@Table(name = "teams")
 public class Teams {
     @Id
 
     private int teamId;
 
-    @Column(name="team_name")
+    @Column(name = "team_name")
     private String teamName;
     @JsonIgnore
-   @OneToMany(mappedBy = "team",cascade = CascadeType.ALL,fetch=FetchType.EAGER)
-    Set<Employee> employees ;
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    Set<Employee> employees;
 
     public int getTeamId() {
         return teamId;
@@ -42,5 +42,6 @@ public class Teams {
     public void setEmployees(Set<Employee> employees) {
         this.employees = employees;
     }
+
 
 }

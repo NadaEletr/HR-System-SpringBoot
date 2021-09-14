@@ -16,11 +16,11 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
 
     @Query("select case when count(d)> 0 then true else false end from Department d where d.departmentId=?1 ")
-    boolean existsByDepartmentId(@Param("departmentId")int departmentId);
+    boolean existsByDepartmentId(@Param("departmentId") int departmentId);
 
 
     @Query("select case when count(t)> 0 then true else false end from Teams t where t.teamId=?1 ")
-    boolean existsByTeamId(@Param("teamId")int teamId);
+    boolean existsByTeamId(@Param("teamId") int teamId);
 
 
     List<Employee> findAllByTeamTeamId(int teamId);
@@ -30,6 +30,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
 
     List<Employee> findAllByManagerId(int employeeId);
+
     @Query(
             value = "with recursive cte(id,national_id,first_name,last_name,employee_degree,leaves,years_of_experience,birthdate, gender,acceptable_leaves, graduation_date, gross_salary,net_salary, department_id, manager_id, team_id ) as ( \n" +
                     "            select     id,national_id,first_name,last_name,leaves,employee_degree,years_of_experience,birthdate, gender,acceptable_leaves, graduation_date, gross_salary,net_salary, department_id, manager_id, team_id \n" +
@@ -44,15 +45,15 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
                     "            )\n" +
                     "            select * from cte; "
             , nativeQuery = true)
-    List<Employee> findAllUnderSomeManager(@Param("employeeId")int employeeId);
+    List<Employee> findAllUnderSomeManager(@Param("employeeId") int employeeId);
 
     @Query("SELECT e.leaves FROM Employee e WHERE e.id=?1")
     int setLeaves(int employee_id);
 
-   @Transactional
-   @Modifying
-    @Query( value = "update Employee e set e.leaves= :leaves where e.id= :nationalId")
-    void  updateMonthlyLeaves(int leaves ,int nationalId);
+    @Transactional
+    @Modifying
+    @Query(value = "update Employee e set e.leaves= :leaves where e.id= :nationalId")
+    void updateMonthlyLeaves(int leaves, int nationalId);
 
     @Query("select e.id from Employee e")
     List<Integer> getAllByNationalId();

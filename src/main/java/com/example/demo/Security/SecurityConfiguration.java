@@ -15,7 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private UserDetailPrincipalService userDetailPrincipalService;
+    private final UserDetailPrincipalService userDetailPrincipalService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
@@ -30,8 +30,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/HR/Teams/**").hasRole(Roles.HR.name())
                 .antMatchers("/HR/department/**").hasRole(Roles.HR.name())
                 .antMatchers("/SalaryHistory/add/extraPayments").hasRole(Roles.HR.name())
-                .antMatchers("/SalaryHistory/get").hasRole(Roles.EMPLOYEE.name())
-                .antMatchers("/absence/**").hasRole(Roles.EMPLOYEE.name())
+                .antMatchers("/SalaryHistory/get").hasAnyRole(Roles.EMPLOYEE.name(),Roles.HR.name())
+                .antMatchers("/absence/**").hasAnyRole(Roles.EMPLOYEE.name(),Roles.HR.name())
                 .antMatchers("/absence/").hasRole(Roles.EMPLOYEE.name())
                 .and().httpBasic().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }

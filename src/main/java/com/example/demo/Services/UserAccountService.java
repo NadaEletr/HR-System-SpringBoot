@@ -10,14 +10,14 @@ public class UserAccountService {
 
     @Autowired
     UserAccountRepository userAccountRepository;
+
     public void addUserAccount(UserAccount userAccount) throws Exception {
-        try{
+        try {
 
             userAccountRepository.save(userAccount);
 
-        }catch(Exception ex)
-        {
-            throw new Exception("can't save user "+userAccount.getEmployee().getFirst_name()+" to database! ");
+        } catch (Exception ex) {
+            throw new Exception("can't save user " + userAccount.getEmployee().getFirst_name() + " to database! ");
         }
     }
 

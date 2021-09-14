@@ -7,11 +7,11 @@ import java.util.Date;
 
 
 @Entity
-@Table(name="salary_history")
+@Table(name = "salary_history")
 public class SalaryDetails {
     @Id
     @JsonIgnore
-    @Column(name="id")
+    @Column(name = "id")
     private int id;
     @Column(name = "date")
     private Date date;
@@ -22,14 +22,14 @@ public class SalaryDetails {
     @Column(name = "taxes")
     private double taxes;
     @Column(name = "insurance")
-    private  double insurance;
+    private double insurance;
     @Column(name = "bonus")
     private double bonus;
     @Column(name = "net_salary")
     private double netSalary;
     @ManyToOne
     @JsonIgnore
-    @JoinColumn(name="employee_id")
+    @JoinColumn(name = "employee_id")
     private Employee employee;
 
     public SalaryDetails() {
@@ -102,6 +102,7 @@ public class SalaryDetails {
     public void setInsurance(Double insurance) {
         this.insurance = insurance;
     }
+
     public void setEmployee(Employee employee) {
         this.employee = employee;
     }

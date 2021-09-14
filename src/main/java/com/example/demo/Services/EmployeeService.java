@@ -31,6 +31,7 @@ public class EmployeeService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     UserAccountService userAccountService;
+
     public Employee saveEmployee(Employee employee) throws Exception {
         checkBeforeSaving(employee);
         generateAcceptedLeave(employee);
@@ -40,8 +41,7 @@ public class EmployeeService {
     }
 
     private void checkBeforeSaving(Employee employee) {
-        if(employeeRepository.existsByNationalId(employee.getNationalId()))
-        {
+        if (employeeRepository.existsByNationalId(employee.getNationalId())) {
             throw new ConflictException("national id exists before !");
         }
         if (employeeRepository.existsById(employee.getId())) {
@@ -63,21 +63,18 @@ public class EmployeeService {
 
 
     public void generateAcceptedLeave(Employee employee) {
-        if(employee.getYearsOfExperience()<AllowedVacations.HIGHWORKINGYEARS)
-        {
+        if (employee.getYearsOfExperience() < AllowedVacations.HIGHWORKINGYEARS) {
             employee.setAcceptableLeaves(AllowedVacations.getLessEXPERIENCED());
-        }
-        else
-        {
+        } else {
             employee.setAcceptableLeaves(AllowedVacations.getEXPERIENCED());
         }
     }
 
 
     public void generatePasswordAndUserName(Employee employee) throws Exception {
-        Employee employee1= getEmployeeInfoByID(employee.getId());
-        String username= employee1.getFirst_name()+employee.getLast_name();
-        String password= employee1.getLast_name()+"@"+employee1.getId();
+        Employee employee1 = getEmployeeInfoByID(employee.getId());
+        String username = employee1.getFirst_name() + employee.getLast_name();
+        String password = employee1.getLast_name() + "@" + employee1.getId();
         UserAccount userAccount = new UserAccount();
         userAccount.setUserName(username);
         userAccount.setPassword(passwordEncoder.encode(password));
@@ -91,10 +88,8 @@ public class EmployeeService {
         final double insurance = 500;
         double netSalary;
         if (employee.getGrossSalary() == 0d) {
-           netSalary=0d;
-        }
-        else
-        {
+            netSalary = 0d;
+        } else {
             netSalary = employee.getGrossSalary() * taxRatio - insurance;
         }
         employee.setNetSalary(netSalary);
@@ -127,7 +122,7 @@ public class EmployeeService {
 
     public Employee updateEmployee(Employee updateEmployee, Employee originalEmployee) throws NotFoundException {
 
-       transferEmployee(updateEmployee, originalEmployee);
+        transferEmployee(updateEmployee, originalEmployee);
 
         return employeeRepository.save(originalEmployee);
     }
@@ -171,46 +166,36 @@ public class EmployeeService {
         }
         employeeRepository.delete(employee);
     }
-    public void transferEmployee(Employee updateEmployee, Employee originalEmployee)
-    {
-        if(updateEmployee.getFirst_name() !=null)
-        {
+
+    public void transferEmployee(Employee updateEmployee, Employee originalEmployee) {
+        if (updateEmployee.getFirst_name() != null) {
             originalEmployee.setFirst_name(updateEmployee.getFirst_name());
         }
-        if(updateEmployee.getEmployees()!=null)
-        {
+        if (updateEmployee.getEmployees() != null) {
             originalEmployee.setEmployees(updateEmployee.getEmployees());
         }
-        if(updateEmployee.getGraduation_date()!=null)
-        {
+        if (updateEmployee.getGraduation_date() != null) {
             originalEmployee.setGraduation_date(updateEmployee.getGraduation_date());
         }
-        if(updateEmployee.getBirthDate()!= null)
-        {
+        if (updateEmployee.getBirthDate() != null) {
             originalEmployee.setBirthDate(updateEmployee.getBirthDate());
         }
-        if(updateEmployee.getManager()!=null)
-        {
+        if (updateEmployee.getManager() != null) {
             originalEmployee.setManager(updateEmployee.getManager());
         }
-        if(updateEmployee.getGender()!=null)
-        {
+        if (updateEmployee.getGender() != null) {
             originalEmployee.setGender(updateEmployee.getGender());
         }
-        if(updateEmployee.getDepartment() !=null)
-        {
+        if (updateEmployee.getDepartment() != null) {
             originalEmployee.setDepartment(updateEmployee.getDepartment());
         }
-        if(updateEmployee.getTeam() !=null)
-        {
+        if (updateEmployee.getTeam() != null) {
             originalEmployee.setTeam(updateEmployee.getTeam());
         }
-        if(updateEmployee.getGrossSalary()!=0d)
-        {
+        if (updateEmployee.getGrossSalary() != 0d) {
             originalEmployee.setGrossSalary(updateEmployee.getGrossSalary());
         }
-        if(updateEmployee.getNetSalary()!=0d)
-        {
+        if (updateEmployee.getNetSalary() != 0d) {
             CalcNetSalary(originalEmployee);
         }
     }

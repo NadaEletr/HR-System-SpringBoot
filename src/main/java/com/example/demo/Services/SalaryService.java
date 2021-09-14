@@ -52,7 +52,7 @@ public class SalaryService {
             throw new ConflictException("raise must be positive number");
         }
 
-        Calendar newCalendar=checkDate();
+        Calendar newCalendar = checkDate();
         java.sql.Date date = new Date(newCalendar.getTimeInMillis());
         if (extraPaymentsRepository.existsByEmployeeAndAndDate(extraPayments.getEmployee(), date)) {
             throw new ConflictException("you already inserted extra payments to this employee this month!");
@@ -61,7 +61,7 @@ public class SalaryService {
         return extraPaymentsRepository.save(extraPayments);
     }
 
-    @Scheduled( cron = "0 0 0 25 * *")
+    @Scheduled(cron = "0 0 0 25 * *")
     public void generateAllEmployeesMonthlySalary() throws Exception { // update employee each month Salary
         final List<Integer> Employees = employeeRepository.getAllByNationalId();
         for (Integer id : Employees) {
@@ -72,12 +72,12 @@ public class SalaryService {
 
     public void calculateEmployeeMonthlySalary(int employeeId) throws Exception { //modify this code
 
-        Calendar newCalendar=checkDate();
+        Calendar newCalendar = checkDate();
         java.sql.Date date = new Date(newCalendar.getTimeInMillis());
         Employee employee = employeeService.getEmployeeInfoByID(employeeId);
-        SalaryDetails salaryDetails=CreateSalaryDetails(employee,date);
+        SalaryDetails salaryDetails = CreateSalaryDetails(employee, date);
         salaryHistoryRepository.save(salaryDetails);
-        if(employee.getLeaves()>employee.getAcceptableLeaves()){
+        if (employee.getLeaves() > employee.getAcceptableLeaves()) {
             employeeRepository.updateMonthlyLeaves(employee.getAcceptableLeaves(), employee.getId());
         }
     }
@@ -99,14 +99,14 @@ public class SalaryService {
         calculateNetSalary(salaryDetails);
         return salaryDetails;
     }
-    public void calculateNetSalary(SalaryDetails salaryDetails)
-    {
+
+    public void calculateNetSalary(SalaryDetails salaryDetails) {
         double netSalary = (salaryDetails.getEmployee().getGrossSalary()
                 + salaryDetails.getBonus()
                 + salaryDetails.getRaises())
                 - salaryDetails.getInsurance()
                 - salaryDetails.getBonus()
-                -salaryDetails.getExceededLeaves();
+                - salaryDetails.getExceededLeaves();
         salaryDetails.setNetSalary(netSalary);
     }
 
@@ -114,11 +114,11 @@ public class SalaryService {
         int requirementDay = 25;
         Calendar calendar = Calendar.getInstance();
         if (calendar.get(Calendar.DATE) <= requirementDay) {
-             calendar.set(Calendar.DAY_OF_MONTH, requirementDay);
-         } else {
-             calendar.set(Calendar.DAY_OF_MONTH, requirementDay);
-             calendar.add(Calendar.MONTH, 1);
-         }
+            calendar.set(Calendar.DAY_OF_MONTH, requirementDay);
+        } else {
+            calendar.set(Calendar.DAY_OF_MONTH, requirementDay);
+            calendar.add(Calendar.MONTH, 1);
+        }
         return calendar;
     }
 

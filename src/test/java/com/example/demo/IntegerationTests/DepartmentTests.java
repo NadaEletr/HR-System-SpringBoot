@@ -47,19 +47,19 @@ public class DepartmentTests {
     @Autowired
     DepartmentRepository departmentRepository;
 
-   @DatabaseSetup("/data.xml")
-   //@ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT,value = "/expected.xml")
-   @Test
-    public  void whenAddDepartmentReturnDepartment() throws Exception {
-        Department department  = new Department();
+    @DatabaseSetup("/data.xml")
+    //@ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT,value = "/expected.xml")
+    @Test
+    public void whenAddDepartmentReturnDepartment() throws Exception {
+        Department department = new Department();
         department.setDepartmentName("networks");
         department.setDepartmentId(3);
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(department);
-        mockMvc.perform(MockMvcRequestBuilders.post("/HR/department/add").with(httpBasic("nada1","nada123")).contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(MockMvcRequestBuilders.post("/HR/department/add").with(httpBasic("nada1", "nada123")).contentType(MediaType.APPLICATION_JSON)
                 .content(body)).andExpect(status().isCreated());
-        Department resultDepartment= departmentRepository.getById(department.getDepartmentId());
-        assertEquals(resultDepartment.getDepartmentName(),department.getDepartmentName());
-        assertEquals(resultDepartment.getDepartmentId(),department.getDepartmentId());
+        Department resultDepartment = departmentRepository.getById(department.getDepartmentId());
+        assertEquals(resultDepartment.getDepartmentName(), department.getDepartmentName());
+        assertEquals(resultDepartment.getDepartmentId(), department.getDepartmentId());
     }
 }

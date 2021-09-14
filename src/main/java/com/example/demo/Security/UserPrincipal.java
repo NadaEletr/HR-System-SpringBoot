@@ -9,16 +9,17 @@ import java.util.Collection;
 import java.util.List;
 
 public class UserPrincipal implements UserDetails {
-    private UserAccount userAccount;
-    public UserPrincipal(UserAccount userAccount)
-    {
-        this.userAccount=userAccount;
+    private final UserAccount userAccount;
+
+    public UserPrincipal(UserAccount userAccount) {
+        this.userAccount = userAccount;
     }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<GrantedAuthority> authorities =new ArrayList<>();
-        this.userAccount.getRolesList().forEach(r->{
-            GrantedAuthority authority= new SimpleGrantedAuthority("ROLE_"+r);
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        this.userAccount.getRolesList().forEach(r -> {
+            GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + r);
             authorities.add(authority);
         });
         return authorities;

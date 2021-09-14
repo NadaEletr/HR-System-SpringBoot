@@ -12,15 +12,16 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping(value="/HR/department")
+@RequestMapping(value = "/HR/department")
 public class DepartmentController {
     @Autowired
-     DepartmentService departmentService;
-    @PostMapping(value = "/add",produces = MediaType.APPLICATION_JSON_VALUE)
+    DepartmentService departmentService;
+
+    @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity<Department> addNewEmployee(@RequestBody Department department) throws NotFoundException {
         Department newDepartment = departmentService.saveEmployee(department);
-        return new ResponseEntity<>(newDepartment,HttpStatus.CREATED);
+        return new ResponseEntity<>(newDepartment, HttpStatus.CREATED);
     }
 
 }

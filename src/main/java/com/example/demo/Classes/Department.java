@@ -15,11 +15,10 @@ public class Department {
     @Column(name = "department_name")
     String departmentName;
     @JsonIgnore
-    @OneToMany(mappedBy = "department" ,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
     Set<Employee> employees;
 
-    public Department()
-    {
+    public Department() {
 
     }
 
