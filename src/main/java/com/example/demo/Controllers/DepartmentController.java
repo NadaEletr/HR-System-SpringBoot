@@ -1,6 +1,7 @@
 package com.example.demo.Controllers;
 
 import com.example.demo.Classes.Department;
+import com.example.demo.Classes.Teams;
 import com.example.demo.Services.DepartmentService;
 import javassist.NotFoundException;
 
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping(value = "/HR/department")
+@RequestMapping(value = "/department")
 public class DepartmentController {
     @Autowired
     DepartmentService departmentService;
@@ -22,6 +23,11 @@ public class DepartmentController {
     ResponseEntity<Department> addNewEmployee(@RequestBody Department department) throws NotFoundException {
         Department newDepartment = departmentService.saveEmployee(department);
         return new ResponseEntity<>(newDepartment, HttpStatus.CREATED);
+    }
+    @GetMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    Department getTeams(@RequestParam("id") String id) {
+        return departmentService.getDepartment(Integer.parseInt(id));
     }
 
 }

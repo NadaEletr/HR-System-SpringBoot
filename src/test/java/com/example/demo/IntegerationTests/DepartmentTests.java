@@ -2,6 +2,8 @@ package com.example.demo.IntegerationTests;
 
 import com.example.demo.Classes.Department;
 import com.example.demo.Repositories.DepartmentRepository;
+import com.example.demo.Repositories.UserAccountRepository;
+import com.example.demo.Security.UserAccount;
 import com.example.demo.Services.DepartmentService;
 import com.example.demo.Services.EmployeeService;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
@@ -33,6 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @ExtendWith(SpringExtension.class)
+@DatabaseSetup("/data.xml")
 @ActiveProfiles("test")
 @TestExecutionListeners({
 
@@ -46,8 +49,10 @@ public class DepartmentTests {
     DepartmentService departmentService;
     @Autowired
     DepartmentRepository departmentRepository;
+    @Autowired
+    UserAccountRepository userAccountRepository;
 
-    @DatabaseSetup("/data.xml")
+
     //@ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT,value = "/expected.xml")
     @Test
     public void whenAddDepartmentReturnDepartment() throws Exception {
@@ -56,10 +61,18 @@ public class DepartmentTests {
         department.setDepartmentId(3);
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(department);
-        mockMvc.perform(MockMvcRequestBuilders.post("/HR/department/add").with(httpBasic("nada1", "nada123")).contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(MockMvcRequestBuilders.post("/department/add").with(httpBasic("nada1", "nada123")).contentType(MediaType.APPLICATION_JSON)
                 .content(body)).andExpect(status().isCreated());
         Department resultDepartment = departmentRepository.getById(department.getDepartmentId());
         assertEquals(resultDepartment.getDepartmentName(), department.getDepartmentName());
         assertEquals(resultDepartment.getDepartmentId(), department.getDepartmentId());
+    }
+    @Test
+    @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = "/data.xml")
+    public void testGetDepartment() throws Exception {
+        int id =1;
+        UserAccount userAccount = userAccountRepository.getById("nada1");
+        mockMvc.perform(MockMvcRequestBuilders.get("/department/get").param("id", String.valueOf(id))
+                .with(httpBasic(userAccount.getUserName(), "nada123")));
     }
 }

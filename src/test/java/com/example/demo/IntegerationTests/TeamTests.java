@@ -85,7 +85,5 @@ public class TeamTests {
         mockMvc.perform(MockMvcRequestBuilders.post("/Teams/add")
                 .with(httpBasic(userAccount.getUserName(), "nada123")).contentType(MediaType.APPLICATION_JSON).content(body)).andExpect(result -> assertTrue(result.getResolvedException() instanceof ConflictException))
                 .andExpect(status().isConflict()).andExpect(result -> assertEquals("team already exists !", result.getResolvedException().getMessage()));
-        ;
-
     }
 }

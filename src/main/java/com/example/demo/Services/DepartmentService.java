@@ -1,8 +1,10 @@
 package com.example.demo.Services;
 
 import com.example.demo.Classes.Department;
+import com.example.demo.Classes.Teams;
 import com.example.demo.Repositories.DepartmentRepository;
 import com.example.demo.errors.ConflictException;
+import com.example.demo.errors.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,13 @@ public class DepartmentService {
         }
 
         return departmentRepository.save(department);
+    }
+
+    public Department getDepartment(int id) {
+        if (!departmentRepository.existsById(id)) {
+            throw new NotFoundException("department does not exists!");
+        }
+        return departmentRepository.getById(id);
     }
 }
 

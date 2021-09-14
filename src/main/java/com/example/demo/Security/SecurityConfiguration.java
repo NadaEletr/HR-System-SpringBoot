@@ -28,7 +28,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.
                 authorizeRequests().antMatchers("/HR/employee/**").hasRole(Roles.HR.name())
                 .antMatchers("/Teams/**").hasRole(Roles.HR.name())
-                .antMatchers("/HR/department/**").hasRole(Roles.HR.name())
+                .antMatchers("/department/**").hasRole(Roles.HR.name())
                 .antMatchers("/SalaryHistory/add/extraPayments").hasRole(Roles.HR.name())
                 .antMatchers("/SalaryHistory/get").hasAnyRole(Roles.EMPLOYEE.name(),Roles.HR.name())
                 .antMatchers("/absence/**").hasAnyRole(Roles.EMPLOYEE.name(),Roles.HR.name())
