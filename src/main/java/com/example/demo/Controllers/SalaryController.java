@@ -1,7 +1,7 @@
 package com.example.demo.Controllers;
 
 
-import com.example.demo.Classes.ExtraPayments;
+import com.example.demo.Classes.Earnings;
 import com.example.demo.Classes.SalaryDTO;
 import com.example.demo.Classes.SalaryDetails;
 import com.example.demo.Repositories.EmployeeRepository;
@@ -49,9 +49,9 @@ public class SalaryController {
     }
 
 
-    @PostMapping(value = "/add/extraPayments", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String addBonusAndRaise(@RequestBody ExtraPayments extraPayments) {
-        salaryService.addExtraPayments(extraPayments);
+    @PostMapping(value = "/add/earnings", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String addBonusAndRaise(@RequestBody Earnings earnings) {
+        salaryService.addExtraPayments(earnings);
         return "extra payments is added!";
     }
 

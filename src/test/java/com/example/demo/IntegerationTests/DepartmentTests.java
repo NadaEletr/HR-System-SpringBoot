@@ -116,7 +116,6 @@ public class DepartmentTests {
         mockMvc.perform(MockMvcRequestBuilders.get("/department/get").param("id", String.valueOf(id))
                 .with(httpBasic(userAccount.getUserName(), "nada1234444"))).andExpect(status().isUnauthorized());
     }
-
     @Test
     @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = "/data.xml")
     public void testGetDepartmentForbidden() throws Exception {

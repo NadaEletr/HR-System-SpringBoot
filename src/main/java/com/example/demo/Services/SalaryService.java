@@ -1,12 +1,12 @@
 package com.example.demo.Services;
 
 import com.example.demo.Classes.Employee;
-import com.example.demo.Classes.ExtraPayments;
+import com.example.demo.Classes.Earnings;
 import com.example.demo.Classes.Salaries;
 import com.example.demo.Classes.SalaryDetails;
 import com.example.demo.Repositories.AbsenceRepository;
 import com.example.demo.Repositories.EmployeeRepository;
-import com.example.demo.Repositories.ExtraPaymentsRepository;
+import com.example.demo.Repositories.EarningsRepository;
 import com.example.demo.Repositories.SalaryHistoryRepository;
 import com.example.demo.errors.ConflictException;
 import com.example.demo.errors.NotFoundException;
@@ -31,30 +31,30 @@ public class SalaryService {
     @Autowired
     AbsenceRepository absenceRepository;
     @Autowired
-    ExtraPaymentsRepository extraPaymentsRepository;
+    EarningsRepository earningsRepository;
     @Autowired
-    ExtraPaymentsService extraPaymentsService;
+    EarningsService extraPaymentsService;
 
 
-    public void addExtraPayments(ExtraPayments extraPayments) {
+    public void addExtraPayments(Earnings earnings) {
 
-        if (!employeeService.existsById(extraPayments.getEmployee().getId())) {
+        if (!employeeService.existsById(earnings.getEmployee().getId())) {
             throw new NotFoundException("no employee with this id !");
         }
-        if (extraPayments.getBonus() < 0) {
+        if (earnings.getBonus() < 0) {
             throw new ConflictException("bonus must be positive number");
         }
-        if (extraPayments.getRaise() < 0) {
+        if (earnings.getRaise() < 0) {
             throw new ConflictException("raise must be positive number");
         }
 
         Calendar newCalendar = checkDate();
         java.sql.Date date = new Date(newCalendar.getTimeInMillis());
-        if (extraPaymentsRepository.existsByEmployeeAndAndDate(extraPayments.getEmployee(), date)) {
+        if (earningsRepository.existsByEmployeeAndAndDate(earnings.getEmployee(), date)) {
             throw new ConflictException("you already inserted extra payments to this employee this month!");
         }
-        extraPayments.setDate(date);
-        extraPaymentsRepository.save(extraPayments);
+        earnings.setDate(date);
+        earningsRepository.save(earnings);
     }
 
     @Scheduled(cron = "0 0 0 25 * *")

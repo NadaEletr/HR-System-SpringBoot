@@ -1,10 +1,10 @@
 package com.example.demo.IntegerationTests;
 
 import com.example.demo.Classes.Employee;
-import com.example.demo.Classes.ExtraPayments;
+import com.example.demo.Classes.Earnings;
 import com.example.demo.Classes.SalaryDTO;
 import com.example.demo.Repositories.EmployeeRepository;
-import com.example.demo.Repositories.ExtraPaymentsRepository;
+import com.example.demo.Repositories.EarningsRepository;
 import com.example.demo.Repositories.SalaryHistoryRepository;
 import com.example.demo.Repositories.UserAccountRepository;
 import com.example.demo.Security.UserAccount;
@@ -58,7 +58,7 @@ public class SalariesTests {
     @Autowired
     SalaryHistoryRepository salaryHistoryRepository;
     @Autowired
-    ExtraPaymentsRepository extraPaymentsRepository;
+    EarningsRepository earningsRepository;
     @Autowired
     SalaryService salaryService;
     @Autowired
@@ -127,35 +127,35 @@ public class SalariesTests {
     public void addBonusAndRaise() throws Exception {
         int employeeId = 1;
         Employee employee = employeeService.getEmployeeInfoByID(employeeId);
-        ExtraPayments extraPayments = new ExtraPayments();
-        extraPayments.setBonus(500);
-        extraPayments.setEmployee(employee);
-        extraPayments.setRaise(1000);
-        extraPayments.setId(2);
+        Earnings earnings = new Earnings();
+        earnings.setBonus(500);
+        earnings.setEmployee(employee);
+        earnings.setRaise(1000);
+        earnings.setId(2);
         ObjectMapper objectMapper = new ObjectMapper();
-        String body = objectMapper.writeValueAsString(extraPayments);
-        mockMvc.perform(MockMvcRequestBuilders.post("/Salary/add/extraPayments").with(httpBasic("nada1", "nada123")).contentType(MediaType.APPLICATION_JSON)
+        String body = objectMapper.writeValueAsString(earnings);
+        mockMvc.perform(MockMvcRequestBuilders.post("/Salary/add/earnings").with(httpBasic("nada1", "nada123")).contentType(MediaType.APPLICATION_JSON)
                 .content(body))
                 .andExpect(status().isOk());
-        ExtraPayments extraPayments1 = extraPaymentsRepository.getById(2);
-        assertEquals(extraPayments1.getBonus(), extraPayments.getBonus());
-        assertEquals(extraPayments1.getRaise(), extraPayments.getRaise());
-        assertEquals(extraPayments1.getEmployee().getNationalId(), extraPayments.getEmployee().getNationalId());
-        assertEquals(extraPayments1.getId(), extraPayments.getId());
+        Earnings earnings1 = earningsRepository.getById(2);
+        assertEquals(earnings1.getBonus(), earnings.getBonus());
+        assertEquals(earnings1.getRaise(), earnings.getRaise());
+        assertEquals(earnings1.getEmployee().getNationalId(), earnings.getEmployee().getNationalId());
+        assertEquals(earnings1.getId(), earnings.getId());
     }
 
     @Test
     public void addBonusAndRaiseUnAuthorized() throws Exception {
         int employeeId = 1;
         Employee employee = employeeService.getEmployeeInfoByID(employeeId);
-        ExtraPayments extraPayments = new ExtraPayments();
-        extraPayments.setBonus(500);
-        extraPayments.setEmployee(employee);
-        extraPayments.setRaise(1000);
-        extraPayments.setId(2);
+        Earnings earnings = new Earnings();
+        earnings.setBonus(500);
+        earnings.setEmployee(employee);
+        earnings.setRaise(1000);
+        earnings.setId(2);
         ObjectMapper objectMapper = new ObjectMapper();
-        String body = objectMapper.writeValueAsString(extraPayments);
-        mockMvc.perform(MockMvcRequestBuilders.post("/Salary/add/extraPayments").with(httpBasic("ibrahim", "nada123")).contentType(MediaType.APPLICATION_JSON)
+        String body = objectMapper.writeValueAsString(earnings);
+        mockMvc.perform(MockMvcRequestBuilders.post("/Salary/add/earnings").with(httpBasic("ibrahim", "nada123")).contentType(MediaType.APPLICATION_JSON)
                 .content(body))
                 .andExpect(status().isUnauthorized());
     }
@@ -164,14 +164,14 @@ public class SalariesTests {
     public void addBonusAndRaiseForbidden() throws Exception {
         int employeeId = 1;
         Employee employee = employeeService.getEmployeeInfoByID(employeeId);
-        ExtraPayments extraPayments = new ExtraPayments();
-        extraPayments.setBonus(500);
-        extraPayments.setEmployee(employee);
-        extraPayments.setRaise(1000);
-        extraPayments.setId(2);
+        Earnings earnings = new Earnings();
+        earnings.setBonus(500);
+        earnings.setEmployee(employee);
+        earnings.setRaise(1000);
+        earnings.setId(2);
         ObjectMapper objectMapper = new ObjectMapper();
-        String body = objectMapper.writeValueAsString(extraPayments);
-        mockMvc.perform(MockMvcRequestBuilders.post("/Salary/add/extraPayments").with(httpBasic("sara3", "mohamed@3")).contentType(MediaType.APPLICATION_JSON)
+        String body = objectMapper.writeValueAsString(earnings);
+        mockMvc.perform(MockMvcRequestBuilders.post("/Salary/add/earnings").with(httpBasic("sara3", "mohamed@3")).contentType(MediaType.APPLICATION_JSON)
                 .content(body))
                 .andExpect(status().isForbidden());
     }
@@ -181,15 +181,15 @@ public class SalariesTests {
         int employeeId = 50;
         Employee employee = new Employee();
         employee.setId(employeeId);
-        ExtraPayments extraPayments = new ExtraPayments();
-        extraPayments.setBonus(500);
-        extraPayments.setEmployee(employee);
-        extraPayments.setEmployee(employee);
-        extraPayments.setRaise(1000);
-        extraPayments.setId(2);
+        Earnings earnings = new Earnings();
+        earnings.setBonus(500);
+        earnings.setEmployee(employee);
+        earnings.setEmployee(employee);
+        earnings.setRaise(1000);
+        earnings.setId(2);
         ObjectMapper objectMapper = new ObjectMapper();
-        String body = objectMapper.writeValueAsString(extraPayments);
-        mockMvc.perform(MockMvcRequestBuilders.post("/Salary/add/extraPayments").with(httpBasic("nada1", "nada123")).contentType(MediaType.APPLICATION_JSON)
+        String body = objectMapper.writeValueAsString(earnings);
+        mockMvc.perform(MockMvcRequestBuilders.post("/Salary/add/earnings").with(httpBasic("nada1", "nada123")).contentType(MediaType.APPLICATION_JSON)
                 .content(body))
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
                 .andExpect(status().isNotFound()).andExpect(result -> assertEquals("no employee with this id !", Objects.requireNonNull(result.getResolvedException()).getMessage()));
@@ -199,13 +199,13 @@ public class SalariesTests {
     public void testWhenBonusIsNegative() throws Exception {
         int employeeId = 2;
         Employee employee = employeeService.getEmployeeInfoByID(employeeId);
-        ExtraPayments extraPayments = new ExtraPayments();
-        extraPayments.setBonus(-500);
-        extraPayments.setEmployee(employee);
-        extraPayments.setId(3);
+        Earnings earnings = new Earnings();
+        earnings.setBonus(-500);
+        earnings.setEmployee(employee);
+        earnings.setId(3);
         ObjectMapper objectMapper = new ObjectMapper();
-        String body = objectMapper.writeValueAsString(extraPayments);
-        mockMvc.perform(MockMvcRequestBuilders.post("/Salary/add/extraPayments").with(httpBasic("nada1", "nada123")).contentType(MediaType.APPLICATION_JSON)
+        String body = objectMapper.writeValueAsString(earnings);
+        mockMvc.perform(MockMvcRequestBuilders.post("/Salary/add/earnings").with(httpBasic("nada1", "nada123")).contentType(MediaType.APPLICATION_JSON)
                 .content(body)).andExpect(result -> assertTrue(result.getResolvedException() instanceof ConflictException))
                 .andExpect(status().isConflict()).andExpect(result -> assertEquals("bonus must be positive number", Objects.requireNonNull(result.getResolvedException()).getMessage()));
     }
@@ -214,13 +214,13 @@ public class SalariesTests {
     public void testWhenRaiseIsNegative() throws Exception {
         int employeeId = 3;
         Employee employee = employeeService.getEmployeeInfoByID(employeeId);
-        ExtraPayments extraPayments = new ExtraPayments();
-        extraPayments.setRaise(-100);
-        extraPayments.setEmployee(employee);
-        extraPayments.setId(4);
+        Earnings earnings = new Earnings();
+        earnings.setRaise(-100);
+        earnings.setEmployee(employee);
+        earnings.setId(4);
         ObjectMapper objectMapper = new ObjectMapper();
-        String body = objectMapper.writeValueAsString(extraPayments);
-        mockMvc.perform(MockMvcRequestBuilders.post("/Salary/add/extraPayments").with(httpBasic("nada1", "nada123")).contentType(MediaType.APPLICATION_JSON)
+        String body = objectMapper.writeValueAsString(earnings);
+        mockMvc.perform(MockMvcRequestBuilders.post("/Salary/add/earnings").with(httpBasic("nada1", "nada123")).contentType(MediaType.APPLICATION_JSON)
                 .content(body)).andExpect(result -> assertTrue(result.getResolvedException() instanceof ConflictException))
                 .andExpect(status().isConflict()).andExpect(result -> assertEquals("raise must be positive number", Objects.requireNonNull(result.getResolvedException()).getMessage()));
     }

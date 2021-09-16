@@ -29,7 +29,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 authorizeRequests().antMatchers("/HR/employee/**").hasRole(Roles.HR.name())
                 .antMatchers("/Teams/**").hasRole(Roles.HR.name())
                 .antMatchers("/department/**").hasRole(Roles.HR.name())
-                .antMatchers("/Salary/add/extraPayments").hasRole(Roles.HR.name())
+                .antMatchers("/Salary/add/earnings").hasRole(Roles.HR.name())
                 .antMatchers("/Salary/get/SalaryHistory").hasAnyRole(Roles.EMPLOYEE.name(), Roles.HR.name())
                 .antMatchers("/Salary/get/UserActualSalaries").hasAnyRole(Roles.EMPLOYEE.name(), Roles.HR.name())
                 .antMatchers("/Salary/get/ActualSalaries").hasAnyRole(Roles.HR.name())

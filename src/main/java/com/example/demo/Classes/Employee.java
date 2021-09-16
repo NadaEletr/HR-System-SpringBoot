@@ -40,7 +40,7 @@ public class Employee {
     @JoinColumn(name = "department_id")
     private Department department;
     @OneToMany(mappedBy = "employee")
-    private List<ExtraPayments> extraPayments;
+    private List<Earnings> earnings;
     @Column(name = "gender")
     @Enumerated(EnumType.STRING)
     private Gender gender;
