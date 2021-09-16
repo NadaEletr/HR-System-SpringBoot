@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 public class DepartmentController {
     @Autowired
     DepartmentService departmentService;
-
     @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity<Department> addNewEmployee(@RequestBody Department department) throws NotFoundException {
@@ -29,5 +28,5 @@ public class DepartmentController {
     Department getTeams(@RequestParam("id") String id) {
         return departmentService.getDepartment(Integer.parseInt(id));
     }
-
 }
+

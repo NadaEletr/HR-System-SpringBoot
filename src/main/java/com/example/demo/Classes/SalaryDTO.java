@@ -16,19 +16,4 @@ public class SalaryDTO {
         }
     }
 
-//    public double getNetSalary() {
-//        return netSalary;
-//    }
-//
-//    public void setNetSalary(double netSalary) {
-//        this.netSalary = netSalary;
-//    }
-//
-//    public double getGrossSalary() {
-//        return grossSalary;
-//    }
-
-    public void setGrossSalary(double grossSalary) {
-        this.grossSalary = grossSalary;
-    }
 }

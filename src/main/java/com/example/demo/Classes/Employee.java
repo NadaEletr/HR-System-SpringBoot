@@ -34,7 +34,6 @@ public class Employee {
     private Degree degree;
     @Column(name = "years_of_experience")
     private Integer yearsOfExperience;
-
     @Column(name = "graduation_date")
     private Date graduation_date;
     @ManyToOne
@@ -60,10 +59,6 @@ public class Employee {
     private double grossSalary;
     @Column(name = "net_salary")
     private Double netSalary;
-    @Column(name = "salary_raise")
-    private Double salaryRaise;
-    @Column(name = "joined_year")
-    private Date joinedYear;
     @OneToMany(mappedBy = "employee")
     @JsonIgnore
     private List<Absence> absences;
@@ -74,196 +69,9 @@ public class Employee {
     private List<SalaryDetails> salaryHistories;
     @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
     private UserAccount userAccount;
-
-
     public Employee() {
         this.leaves = 0;
-
     }
-
-//    public UserAccount getUserAccount() {
-//        return userAccount;
-//    }
-//
-//    public void setUserAccount(UserAccount userAccount) {
-//        this.userAccount = userAccount;
-//    }
-//
-//    public Date getBirthDate() {
-//        return birthDate;
-//    }
-//
-//    public void setBirthDate(Date birthDate) {
-//        this.birthDate = birthDate;
-//    }
-//
-//    public Department getDepartment() {
-//        return department;
-//    }
-//
-//    public Employee getManager() {
-//        return manager;
-//    }
-//
-//    public void setManager(Employee manager) {
-//        this.manager = manager;
-//    }
-//
-//    public void setDepartment(Department department) {
-//        this.department = department;
-//    }
-//
-//    public Set<Employee> getEmployees() {
-//        return employees;
-//    }
-//
-//    public void setEmployees(Set<Employee> employees) {
-//        this.employees = employees;
-//    }
-//
-//
-//    public Date getGraduation_date() {
-//        return graduation_date;
-//    }
-//
-//    public void setGraduation_date(Date graduation_date) {
-//        this.graduation_date = graduation_date;
-//    }
-//
-//
-//    public String getFirst_name() {
-//        return first_name;
-//    }
-//
-//    public void setFirst_name(String name) {
-//        this.first_name = name;
-//    }
-//
-//    public Gender getGender() {
-//        return gender;
-//    }
-//
-//    public void setGender(Gender gender) {
-//        this.gender = gender;
-//    }
-//
-//    public Double getGrossSalary() {
-//        return grossSalary;
-//    }
-//
-//    public void setGrossSalary(Double grossSalary) {
-//        this.grossSalary = grossSalary;
-//
-//    }
-//
-//    public String getNationalId() {
-//        return nationalId;
-//    }
-//
-//    public void setNationalId(String nationalId) {
-//        this.nationalId = nationalId;
-//    }
-//
-//    public Double getNetSalary() {
-//        return netSalary;
-//    }
-//
-//    public Teams getTeam() {
-//        return team;
-//    }
-//
-//    public void setTeam(Teams team) {
-//        this.team = team;
-//    }
-//
-//    public void setNetSalary(double netSalary) {
-//        this.netSalary = netSalary;
-//
-//    }
-//
-//
-//    public int getId() {
-//        return id;
-//    }
-//
-//    public void setId(int id) {
-//        this.id = id;
-//    }
-//
-//    public String getLast_name() {
-//        return last_name;
-//    }
-//
-//    public void setLast_name(String last_name) {
-//        this.last_name = last_name;
-//    }
-//
-//    public Degree getDegree() {
-//        return degree;
-//    }
-//
-//    public void setDegree(Degree degree) {
-//        this.degree = degree;
-//    }
-//
-//    public Integer getYearsOfExperience() {
-//        return yearsOfExperience;
-//    }
-//
-//    public void setYearsOfExperience(Integer yearsOfExperience) {
-//        this.yearsOfExperience = yearsOfExperience;
-//    }
-//
-//    public Integer getLeaves() {
-//        return leaves;
-//    }
-//
-//    public void setLeaves(Integer leaves) {
-//        if (leaves == null) {
-//            this.leaves = 0;
-//        } else
-//            this.leaves = leaves;
-//    }
-//
-//    public List<SalaryDetails> getSalaryHistories() {
-//        return salaryHistories;
-//    }
-//
-//    public void setSalaryHistories(List<SalaryDetails> salaryHistories) {
-//        this.salaryHistories = salaryHistories;
-//    }
-//
-//    public List<Absence> getAbsences() {
-//        return absences;
-//    }
-//
-//    public void setVacations(List<Absence> vacations) {
-//        this.absences = vacations;
-//    }
-//
-//    public Integer getAcceptableLeaves() {
-//        return acceptableLeaves;
-//    }
-//
-//    public void setAcceptableLeaves(Integer acceptableLeaves) {
-//        this.acceptableLeaves = acceptableLeaves;
-//    }
-//
-//    public Date getJoinedYear() {
-//        return joinedYear;
-//    }
-//
-//    public void setJoinedYear(Date joinedYear) {
-//        this.joinedYear = joinedYear;
-//    }
-//
-//    public Double getSalaryRaise() {
-//        return salaryRaise;
-//    }
-//
-//    public void setSalaryRaise(Double salaryRaise) {
-//        this.salaryRaise = salaryRaise;
-//    }
 
 }
 

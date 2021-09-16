@@ -26,29 +26,6 @@ public class Teams {
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     Set<Employee> employees;
 
-//    public int getTeamId() {
-//        return teamId;
-//    }
-//
-//    public void setTeamId(int teamId) {
-//        this.teamId = teamId;
-//    }
-//
-//    public String getTeamName() {
-//        return teamName;
-//    }
-//
-//    public void setTeamName(String teamName) {
-//        this.teamName = teamName;
-//    }
-//
-//    public Set<Employee> getEmployees() {
-//        return employees;
-//    }
-//
-//    public void setEmployees(Set<Employee> employees) {
-//        this.employees = employees;
-//    }
 
 
 }

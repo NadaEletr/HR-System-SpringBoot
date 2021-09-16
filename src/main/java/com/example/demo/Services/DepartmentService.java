@@ -15,6 +15,9 @@ public class DepartmentService {
     public DepartmentRepository departmentRepository;
 
     public Department saveEmployee(Department department) {
+        if(department.getDepartmentName()==null){
+            throw new NotFoundException("name must not be null");
+        }
         if (departmentRepository.existsById(department.getDepartmentId()) || departmentRepository.existsByDepartmentName(department.getDepartmentName())) {
             throw new ConflictException("department already exists !");
         }

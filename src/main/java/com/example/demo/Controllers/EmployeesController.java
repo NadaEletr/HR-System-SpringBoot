@@ -1,6 +1,8 @@
 package com.example.demo.Controllers;
 
 import com.example.demo.Classes.*;
+import com.example.demo.Security.UserAccount;
+import com.example.demo.Security.UserDetailPrincipalService;
 import com.example.demo.Services.EmployeeService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import java.util.List;
 public class EmployeesController {
     @Autowired
     EmployeeService employeeService;
+
 
     @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
     @Secured("HR")
@@ -43,12 +46,7 @@ public class EmployeesController {
         return new ResponseEntity<>(originalEmployeeModified, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/get/Salaries", produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody
-    ResponseEntity<SalaryDTO> getEmployeeSalaries(@RequestParam("id") String id) {
-        SalaryDTO employeeSalary = employeeService.getEmployeeSalary(Integer.parseInt(id));
-        return new ResponseEntity<>(employeeSalary, HttpStatus.OK);
-    }
+
 
     @GetMapping(value = "/get/team", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
@@ -56,6 +54,7 @@ public class EmployeesController {
 
         return employeeService.getEmployeesInTeam(Integer.parseInt(id));
     }
+    //get department
 
     @GetMapping(value = "/get/underManager", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody

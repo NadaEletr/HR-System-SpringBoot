@@ -29,35 +29,9 @@ public class Absence {
     public Absence(Date date) {
         this.id = id;
         this.date = date;
-
     }
 
     public Absence() {
     }
-
-
-//    public int getId() {
-//        return id;
-//    }
-
-//    public void setId(int id) {
-//        this.id = id;
-//    }
-//
-//    public Date getDate() {
-//        return date;
-//    }
-//
-//    public void setDate(Date date) {
-//        this.date = date;
-//    }
-//
-//    public Employee getEmployee() {
-//        return employee;
-//    }
-//
-//    public void setEmployee(Employee employee) {
-//        this.employee = employee;
-//    }
 
 }

@@ -51,7 +51,6 @@ public class UserDetailPrincipalService implements UserDetailsService {
 
     public String getLoggedUserName() {
         SecurityContext context = SecurityContextHolder.getContext();
-
         Authentication authentication = context.getAuthentication();
         return authentication.getName();
     }

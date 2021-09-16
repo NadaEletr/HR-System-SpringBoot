@@ -19,6 +19,9 @@ public class TeamService {
     public TeamRepository teamRepository;
 
     public Teams addTeam(Teams team) {
+        if(team.getTeamName()==null){
+            throw new NotFoundException("team name must not be null");
+        }
         if (teamRepository.existsByTeamName(team.getTeamName())) {
             throw new ConflictException("team already exists !");
         }

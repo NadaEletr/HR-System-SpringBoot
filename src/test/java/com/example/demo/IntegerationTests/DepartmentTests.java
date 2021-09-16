@@ -8,10 +8,16 @@ import com.example.demo.Security.UserAccount;
 import com.example.demo.Services.DepartmentService;
 import com.example.demo.Services.EmployeeService;
 import com.example.demo.errors.ConflictException;
+import com.example.demo.errors.NotFoundException;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
+import org.dbunit.DataSourceDatabaseTester;
+import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.ReplacementDataSet;
+import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +33,12 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
+
+import javax.inject.Inject;
+import javax.sql.DataSource;
+import java.io.FileInputStream;
+import java.util.Calendar;
+import java.util.Date;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -55,8 +67,6 @@ public class DepartmentTests {
     @Autowired
     UserAccountRepository userAccountRepository;
 
-
-    //@ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT,value = "/expected.xml")
     @Test
     public void whenAddDepartmentReturnDepartment() throws Exception {
         Department department = new Department();
@@ -71,6 +81,38 @@ public class DepartmentTests {
         assertEquals(resultDepartment.getDepartmentId(), department.getDepartmentId());
     }
     @Test
+    public void whenAddDepartmentWithoutName() throws Exception {
+        Department department = new Department();
+        department.setDepartmentId(3);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String body = objectMapper.writeValueAsString(department);
+        mockMvc.perform(MockMvcRequestBuilders.post("/department/add").with(httpBasic("nada1", "nada123")).contentType(MediaType.APPLICATION_JSON)
+                .content(body))
+                .andExpect(status().isNotFound()).andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
+                .andExpect(result -> assertEquals("name must not be null", result.getResolvedException().getMessage()));;
+
+    }
+
+    @Test
+    public void addDepartmentUnAuthorized() throws Exception {
+        Department department = new Department();
+        department.setDepartmentName("design");
+        ObjectMapper objectMapper = new ObjectMapper();
+        String body = objectMapper.writeValueAsString(department);
+        mockMvc.perform(MockMvcRequestBuilders.post("/department/add").with(httpBasic("nada1", "nada124443")).contentType(MediaType.APPLICATION_JSON)
+                .content(body)).andExpect(status().isUnauthorized());
+    }
+    @Test
+    public void addDepartmentForbidden() throws Exception {
+        Department department = new Department();
+        department.setDepartmentName("design");
+        ObjectMapper objectMapper = new ObjectMapper();
+        String body = objectMapper.writeValueAsString(department);
+        mockMvc.perform(MockMvcRequestBuilders.post("/department/add").with(httpBasic("sara3", "mohamed@3")).contentType(MediaType.APPLICATION_JSON)
+                .content(body)).andExpect(status().isForbidden());
+    }
+
+    @Test
     @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = "/data.xml")
     public void testGetDepartment() throws Exception {
         int id =1;
@@ -79,7 +121,23 @@ public class DepartmentTests {
                 .with(httpBasic(userAccount.getUserName(), "nada123")));
     }
     @Test
-    public void testDuplicateNameWhenAdding() throws Exception {
+    @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = "/data.xml")
+    public void testGetDepartmentUnAuthorized() throws Exception {
+        int id =1;
+        UserAccount userAccount = userAccountRepository.getById("nada1");
+        mockMvc.perform(MockMvcRequestBuilders.get("/department/get").param("id", String.valueOf(id))
+                .with(httpBasic(userAccount.getUserName(), "nada1234444"))).andExpect(status().isUnauthorized());
+    }
+    @Test
+    @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = "/data.xml")
+    public void testGetDepartmentForbidden() throws Exception {
+        int id =1;
+        mockMvc.perform(MockMvcRequestBuilders.get("/department/get").param("id", String.valueOf(id))
+                .with(httpBasic("sara3", "mohamed@3"))).andExpect(status().isForbidden());
+    }
+
+    @Test
+    public void testDuplicateDepartmentWhenAdding() throws Exception {
         UserAccount userAccount = userAccountRepository.getById("nada1");
         Department department = new Department();
         department.setDepartmentName("sw");

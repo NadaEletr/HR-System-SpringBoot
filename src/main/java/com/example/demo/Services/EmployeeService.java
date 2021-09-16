@@ -1,9 +1,6 @@
 package com.example.demo.Services;
 
-import com.example.demo.Classes.Absence;
-import com.example.demo.Classes.AllowedVacations;
-import com.example.demo.Classes.Employee;
-import com.example.demo.Classes.SalaryDTO;
+import com.example.demo.Classes.*;
 import com.example.demo.Repositories.UserAccountRepository;
 import com.example.demo.Security.Roles;
 import com.example.demo.Security.UserAccount;
@@ -19,7 +16,9 @@ import com.example.demo.errors.NotFoundException;
 
 import javax.transaction.Transactional;
 import java.util.List;
-
+import org.hibernate.mapping.Map;
+import org.modelmapper.Conditions;
+import org.modelmapper.ModelMapper;
 @Service
 @Component
 public class EmployeeService {
@@ -45,18 +44,24 @@ public class EmployeeService {
     }
 
     private void checkBeforeSaving(Employee employee) {
+        if (employee.getNationalId()==null) {
+            throw  new NotFoundException("national id must not be null");
+        }
+        if(employee.getFirst_name()== null || employee.getLast_name()==null){
+            throw new NotFoundException("name missing !");
+        }
+        if(employee.getYearsOfExperience()==null){
+            throw new NotFoundException("years of experience must not be empty!");
+        }
+        if(employee.getGrossSalary()==0d){
+                throw new NotFoundException(" Actual gross salary is missing");
+        }
+
         if (employeeRepository.existsByNationalId(employee.getNationalId())) {
             throw new ConflictException("national id exists before !");
         }
         if (employeeRepository.existsById(employee.getId())) {
             throw new ConflictException("this employee is already added");
-        }
-        if (employee.getDepartment() != null && employeeRepository.existsByDepartmentId(employee.getDepartment().getDepartmentId()) == false) {
-            throw new NotFoundException("this department does not exists");
-        }
-
-        if (employee.getTeam() != null && employeeRepository.existsByTeamId(employee.getTeam().getTeamId()) == false) {
-            throw new NotFoundException("this team does not exists");
         }
 
         if (employee.getManager() != null && !employeeRepository.existsById(employee.getManager().getId())) {
@@ -82,7 +87,7 @@ public class EmployeeService {
         UserAccount userAccount = new UserAccount();
         userAccount.setUserName(username);
         userAccount.setPassword(passwordEncoder.encode(password));
-        userAccount.setRoles(Roles.EMPLOYEE.name());
+        userAccount.setRoles(Roles.EMPLOYEE);
         userAccount.setEmployee(employee);
         userAccountService.addUserAccount(userAccount);
     }
@@ -93,7 +98,12 @@ public class EmployeeService {
         double netSalary;
         if (employee.getGrossSalary() == 0d) {
             netSalary = 0d;
-        } else {
+        }
+        if(employee.getGrossSalary()<0){
+            throw new ConflictException("salary must positive");
+        }
+            else
+        {
             netSalary = employee.getGrossSalary() * taxRatio - insurance;
         }
         employee.setNetSalary(netSalary);
@@ -177,36 +187,39 @@ public class EmployeeService {
     }
 
     public void transferEmployee(Employee updateEmployee, Employee originalEmployee) {
-        if (updateEmployee.getFirst_name() != null) {
-            originalEmployee.setFirst_name(updateEmployee.getFirst_name());
-        }
-        if (updateEmployee.getEmployees() != null) {
-            originalEmployee.setEmployees(updateEmployee.getEmployees());
-        }
-        if (updateEmployee.getGraduation_date() != null) {
-            originalEmployee.setGraduation_date(updateEmployee.getGraduation_date());
-        }
-        if (updateEmployee.getBirthDate() != null) {
-            originalEmployee.setBirthDate(updateEmployee.getBirthDate());
-        }
-        if (updateEmployee.getManager() != null) {
-            originalEmployee.setManager(updateEmployee.getManager());
-        }
-        if (updateEmployee.getGender() != null) {
-            originalEmployee.setGender(updateEmployee.getGender());
-        }
-        if (updateEmployee.getDepartment() != null) {
-            originalEmployee.setDepartment(updateEmployee.getDepartment());
-        }
-        if (updateEmployee.getTeam() != null) {
-            originalEmployee.setTeam(updateEmployee.getTeam());
-        }
-        if (updateEmployee.getGrossSalary() != 0d) {
-            originalEmployee.setGrossSalary(updateEmployee.getGrossSalary());
-        }
-        if (updateEmployee.getNetSalary() != null) {
-            CalcNetSalary(originalEmployee);
-        }
+        updateEmployee.setId(originalEmployee.getId());
+        ModelMapperGenerator.getModelMapperSingleton().map(updateEmployee, originalEmployee);
+
+//        if (updateEmployee.getFirst_name() != null) {
+//            originalEmployee.setFirst_name(updateEmployee.getFirst_name());
+//        }
+//        if (updateEmployee.getEmployees() != null) {
+//            originalEmployee.setEmployees(updateEmployee.getEmployees());
+//        }
+//        if (updateEmployee.getGraduation_date() != null) {
+//            originalEmployee.setGraduation_date(updateEmployee.getGraduation_date());
+//        }
+//        if (updateEmployee.getBirthDate() != null) {
+//            originalEmployee.setBirthDate(updateEmployee.getBirthDate());
+//        }
+//        if (updateEmployee.getManager() != null) {
+//            originalEmployee.setManager(updateEmployee.getManager());
+//        }
+//        if (updateEmployee.getGender() != null) {
+//            originalEmployee.setGender(updateEmployee.getGender());
+//        }
+//        if (updateEmployee.getDepartment() != null) {
+//            originalEmployee.setDepartment(updateEmployee.getDepartment());
+//        }
+//        if (updateEmployee.getTeam() != null) {
+//            originalEmployee.setTeam(updateEmployee.getTeam());
+//        }
+//        if (updateEmployee.getGrossSalary() != 0d) {
+//            originalEmployee.setGrossSalary(updateEmployee.getGrossSalary());
+//        }
+//        if (updateEmployee.getNetSalary() != null) {
+//            CalcNetSalary(originalEmployee);
+//        }
     }
 
 
