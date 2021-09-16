@@ -11,15 +11,9 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
-import org.dbunit.DataSourceDatabaseTester;
-import org.dbunit.dataset.IDataSet;
-import org.dbunit.dataset.ReplacementDataSet;
-import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -31,17 +25,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
-import javax.inject.Inject;
-import javax.sql.DataSource;
-import java.io.FileInputStream;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
-import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, properties = "scheduling.enabled=false")
@@ -87,8 +75,8 @@ public class TeamTests {
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(addTeam);
         mockMvc.perform(MockMvcRequestBuilders.post("/Teams/add").with(httpBasic("nada1", "nada123")).contentType(MediaType.APPLICATION_JSON).content(body))
-              .andExpect(status().isNotFound()).andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
-                .andExpect(result -> assertEquals("team name must not be null", result.getResolvedException().getMessage()));;
+                .andExpect(status().isNotFound()).andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
+                .andExpect(result -> assertEquals("team name must not be null", Objects.requireNonNull(result.getResolvedException()).getMessage()));
 
     }
 
@@ -102,6 +90,7 @@ public class TeamTests {
         mockMvc.perform(MockMvcRequestBuilders.post("/Teams/add").with(httpBasic("farah", "nada123")).contentType(MediaType.APPLICATION_JSON).content(body))
                 .andExpect(status().isUnauthorized());
     }
+
     @Test
     public void addTeamForbidden() throws Exception {
         Teams addTeam = new Teams();
@@ -116,22 +105,24 @@ public class TeamTests {
     @Test
     @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = "/data.xml")
     public void testGetTeam() throws Exception {
-        int id =1;
+        int id = 1;
         UserAccount userAccount = userAccountRepository.getById("nada1");
         mockMvc.perform(MockMvcRequestBuilders.get("/Teams/get").param("id", String.valueOf(id))
                 .with(httpBasic(userAccount.getUserName(), "nada123")));
     }
+
     @Test
     @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = "/data.xml")
     public void testGetTeamUnAuthorized() throws Exception {
-        int id =1;
+        int id = 1;
         mockMvc.perform(MockMvcRequestBuilders.get("/Teams/get").param("id", String.valueOf(id))
                 .with(httpBasic("salma", "nada123"))).andExpect(status().isUnauthorized());
     }
+
     @Test
     @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = "/data.xml")
     public void testGetTeamForbidden() throws Exception {
-        int id =1;
+        int id = 1;
         mockMvc.perform(MockMvcRequestBuilders.get("/Teams/get").param("id", String.valueOf(id))
                 .with(httpBasic("sara3", "mohamed@3"))).andExpect(status().isForbidden());
     }
@@ -146,6 +137,6 @@ public class TeamTests {
         String body = objectMapper.writeValueAsString(addTeam);
         mockMvc.perform(MockMvcRequestBuilders.post("/Teams/add")
                 .with(httpBasic(userAccount.getUserName(), "nada123")).contentType(MediaType.APPLICATION_JSON).content(body)).andExpect(result -> assertTrue(result.getResolvedException() instanceof ConflictException))
-                .andExpect(status().isConflict()).andExpect(result -> assertEquals("team already exists !", result.getResolvedException().getMessage()));
+                .andExpect(status().isConflict()).andExpect(result -> assertEquals("team already exists !", Objects.requireNonNull(result.getResolvedException()).getMessage()));
     }
 }

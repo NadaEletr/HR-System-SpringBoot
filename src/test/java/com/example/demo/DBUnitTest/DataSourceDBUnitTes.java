@@ -12,8 +12,6 @@ public class DataSourceDBUnitTes extends DataSourceBasedDBTestCase {
     @Override
     protected DataSource getDataSource() {
         JdbcDataSource dataSource = new JdbcDataSource();
-//        dataSource.setURL(
-//                "jdbc:h2:mem:default;DB_CLOSE_DELAY=-1;init=runscript from 'classpath:schema.sql'");
         dataSource.setUser("sa");
         return dataSource;
     }

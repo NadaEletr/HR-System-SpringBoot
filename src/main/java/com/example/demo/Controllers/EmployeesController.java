@@ -1,10 +1,7 @@
 package com.example.demo.Controllers;
 
-import com.example.demo.Classes.*;
-import com.example.demo.Security.UserAccount;
-import com.example.demo.Security.UserDetailPrincipalService;
+import com.example.demo.Classes.Employee;
 import com.example.demo.Services.EmployeeService;
-import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -47,7 +44,6 @@ public class EmployeesController {
     }
 
 
-
     @GetMapping(value = "/get/team", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     List<Employee> getEmployeesInTeam(@RequestParam("id") String id) {
@@ -76,9 +72,6 @@ public class EmployeesController {
         return "employee " + id + " is deleted";
 
     }
-
-
-
 
 
 }

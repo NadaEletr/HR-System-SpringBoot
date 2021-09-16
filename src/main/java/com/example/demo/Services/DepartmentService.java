@@ -1,7 +1,6 @@
 package com.example.demo.Services;
 
 import com.example.demo.Classes.Department;
-import com.example.demo.Classes.Teams;
 import com.example.demo.Repositories.DepartmentRepository;
 import com.example.demo.errors.ConflictException;
 import com.example.demo.errors.NotFoundException;
@@ -15,7 +14,7 @@ public class DepartmentService {
     public DepartmentRepository departmentRepository;
 
     public Department saveEmployee(Department department) {
-        if(department.getDepartmentName()==null){
+        if (department.getDepartmentName() == null) {
             throw new NotFoundException("name must not be null");
         }
         if (departmentRepository.existsById(department.getDepartmentId()) || departmentRepository.existsByDepartmentName(department.getDepartmentName())) {

@@ -7,8 +7,6 @@ import com.example.demo.errors.InvalidCredentialsException;
 import com.example.demo.errors.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,7 +17,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.Optional;
 
 @Service
@@ -29,11 +26,6 @@ public class UserDetailPrincipalService implements UserDetailsService {
     UserAccountRepository userAccountRepository;
     @Autowired
     EmployeeRepository employeeRepository;
-
-    public void UserPrincipalDetailsService(UserAccountRepository userAccountRepository) {
-        this.userAccountRepository = userAccountRepository;
-    }
-
 
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

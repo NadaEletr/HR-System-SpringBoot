@@ -4,14 +4,8 @@ import com.example.demo.Classes.Absence;
 import com.example.demo.Repositories.AbsenceRepository;
 import com.example.demo.Repositories.UserAccountRepository;
 import com.example.demo.Security.UserAccount;
-import com.example.demo.errors.ConflictException;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import org.dbunit.DataSourceDatabaseTester;
-import org.dbunit.dataset.IDataSet;
-import org.dbunit.dataset.ReplacementDataSet;
-import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,26 +16,17 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
-import org.testcontainers.shaded.org.apache.commons.lang.time.DateUtils;
 
-import javax.inject.Inject;
-import javax.sql.DataSource;
-import java.io.FileInputStream;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
-import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@SuppressWarnings("ALL")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @ExtendWith(SpringExtension.class)
@@ -72,17 +57,6 @@ public class AbsenceTests {
         Absence absence = absenceRepository.findByEmployee(userAccount.getEmployee());
         assertEquals(absence.getEmployee().getLeaves(), userAccount.getEmployee().getLeaves() + 1);
     }
-
-
-//    @Test
-//    public void recordLeaveDuplicate() throws Exception { //check date
-//        UserAccount userAccount = userAccountRepository.getById("sara3");
-//        mockMvc.perform(MockMvcRequestBuilders.post("/absence/record")
-//                .with(httpBasic(userAccount.getUserName(), "mohamed@3"))
-//        ).andExpect(result -> assertTrue(result.getResolvedException() instanceof ConflictException))
-//                .andExpect(status().isConflict())
-//                .andExpect(result -> assertEquals("you are already recorded this day !", result.getResolvedException().getMessage()));
-//    }
 
     @Test
     public void getLeaves() throws Exception {

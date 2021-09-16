@@ -1,23 +1,16 @@
 package com.example.demo.IntegerationTests;
 
 import com.example.demo.Classes.Department;
-import com.example.demo.Classes.Teams;
 import com.example.demo.Repositories.DepartmentRepository;
 import com.example.demo.Repositories.UserAccountRepository;
 import com.example.demo.Security.UserAccount;
 import com.example.demo.Services.DepartmentService;
-import com.example.demo.Services.EmployeeService;
 import com.example.demo.errors.ConflictException;
 import com.example.demo.errors.NotFoundException;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
-import org.dbunit.DataSourceDatabaseTester;
-import org.dbunit.dataset.IDataSet;
-import org.dbunit.dataset.ReplacementDataSet;
-import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,26 +18,18 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
-import javax.inject.Inject;
-import javax.sql.DataSource;
-import java.io.FileInputStream;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.Objects;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -80,6 +65,7 @@ public class DepartmentTests {
         assertEquals(resultDepartment.getDepartmentName(), department.getDepartmentName());
         assertEquals(resultDepartment.getDepartmentId(), department.getDepartmentId());
     }
+
     @Test
     public void whenAddDepartmentWithoutName() throws Exception {
         Department department = new Department();
@@ -89,7 +75,7 @@ public class DepartmentTests {
         mockMvc.perform(MockMvcRequestBuilders.post("/department/add").with(httpBasic("nada1", "nada123")).contentType(MediaType.APPLICATION_JSON)
                 .content(body))
                 .andExpect(status().isNotFound()).andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
-                .andExpect(result -> assertEquals("name must not be null", result.getResolvedException().getMessage()));;
+                .andExpect(result -> assertEquals("name must not be null", Objects.requireNonNull(result.getResolvedException()).getMessage()));
 
     }
 
@@ -102,6 +88,7 @@ public class DepartmentTests {
         mockMvc.perform(MockMvcRequestBuilders.post("/department/add").with(httpBasic("nada1", "nada124443")).contentType(MediaType.APPLICATION_JSON)
                 .content(body)).andExpect(status().isUnauthorized());
     }
+
     @Test
     public void addDepartmentForbidden() throws Exception {
         Department department = new Department();
@@ -115,23 +102,25 @@ public class DepartmentTests {
     @Test
     @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = "/data.xml")
     public void testGetDepartment() throws Exception {
-        int id =1;
+        int id = 1;
         UserAccount userAccount = userAccountRepository.getById("nada1");
         mockMvc.perform(MockMvcRequestBuilders.get("/department/get").param("id", String.valueOf(id))
                 .with(httpBasic(userAccount.getUserName(), "nada123")));
     }
+
     @Test
     @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = "/data.xml")
     public void testGetDepartmentUnAuthorized() throws Exception {
-        int id =1;
+        int id = 1;
         UserAccount userAccount = userAccountRepository.getById("nada1");
         mockMvc.perform(MockMvcRequestBuilders.get("/department/get").param("id", String.valueOf(id))
                 .with(httpBasic(userAccount.getUserName(), "nada1234444"))).andExpect(status().isUnauthorized());
     }
+
     @Test
     @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = "/data.xml")
     public void testGetDepartmentForbidden() throws Exception {
-        int id =1;
+        int id = 1;
         mockMvc.perform(MockMvcRequestBuilders.get("/department/get").param("id", String.valueOf(id))
                 .with(httpBasic("sara3", "mohamed@3"))).andExpect(status().isForbidden());
     }

@@ -5,9 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
-
 import javax.persistence.*;
-import java.util.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "teams")
@@ -25,7 +24,6 @@ public class Teams {
     @JsonIgnore
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     Set<Employee> employees;
-
 
 
 }

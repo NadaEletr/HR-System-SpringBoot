@@ -1,7 +1,6 @@
 package com.example.demo.Controllers;
 
 
-import com.example.demo.Classes.Employee;
 import com.example.demo.Classes.ExtraPayments;
 import com.example.demo.Classes.SalaryDTO;
 import com.example.demo.Classes.SalaryDetails;
@@ -11,8 +10,6 @@ import com.example.demo.Security.UserAccount;
 import com.example.demo.Security.UserDetailPrincipalService;
 import com.example.demo.Services.EmployeeService;
 import com.example.demo.Services.SalaryService;
-import com.example.demo.errors.InvalidCredentialsException;
-import com.example.demo.errors.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,7 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -44,6 +40,7 @@ public class SalaryController {
         UserAccount userAccount = userDetailPrincipalService.getCurrentUser();
         return salaryService.getEmployeeSalaryHistory(userAccount.getEmployee().getId());
     }
+
     @GetMapping(value = "/get/ActualSalaries", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity<SalaryDTO> getEmployeeActualSalaries(@RequestParam("id") String id) {
@@ -57,11 +54,13 @@ public class SalaryController {
         salaryService.addExtraPayments(extraPayments);
         return "extra payments is added!";
     }
+
     @GetMapping(value = "/get/SalaryHistory/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     List<SalaryDetails> getSalaryHistoryById(@RequestParam("id") String id) {
         return salaryService.getEmployeeSalaryHistory(Integer.parseInt(id));
     }
+
     @GetMapping(value = "/get/UserActualSalaries", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity<SalaryDTO> userGetActualSalaries() {

@@ -1,19 +1,16 @@
 package com.example.demo.IntegerationTests;
 
-import com.example.demo.Classes.*;
-import com.example.demo.Security.UserAccount;
-import com.example.demo.Security.UserDetailPrincipalService;
+import com.example.demo.Classes.Department;
+import com.example.demo.Classes.Employee;
+import com.example.demo.Classes.Gender;
+import com.example.demo.Classes.Teams;
 import com.example.demo.Repositories.*;
+import com.example.demo.Security.UserDetailPrincipalService;
 import com.example.demo.Services.EmployeeService;
 import com.example.demo.errors.ConflictException;
 import com.example.demo.errors.NotFoundException;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import org.dbunit.DataSourceDatabaseTester;
-import org.dbunit.dataset.IDataSet;
-import org.dbunit.dataset.ReplacementDataSet;
-import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,25 +26,16 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import org.testcontainers.shaded.com.fasterxml.jackson.core.JsonProcessingException;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
-import javax.inject.Inject;
-import javax.sql.DataSource;
-import javax.transaction.Transactional;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
-
-import java.io.FileInputStream;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -98,32 +86,33 @@ public class EmployeeTests {
                 param("id", String.valueOf(id))).andExpect(status().isOk())
                 .andExpect((content().json(body)));
     }
+
     @Test
     public void getEmployeeUnAuthorized() throws Exception {
         int id = 1;
         Employee employee = employeeRepository.getById(id);
         ObjectMapper objectMapper = new ObjectMapper();
-        String body = objectMapper.writeValueAsString(employee);
         mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get").with(httpBasic("nada1222", "nada123")).
                 param("id", String.valueOf(id))).andExpect(status().isUnauthorized());
 
     }
+
     @Test
     public void getEmployeeForbidden() throws Exception {
         int id = 1;
         Employee employee = employeeRepository.getById(id);
         ObjectMapper objectMapper = new ObjectMapper();
-        String body = objectMapper.writeValueAsString(employee);
         mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get").with(httpBasic("sara3", "mohamed@3")).
                 param("id", String.valueOf(id))).andExpect(status().isForbidden());
 
     }
+
     @Test
     public void getEmployeeWithNonExistingId() throws Exception {
         int id = 20;
         mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get").with(httpBasic("nada1", "nada123")).param("id", String.valueOf(id))
         ).andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
-                .andExpect(status().isNotFound()).andExpect(result -> assertEquals("no employee with this ID", result.getResolvedException().getMessage()));
+                .andExpect(status().isNotFound()).andExpect(result -> assertEquals("no employee with this ID", Objects.requireNonNull(result.getResolvedException()).getMessage()));
 
     }
 
@@ -137,18 +126,18 @@ public class EmployeeTests {
                 .param("id", String.valueOf(teamId))).andExpect(content().json(body)).andExpect(jsonPath("$", hasSize(employees.size())))
                 .andExpect(status().isOk());
     }
+
     @Test
     public void getEmployeesInTeamUnAuthorized() throws Exception {
         int teamId = 1;
-        List<Employee> employees = employeeService.getEmployeesInTeam(teamId);
         mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get/team").with(httpBasic("122dfe", "nada123"))
                 .param("id", String.valueOf(teamId)))
                 .andExpect(status().isUnauthorized());
     }
+
     @Test
     public void getEmployeesInTeamForbidden() throws Exception {
         int teamId = 1;
-        List<Employee> employees = employeeService.getEmployeesInTeam(teamId);
         mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get/team").with(httpBasic("sara3", "mohamed@3"))
                 .param("id", String.valueOf(teamId)))
                 .andExpect(status().isForbidden());
@@ -159,7 +148,7 @@ public class EmployeeTests {
         int teamId = 10;
         mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get/team").with(httpBasic("nada1", "nada123"))
                 .param("id", String.valueOf(teamId))).andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
-                .andExpect(status().isNotFound()).andExpect(result -> assertEquals("team does not exists !", result.getResolvedException().getMessage()));
+                .andExpect(status().isNotFound()).andExpect(result -> assertEquals("team does not exists !", Objects.requireNonNull(result.getResolvedException()).getMessage()));
     }
 
     @Test
@@ -190,6 +179,7 @@ public class EmployeeTests {
                 .content(body)).andDo(print()).andExpect(status().isCreated())
                 .andExpect(content().json(response));
     }
+
     @Test
     public void addEmployeeWithNonExistingNationalId() throws Exception {
 
@@ -207,8 +197,9 @@ public class EmployeeTests {
                 .with(httpBasic("nada1", "nada123")).
                         contentType(MediaType.APPLICATION_JSON)
                 .content(body)).andDo(print()).andExpect(status().isNotFound()).andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
-                .andExpect(result -> assertEquals("national id must not be null", result.getResolvedException().getMessage()));
+                .andExpect(result -> assertEquals("national id must not be null", Objects.requireNonNull(result.getResolvedException()).getMessage()));
     }
+
     @Test
     public void addEmployeeWithNonExistingFirstName() throws Exception {
 
@@ -225,8 +216,9 @@ public class EmployeeTests {
                 .with(httpBasic("nada1", "nada123")).
                         contentType(MediaType.APPLICATION_JSON)
                 .content(body)).andDo(print()).andExpect(status().isNotFound()).andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
-                .andExpect(result -> assertEquals("name missing !", result.getResolvedException().getMessage()));
+                .andExpect(result -> assertEquals("name missing !", Objects.requireNonNull(result.getResolvedException()).getMessage()));
     }
+
     @Test
     public void addEmployeeWithNonExistingLastName() throws Exception {
 
@@ -243,8 +235,9 @@ public class EmployeeTests {
                 .with(httpBasic("nada1", "nada123")).
                         contentType(MediaType.APPLICATION_JSON)
                 .content(body)).andDo(print()).andExpect(status().isNotFound()).andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
-                .andExpect(result -> assertEquals("name missing !", result.getResolvedException().getMessage()));
+                .andExpect(result -> assertEquals("name missing !", Objects.requireNonNull(result.getResolvedException()).getMessage()));
     }
+
     @Test
     public void addEmployeeWithNonExistingYearsOfExperience() throws Exception {
         Employee employee = new Employee();
@@ -260,8 +253,9 @@ public class EmployeeTests {
                 .with(httpBasic("nada1", "nada123")).
                         contentType(MediaType.APPLICATION_JSON)
                 .content(body)).andDo(print()).andExpect(status().isNotFound()).andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
-                .andExpect(result -> assertEquals("years of experience must not be empty!", result.getResolvedException().getMessage()));
+                .andExpect(result -> assertEquals("years of experience must not be empty!", Objects.requireNonNull(result.getResolvedException()).getMessage()));
     }
+
     @Test
     public void addEmployeeWithNonExistingGrossSalary() throws Exception {
         Employee employee = new Employee();
@@ -277,7 +271,7 @@ public class EmployeeTests {
                 .with(httpBasic("nada1", "nada123")).
                         contentType(MediaType.APPLICATION_JSON)
                 .content(body)).andDo(print()).andExpect(status().isNotFound()).andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
-                .andExpect(result -> assertEquals(" Actual gross salary is missing", result.getResolvedException().getMessage()));
+                .andExpect(result -> assertEquals(" Actual gross salary is missing", Objects.requireNonNull(result.getResolvedException()).getMessage()));
     }
 
 
@@ -305,6 +299,7 @@ public class EmployeeTests {
                         contentType(MediaType.APPLICATION_JSON)
                 .content(body)).andDo(print()).andExpect(status().isUnauthorized());
     }
+
     @Test
     public void addEmployeeForbidden() throws Exception {
         Optional<Teams> team = teamRepository.findById(1);
@@ -347,8 +342,9 @@ public class EmployeeTests {
         employeeService.generateAcceptedLeave(employee);
         mockMvc.perform(MockMvcRequestBuilders.post("/HR/employee/add").with(httpBasic("nada1", "nada123")).contentType(MediaType.APPLICATION_JSON)
                 .content(body)).andExpect(result -> assertTrue(result.getResolvedException() instanceof ConflictException))
-                .andExpect(status().isConflict()).andExpect(result -> assertEquals("national id exists before !", result.getResolvedException().getMessage()));
+                .andExpect(status().isConflict()).andExpect(result -> assertEquals("national id exists before !", Objects.requireNonNull(result.getResolvedException()).getMessage()));
     }
+
     @Test
     public void addingEmployeeWithNonExistingManager() throws Exception {
         Employee employee = new Employee();
@@ -366,9 +362,10 @@ public class EmployeeTests {
         String body = objectMapper.writeValueAsString(employee);
         mockMvc.perform(MockMvcRequestBuilders.post("/HR/employee/add").with(httpBasic("nada1", "nada123")).contentType(MediaType.APPLICATION_JSON)
                 .content(body)).andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
-                .andExpect(status().isNotFound()).andExpect(result -> assertEquals(" manager does not exists!", result.getResolvedException().getMessage()));
+                .andExpect(status().isNotFound()).andExpect(result -> assertEquals(" manager does not exists!", Objects.requireNonNull(result.getResolvedException()).getMessage()));
 
     }
+
     @Test
     public void addingEmployeeWithNegativeGrossSalary() throws Exception {
         Employee employee = new Employee();
@@ -383,7 +380,7 @@ public class EmployeeTests {
         String body = objectMapper.writeValueAsString(employee);
         mockMvc.perform(MockMvcRequestBuilders.post("/HR/employee/add").with(httpBasic("nada1", "nada123")).contentType(MediaType.APPLICATION_JSON)
                 .content(body)).andExpect(result -> assertTrue(result.getResolvedException() instanceof ConflictException))
-                .andExpect(status().isConflict()).andExpect(result -> assertEquals("salary must positive", result.getResolvedException().getMessage()));
+                .andExpect(status().isConflict()).andExpect(result -> assertEquals("salary must positive", Objects.requireNonNull(result.getResolvedException()).getMessage()));
 
     }
 
@@ -405,7 +402,7 @@ public class EmployeeTests {
         employeeService.generateAcceptedLeave(employee);
         mockMvc.perform(MockMvcRequestBuilders.post("/HR/employee/add").with(httpBasic("nada1", "nada123")).contentType(MediaType.APPLICATION_JSON)
                 .content(body)).andExpect(result -> assertTrue(result.getResolvedException() instanceof ConflictException))
-                .andExpect(status().isConflict()).andExpect(result -> assertEquals("this employee is already added", result.getResolvedException().getMessage()));
+                .andExpect(status().isConflict()).andExpect(result -> assertEquals("this employee is already added", Objects.requireNonNull(result.getResolvedException()).getMessage()));
     }
 
     @Test
@@ -425,6 +422,7 @@ public class EmployeeTests {
         assertEquals(employee.getFirst_name(), updateEmployee.getFirst_name());
         assertEquals(employee.getGender(), updateEmployee.getGender());
     }
+
     @Test
     public void updateEmployeeUnAuthorized() throws Exception { // change it
         int employeeId = 1;
@@ -439,6 +437,7 @@ public class EmployeeTests {
                 .param("id", String.valueOf(employeeId)))
                 .andExpect(status().isUnauthorized());
     }
+
     @Test
     public void updateEmployeeForbidden() throws Exception { // change it
         int employeeId = 1;
@@ -466,7 +465,7 @@ public class EmployeeTests {
                 .param("id", String.valueOf(employeeId))
                 .contentType(MediaType.APPLICATION_JSON).content(body)
         ).andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
-                .andExpect(status().isNotFound()).andExpect(result -> assertEquals("no employee with this ID", result.getResolvedException().getMessage()));
+                .andExpect(status().isNotFound()).andExpect(result -> assertEquals("no employee with this ID", Objects.requireNonNull(result.getResolvedException()).getMessage()));
 
     }
 
@@ -480,22 +479,22 @@ public class EmployeeTests {
                 .with(httpBasic("nada1", "nada123"))
         ).andExpect(status().isOk()).andExpect(content().json(body));
     }
+
     @Test
     public void getEmployeeUnderManagerUnAuthorized() throws Exception {
         Employee employeeManager = employeeRepository.getById(1);
         List<Employee> employeesUnderManger = employeeRepository.findAllByManagerId(employeeManager.getId());
         ObjectMapper objectMapper = new ObjectMapper();
-        String body = objectMapper.writeValueAsString(employeesUnderManger);
         mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get/underManager").param("id", String.valueOf(employeeManager.getId()))
                 .with(httpBasic("samia", "nada123"))
         ).andExpect(status().isUnauthorized());
     }
+
     @Test
     public void getEmployeeUnderManagerForbidden() throws Exception {
         Employee employeeManager = employeeRepository.getById(1);
         List<Employee> employeesUnderManger = employeeRepository.findAllByManagerId(employeeManager.getId());
         ObjectMapper objectMapper = new ObjectMapper();
-        String body = objectMapper.writeValueAsString(employeesUnderManger);
         mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get/underManager").param("id", String.valueOf(employeeManager.getId()))
                 .with(httpBasic("sara3", "mohamed@3"))
         ).andExpect(status().isForbidden());
@@ -503,12 +502,13 @@ public class EmployeeTests {
 
     @Test
     public void getEmployeeUnderNoneExistingManager() throws Exception {
-        int  id=20;
+        int id = 20;
         mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get/underManager").param("id", String.valueOf(id))
                 .with(httpBasic("nada1", "nada123"))
         ).andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
-                .andExpect(status().isNotFound()).andExpect(result -> assertEquals("no employee with this ID", result.getResolvedException().getMessage()));
+                .andExpect(status().isNotFound()).andExpect(result -> assertEquals("no employee with this ID", Objects.requireNonNull(result.getResolvedException()).getMessage()));
     }
+
     @Test
     public void getEmployeeUnderSomeManager() throws Exception {
         int managerId = 1;
@@ -518,21 +518,19 @@ public class EmployeeTests {
         mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get/SomeManager").param("id", String.valueOf(managerId)).with(httpBasic("nada1", "nada123"))
         ).andExpect(status().isOk()).andExpect(content().json(body));
     }
+
     @Test
     public void getEmployeeUnderSomeManagerUnAuthorized() throws Exception {
         int managerId = 1;
         List<Employee> employeesUnderManger = employeeRepository.findAllUnderSomeManager(managerId);
-        ObjectMapper objectMapper = new ObjectMapper();
-        String body = objectMapper.writeValueAsString(employeesUnderManger);
         mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get/SomeManager").param("id", String.valueOf(managerId))
                 .with(httpBasic("sara", "nada123"))
         ).andExpect(status().isUnauthorized());
     }
+
     @Test
     public void getEmployeeUnderSomeManagerForbidden() throws Exception {
         int managerId = 1;
-        List<Employee> employeesUnderManger = employeeRepository.findAllUnderSomeManager(managerId);
-        ObjectMapper objectMapper = new ObjectMapper();
         mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get/SomeManager").param("id", String.valueOf(managerId))
                 .with(httpBasic("sara3", "mohamed@3"))
         ).andExpect(status().isForbidden());
@@ -544,21 +542,20 @@ public class EmployeeTests {
         int managerId = 52;
         mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get/SomeManager").param("id", String.valueOf(managerId)).with(httpBasic("nada1", "nada123"))
                 .with(httpBasic("nada1", "nada123"))
-        ).andExpect(status().isNotFound() ).andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
-               .andExpect(result -> assertEquals("no employee with this ID", result.getResolvedException().getMessage()));
+        ).andExpect(status().isNotFound()).andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
+                .andExpect(result -> assertEquals("no employee with this ID", Objects.requireNonNull(result.getResolvedException()).getMessage()));
     }
 
     @Test
     public void deleteEmployeeWithNoManager() throws Exception { ///dont forget
         int id = 1;
-        String message = "employee " + id + " is deleted";
         Employee employeeToDelete = employeeRepository.getById(id);
         mockMvc.perform(MockMvcRequestBuilders.delete("/HR/employee/delete")
                 .param("id", String.valueOf(employeeToDelete.getId()))
                 .with(httpBasic("nada1", "nada123"))
         ).andExpect(status().isNotFound())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
-                .andExpect(result -> assertEquals(" can't delete employee with no manager", result.getResolvedException().getMessage()));
+                .andExpect(result -> assertEquals(" can't delete employee with no manager", Objects.requireNonNull(result.getResolvedException()).getMessage()));
     }
 
     @Test
@@ -571,23 +568,22 @@ public class EmployeeTests {
                 .with(httpBasic("nada1", "nada123")))
                 .andExpect(status().isOk())
                 .andExpect(content().string(message));
-
-        assertEquals(employeeRepository.existsById(3),false);
+        assertEquals(employeeRepository.existsById(3), false);
     }
+
     @Test
     public void deleteEmployeeWithManagerUnAuthorized() throws Exception { //check
         int id = 3;
-        String message = "employee " + id + " is deleted";
         Employee employeeToDelete = employeeRepository.getById(id);
         mockMvc.perform(MockMvcRequestBuilders.delete("/HR/employee/delete")
                 .param("id", String.valueOf(employeeToDelete.getId()))
                 .with(httpBasic("farah", "farah222")))
                 .andExpect(status().isUnauthorized());
     }
+
     @Test
     public void deleteEmployeeWithManagerForbidden() throws Exception { //check
         int id = 3;
-        String message = "employee " + id + " is deleted";
         Employee employeeToDelete = employeeRepository.getById(id);
         mockMvc.perform(MockMvcRequestBuilders.delete("/HR/employee/delete")
                 .param("id", String.valueOf(employeeToDelete.getId()))
@@ -595,17 +591,5 @@ public class EmployeeTests {
                 .andExpect(status().isForbidden());
     }
 
-
-//    @Test
-//    public void changePassword() throws Exception { //check again
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        String message = "password is changed successfully";
-//        String newPassword = "sara123";
-//        String username = "sara3";
-//        String body = objectMapper.writeValueAsString(newPassword);
-//        mockMvc.perform(MockMvcRequestBuilders.put("/user/changePassword")
-//                .with(httpBasic(username, "mohamed@3")).contentType(MediaType.APPLICATION_JSON).content(body)
-//        ).andExpect(status().isOk()).andExpect(content().string(message));
-//    }
 
 }

@@ -69,6 +69,7 @@ public class Employee {
     private List<SalaryDetails> salaryHistories;
     @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
     private UserAccount userAccount;
+
     public Employee() {
         this.leaves = 0;
     }

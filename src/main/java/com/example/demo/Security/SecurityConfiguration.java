@@ -30,13 +30,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/Teams/**").hasRole(Roles.HR.name())
                 .antMatchers("/department/**").hasRole(Roles.HR.name())
                 .antMatchers("/Salary/add/extraPayments").hasRole(Roles.HR.name())
-                .antMatchers("/Salary/get/SalaryHistory").hasAnyRole(Roles.EMPLOYEE.name(),Roles.HR.name())
-                .antMatchers("/Salary/get/UserActualSalaries").hasAnyRole(Roles.EMPLOYEE.name(),Roles.HR.name())
+                .antMatchers("/Salary/get/SalaryHistory").hasAnyRole(Roles.EMPLOYEE.name(), Roles.HR.name())
+                .antMatchers("/Salary/get/UserActualSalaries").hasAnyRole(Roles.EMPLOYEE.name(), Roles.HR.name())
                 .antMatchers("/Salary/get/ActualSalaries").hasAnyRole(Roles.HR.name())
                 .antMatchers("/Salary/get/SalaryHistory/{id}").hasAnyRole(Roles.HR.name())
-                .antMatchers("/absence/**").hasAnyRole(Roles.EMPLOYEE.name(),Roles.HR.name())
+                .antMatchers("/absence/**").hasAnyRole(Roles.EMPLOYEE.name(), Roles.HR.name())
                 .antMatchers("/absence/").hasRole(Roles.EMPLOYEE.name())
-                .antMatchers("/user/changePassword").hasAnyRole(Roles.EMPLOYEE.name(),Roles.HR.name())
+                .antMatchers("/user/changePassword").hasAnyRole(Roles.EMPLOYEE.name(), Roles.HR.name())
                 .and().httpBasic().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
@@ -46,9 +46,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         daoAuthenticationProvider.setUserDetailsService(this.userDetailPrincipalService);
         return daoAuthenticationProvider;
     }
+
     SecurityConfiguration(UserDetailPrincipalService userDetailPrincipalService) {
         this.userDetailPrincipalService = userDetailPrincipalService;
     }
+
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

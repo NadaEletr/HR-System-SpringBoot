@@ -4,10 +4,10 @@ import com.example.demo.Classes.Employee;
 import com.example.demo.Classes.ExtraPayments;
 import com.example.demo.Classes.Salaries;
 import com.example.demo.Classes.SalaryDetails;
+import com.example.demo.Repositories.AbsenceRepository;
 import com.example.demo.Repositories.EmployeeRepository;
 import com.example.demo.Repositories.ExtraPaymentsRepository;
 import com.example.demo.Repositories.SalaryHistoryRepository;
-import com.example.demo.Repositories.AbsenceRepository;
 import com.example.demo.errors.ConflictException;
 import com.example.demo.errors.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +15,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-
-
 import java.util.Calendar;
-
-
 import java.util.List;
 
 @Service
@@ -40,7 +36,7 @@ public class SalaryService {
     ExtraPaymentsService extraPaymentsService;
 
 
-    public ExtraPayments addExtraPayments(ExtraPayments extraPayments) {
+    public void addExtraPayments(ExtraPayments extraPayments) {
 
         if (!employeeService.existsById(extraPayments.getEmployee().getId())) {
             throw new NotFoundException("no employee with this id !");
@@ -58,7 +54,7 @@ public class SalaryService {
             throw new ConflictException("you already inserted extra payments to this employee this month!");
         }
         extraPayments.setDate(date);
-        return extraPaymentsRepository.save(extraPayments);
+        extraPaymentsRepository.save(extraPayments);
     }
 
     @Scheduled(cron = "0 0 0 25 * *")
@@ -121,7 +117,6 @@ public class SalaryService {
         }
         return calendar;
     }
-
     public List<SalaryDetails> getEmployeeSalaryHistory(int employeeId) {
         Employee employee = employeeService.getEmployeeInfoByID(employeeId);
         if (!salaryHistoryRepository.existsByEmployee(employee)) {

@@ -2,8 +2,6 @@ package com.example.demo.Services;
 
 import com.example.demo.Classes.Employee;
 import com.example.demo.Repositories.ExtraPaymentsRepository;
-import com.example.demo.errors.ConflictException;
-import com.example.demo.errors.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +15,7 @@ public class ExtraPaymentsService {
     @Autowired
     ExtraPaymentsRepository extraPaymentRepository;
 
-    public double getBonus(Employee employee, Date date) throws Exception {
+    public double getBonus(Employee employee, Date date) {
 
         if (extraPaymentRepository.existsByEmployee(employee)) {
             try {

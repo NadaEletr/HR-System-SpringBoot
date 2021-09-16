@@ -6,9 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 @Entity
 @Table(name = "user_account")
@@ -54,19 +51,4 @@ public class UserAccount {
         this.employee = employee;
     }
 
-//    @JsonIgnore
-//    public List<String> getRolesList() {
-//        if (this.roles.length() > 0) {
-//            return Arrays.asList(this.roles.split(","));
-//        }
-//        return new ArrayList<>();
-//    }
-//
-//    public String getRoles() {
-//        return roles;
-//    }
-//
-//    public void setRoles(String roles) {
-//        this.roles = roles;
-//    }
 }

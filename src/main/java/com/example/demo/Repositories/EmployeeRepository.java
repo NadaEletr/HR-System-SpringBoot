@@ -9,14 +9,10 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.stream.Stream;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
-
-    @Query("select case when count(d)> 0 then true else false end from Department d where d.departmentId=?1 ")
-    boolean existsByDepartmentId(@Param("departmentId") int departmentId);
 
 
     @Query("select case when count(t)> 0 then true else false end from Teams t where t.teamId=?1 ")
@@ -48,9 +44,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
             , nativeQuery = true)
     List<Employee> findAllUnderSomeManager(@Param("employeeId") int employeeId);
 
-    @Query("SELECT e.leaves FROM Employee e WHERE e.id=?1")
-    int setLeaves(int employee_id);
-
     @Transactional
     @Modifying
     @Query(value = "update Employee e set e.leaves= :leaves where e.id= :nationalId")
@@ -65,7 +58,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
     @Transactional
     @Modifying
-
     void deleteById(int id);
 
 }

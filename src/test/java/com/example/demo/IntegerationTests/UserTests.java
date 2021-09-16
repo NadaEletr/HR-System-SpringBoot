@@ -1,15 +1,9 @@
 package com.example.demo.IntegerationTests;
 
 
-import com.example.demo.errors.ConflictException;
 import com.example.demo.errors.InvalidCredentialsException;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import org.dbunit.DataSourceDatabaseTester;
-import org.dbunit.dataset.IDataSet;
-import org.dbunit.dataset.ReplacementDataSet;
-import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
-import javax.inject.Inject;
-import javax.sql.DataSource;
-import java.io.FileInputStream;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -50,30 +40,29 @@ public class UserTests {
 
     @Autowired
     MockMvc mockMvc;
-    @Inject
-    protected DataSource dataSource;
-
     @Test
     public void invalidLenghtpassword() throws Exception {
-        String password="n00";
+        String password = "n00";
         mockMvc.perform(MockMvcRequestBuilders.put("/user/changePassword").with(httpBasic("sara3", "mohamed@3")).contentType(MediaType.APPLICATION_JSON)
-        .content(password)).andExpect(result -> assertTrue(result.getResolvedException() instanceof InvalidCredentialsException))
-                .andExpect(status().isUnauthorized()).andExpect(result -> assertEquals("week password!, password must be at least 4 characters", result.getResolvedException().getMessage()));
+                .content(password)).andExpect(result -> assertTrue(result.getResolvedException() instanceof InvalidCredentialsException))
+                .andExpect(status().isUnauthorized()).andExpect(result -> assertEquals("week password!, password must be at least 4 characters", Objects.requireNonNull(result.getResolvedException()).getMessage()));
     }
+
     @Test
     public void changePassword() throws Exception {
-        String password="nadaIbr023";
+        String password = "nadaIbr023";
         ObjectMapper objectMapper = new ObjectMapper();
-        String message= "password is changed successfully";
+        String message = "password is changed successfully";
         String body = objectMapper.writeValueAsString(password);
         mockMvc.perform(MockMvcRequestBuilders.put("/user/changePassword")
                 .with(httpBasic("sara3", "mohamed@3"))
                 .contentType(MediaType.APPLICATION_JSON).content(body))
                 .andExpect(status().isOk()).andExpect(content().string(message));
     }
+
     @Test
     public void changePasswordUnAuthorized() throws Exception {
-        String password="nadaIbr023";
+        String password = "nadaIbr023";
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(password);
         mockMvc.perform(MockMvcRequestBuilders.put("/user/changePassword")

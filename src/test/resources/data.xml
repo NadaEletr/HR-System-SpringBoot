@@ -1,22 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-<!--    <department department_id='1' department_name="sw"/>-->
-<!--    <department department_id='2' department_name="graphics"/>-->
-<!--    <department department_id='3' department_name="embedded"/>-->
+    <!--    <department department_id='1' department_name="sw"/>-->
+    <!--    <department department_id='2' department_name="graphics"/>-->
+    <!--    <department department_id='3' department_name="embedded"/>-->
 
-    <department department_id="1" department_name="embbeeded" />
-    <department department_id="2" department_name="sw" />
+    <department department_id="1" department_name="embbeeded"/>
+    <department department_id="2" department_name="sw"/>
     <teams team_id="1" team_name="a1"/>
     <teams team_id="2" team_name="a2"/>
-    <employee id="1" national_id="123" gender="Female"  first_name="nada" last_name="ibrahim" gross_salary="12000" net_salary="9700"  years_of_experience="12" team_id="1" department_id="1" birthdate="2000-9-8" leaves="1" acceptable_leaves="21" employee_degree="SENIOR" />
-    <employee id="2" national_id="124" gender='Female' first_name='mariam'  last_name="ahmed"  gross_salary="25000" net_salary="20750" team_id="1" years_of_experience="5" department_id="2" manager_id="1" birthdate="2002-9-8" graduation_date="2020-5-6" leaves="0" acceptable_leaves="21"  employee_degree="FRESH"/>
-    <employee id="3" national_id="125" gender='Female' first_name='sara' gross_salary="12000" last_name="mohamed" net_salary="9700" team_id="1" department_id="1" years_of_experience="2" manager_id="2" birthdate="2002-9-8" graduation_date="2020-5-6" leaves="1" acceptable_leaves="21"  employee_degree="FRESH"/>
-    <user_account user_name="nada1" password="$2a$12$zmNg73L2ds9PCAvIVxZghefexa86vijxJot2Fw9iLkuNwkQcbvk3S" employee_id="1" roles="HR" />
-    <user_account user_name="mariam2" password="$2a$12$89affOK/M4gofWpDrQGItu1Yz4Bk0ydzxsGIGmbQjgx9IUCPjqCTS" employee_id="2" roles="EMPLOYEE" />
-    <user_account user_name="sara3" password="$2a$12$aqOm6t3mOKT5E6mkxhREk.HLbGaPbrs0w/5t9hbbqaPJNdyVnM5EW" employee_id="3" roles="EMPLOYEE" />
-    <salary_history id="1" date="2021-9-25" raises="500" bonus="100" exceeded_leaves="0" taxes="375" insurance="500" net_salary="2725" employee_id="1" />
-    <extra_payments id="1" bonus="100" raise="500" date="2021-9-25" />
-    <absence id="1" date="2021-9-14" employee_id="3"  />
-    <absence id="2" date="2021-9-11" employee_id="3"  />
+    <employee id="1" national_id="123" gender="Female" first_name="nada" last_name="ibrahim" gross_salary="12000"
+              net_salary="9700" years_of_experience="12" team_id="1" department_id="1" birthdate="2000-9-8" leaves="1"
+              acceptable_leaves="21" employee_degree="SENIOR"/>
+    <employee id="2" national_id="124" gender='Female' first_name='mariam' last_name="ahmed" gross_salary="25000"
+              net_salary="20750" team_id="1" years_of_experience="5" department_id="2" manager_id="1"
+              birthdate="2002-9-8" graduation_date="2020-5-6" leaves="0" acceptable_leaves="21"
+              employee_degree="FRESH"/>
+    <employee id="3" national_id="125" gender='Female' first_name='sara' gross_salary="12000" last_name="mohamed"
+              net_salary="9700" team_id="1" department_id="1" years_of_experience="2" manager_id="2"
+              birthdate="2002-9-8" graduation_date="2020-5-6" leaves="1" acceptable_leaves="21"
+              employee_degree="FRESH"/>
+    <user_account user_name="nada1" password="$2a$12$zmNg73L2ds9PCAvIVxZghefexa86vijxJot2Fw9iLkuNwkQcbvk3S"
+                  employee_id="1" roles="HR"/>
+    <user_account user_name="mariam2" password="$2a$12$89affOK/M4gofWpDrQGItu1Yz4Bk0ydzxsGIGmbQjgx9IUCPjqCTS"
+                  employee_id="2" roles="EMPLOYEE"/>
+    <user_account user_name="sara3" password="$2a$12$aqOm6t3mOKT5E6mkxhREk.HLbGaPbrs0w/5t9hbbqaPJNdyVnM5EW"
+                  employee_id="3" roles="EMPLOYEE"/>
+    <salary_history id="1" date="2021-9-25" raises="500" bonus="100" exceeded_leaves="0" taxes="375" insurance="500"
+                    net_salary="2725" employee_id="1"/>
+    <extra_payments id="1" bonus="100" raise="500" date="2021-9-25"/>
+    <absence id="1" date="2021-9-14" employee_id="3"/>
+    <absence id="2" date="2021-9-11" employee_id="3"/>
 
 </dataset>

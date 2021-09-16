@@ -1,10 +1,7 @@
 package com.example.demo.Controllers;
 
 import com.example.demo.Classes.Department;
-import com.example.demo.Classes.Teams;
 import com.example.demo.Services.DepartmentService;
-import javassist.NotFoundException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,12 +14,14 @@ import org.springframework.web.bind.annotation.*;
 public class DepartmentController {
     @Autowired
     DepartmentService departmentService;
+
     @PostMapping(value = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    ResponseEntity<Department> addNewEmployee(@RequestBody Department department) throws NotFoundException {
+    ResponseEntity<Department> addNewEmployee(@RequestBody Department department) {
         Department newDepartment = departmentService.saveEmployee(department);
         return new ResponseEntity<>(newDepartment, HttpStatus.CREATED);
     }
+
     @GetMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     Department getTeams(@RequestParam("id") String id) {

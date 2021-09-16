@@ -6,7 +6,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "Absence")
@@ -27,7 +26,6 @@ public class Absence {
     private Employee employee;
 
     public Absence(Date date) {
-        this.id = id;
         this.date = date;
     }
 
