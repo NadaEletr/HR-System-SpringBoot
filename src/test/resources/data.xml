@@ -27,7 +27,14 @@
                   employee_id="3" roles="EMPLOYEE"/>
     <salary_history id="1" date="2021-9-25" raises="500" bonus="100" exceeded_leaves="0" taxes="375" insurance="500"
                     net_salary="2725" employee_id="1"/>
-    <earnings id="1" bonus="100" raise="500" date="2021-9-25"/>
+    <salary_history id="2" date="2021-9-25" raises="500" bonus="200" exceeded_leaves="0" taxes="375" insurance="500"
+                    net_salary="2725" employee_id="2"/>
+    <salary_history id="3" date="2021-9-25" raises="0" bonus="250" exceeded_leaves="2" taxes="375" insurance="500"
+                    net_salary="2725" employee_id="3"/>
+    <earnings id="1" bonus="100" raise="500" date="2021-08-25" employee_id="1" />
+    <earnings id="2" bonus="200" raise="500" date="2021-08-25" employee_id="2" />
+    <earnings id="3" bonus="200" raise="500" date="2021-08-25" employee_id="3" />
+    <earnings id="4" bonus="200" raise="0" date="2021-09-25" employee_id="3" />
     <absence id="1" date="2021-9-14" employee_id="3"/>
     <absence id="2" date="2021-9-11" employee_id="3"/>
 
