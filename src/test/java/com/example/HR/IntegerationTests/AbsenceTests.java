@@ -11,6 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -19,6 +20,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.sql.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -49,10 +51,13 @@ public class AbsenceTests {
     public void recordLeaves() throws Exception {
         UserAccount userAccount = userAccountRepository.getById("mariam2");
         ObjectMapper objectMapper = new ObjectMapper();
+        Date date =Date.valueOf("2020-05-23");
         String message = "your Absence are " + (userAccount.getEmployee().getLeaves() + 1);
-        String body = objectMapper.writeValueAsString(message);
+        String body = objectMapper.writeValueAsString(date);
         mockMvc.perform(MockMvcRequestBuilders.post("/absence/record")
                 .with(httpBasic(userAccount.getUserName(), "ahmed@2"))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(body)
         ).andExpect(status().isOk()).andExpect(content().string(message));
         Absence absence = absenceRepository.findByEmployee(userAccount.getEmployee());
         assertEquals(absence.getEmployee().getLeaves(), userAccount.getEmployee().getLeaves() + 1);

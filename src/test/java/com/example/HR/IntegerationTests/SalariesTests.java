@@ -2,8 +2,7 @@ package com.example.HR.IntegerationTests;
 
 import com.example.HR.Classes.Employee;
 import com.example.HR.Classes.Earnings;
-import com.example.HR.Classes.SalaryDTO;
-import com.example.HR.Classes.SalaryDetails;
+import com.example.HR.DTO.SalaryDTO;
 import com.example.HR.Repositories.EmployeeRepository;
 import com.example.HR.Repositories.EarningsRepository;
 import com.example.HR.Repositories.SalaryHistoryRepository;
@@ -35,7 +34,6 @@ import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
 import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

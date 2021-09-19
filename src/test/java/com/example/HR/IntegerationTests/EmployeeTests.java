@@ -11,6 +11,8 @@ import com.example.HR.errors.ConflictException;
 import com.example.HR.errors.NotFoundException;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.ExpectedDatabase;
+import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -125,6 +127,104 @@ public class EmployeeTests {
         mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get/team").with(httpBasic("nada1", "nada123"))
                 .param("id", String.valueOf(teamId))).andExpect(content().json(body)).andExpect(jsonPath("$", hasSize(employees.size())))
                 .andExpect(status().isOk());
+    }
+    @Test
+    public void addTeamToEmployee() throws Exception {
+        int teamId = 1;
+        int employeeId=1;
+        String message="Team is added !";
+        mockMvc.perform(MockMvcRequestBuilders.post("/HR/employee/addTeam").with(httpBasic("nada1", "nada123"))
+                .param("teamId", String.valueOf(teamId)).param("employeeId", String.valueOf(employeeId)))
+                .andExpect(status().isOk()).andExpect(content().string(message));
+        Employee employee = employeeService.getEmployeeInfoByID(employeeId);
+        assertEquals(employee.getTeam().getTeamId(),teamId);
+    }
+    @Test
+    public void addTeamToNonExistedEmployee() throws Exception {
+        int teamId = 1;
+        int employeeId=20;
+        String message="Team is added !";
+        mockMvc.perform(MockMvcRequestBuilders.post("/HR/employee/addTeam").with(httpBasic("nada1", "nada123"))
+                .param("teamId", String.valueOf(teamId)).param("employeeId", String.valueOf(employeeId)))
+                .andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
+                .andExpect(status().isNotFound()).andExpect(result -> assertEquals("no employee with this ID", Objects.requireNonNull(result.getResolvedException()).getMessage()));
+
+    }
+    @Test
+    public void addNonExistedTeamToEmployee() throws Exception {
+        int teamId = 10;
+        int employeeId=1;
+        mockMvc.perform(MockMvcRequestBuilders.post("/HR/employee/addTeam").with(httpBasic("nada1", "nada123"))
+                .param("teamId", String.valueOf(teamId)).param("employeeId", String.valueOf(employeeId)))
+                .andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
+                .andExpect(status().isNotFound()).andExpect(result -> assertEquals("team does not exists!", Objects.requireNonNull(result.getResolvedException()).getMessage()));
+
+    }
+    @Test
+    public void addTeamToEmployeeUnAuthorized() throws Exception {
+        int teamId = 1;
+        int employeeId=1;
+        String message="Team is added !";
+        mockMvc.perform(MockMvcRequestBuilders.post("/HR/employee/addTeam").with(httpBasic("jjj", "nada123"))
+                .param("teamId", String.valueOf(teamId)).param("employeeId", String.valueOf(employeeId)))
+                .andExpect(status().isUnauthorized());
+    }  @Test
+    public void addTeamToEmployeeForbidden() throws Exception {
+        int teamId = 1;
+        int employeeId=1;
+        String message="Team is added !";
+        mockMvc.perform(MockMvcRequestBuilders.post("/HR/employee/addTeam").with(httpBasic("sara3", "mohamed@3"))
+                .param("teamId", String.valueOf(teamId)).param("employeeId", String.valueOf(employeeId)))
+                .andExpect(status().isForbidden());
+    }
+    @Test
+    public void addDepartmentToEmployees() throws Exception {
+        int departmentId = 1;
+        int employeeId=1;
+        String message="Department is added !";
+        mockMvc.perform(MockMvcRequestBuilders.post("/HR/employee/addDepartment").with(httpBasic("nada1", "nada123"))
+                .param("departmentId", String.valueOf(departmentId)).param("employeeId", String.valueOf(employeeId)))
+                .andExpect(status().isOk()).andExpect(content().string(message));
+        Employee employee = employeeService.getEmployeeInfoByID(employeeId);
+        assertEquals(employee.getDepartment().getDepartmentId(),departmentId);
+    }
+    @Test
+    public void addDepartmentToNonExistedEmployees() throws Exception {
+        int departmentId = 1;
+        int employeeId=20;
+        String message="Department is added !";
+        mockMvc.perform(MockMvcRequestBuilders.post("/HR/employee/addDepartment").with(httpBasic("nada1", "nada123"))
+                .param("departmentId", String.valueOf(departmentId)).param("employeeId", String.valueOf(employeeId)))
+                .andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
+                .andExpect(status().isNotFound()).andExpect(result -> assertEquals("no employee with this ID", Objects.requireNonNull(result.getResolvedException()).getMessage()));
+
+    }
+    @Test
+    public void addNonExistedDepartmentToEmployees() throws Exception {
+        int departmentId = 15;
+        int employeeId=1;
+        String message="Department is added !";
+        mockMvc.perform(MockMvcRequestBuilders.post("/HR/employee/addDepartment").with(httpBasic("nada1", "nada123"))
+                .param("departmentId", String.valueOf(departmentId)).param("employeeId", String.valueOf(employeeId)))
+                .andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
+                .andExpect(status().isNotFound()).andExpect(result -> assertEquals("department does not exists!", Objects.requireNonNull(result.getResolvedException()).getMessage()));
+
+    }
+    @Test
+    public void addDepartmentToEmployeesUnAuthorized() throws Exception {
+        int departmentId = 1;
+        int employeeId=1;
+        mockMvc.perform(MockMvcRequestBuilders.post("/HR/employee/addDepartment").with(httpBasic("salwa", "nada123"))
+                .param("departmentId", String.valueOf(departmentId)).param("employeeId", String.valueOf(employeeId)))
+                .andExpect(status().isUnauthorized());
+    }
+    @Test
+    public void addDepartmentToEmployeesForbidden() throws Exception {
+        int departmentId = 1;
+        int employeeId=1;
+        mockMvc.perform(MockMvcRequestBuilders.post("/HR/employee/addDepartment").with(httpBasic("sara3", "mohamed@3"))
+                .param("departmentId", String.valueOf(departmentId)).param("employeeId", String.valueOf(employeeId)))
+                .andExpect(status().isForbidden());
     }
 
     @Test
@@ -285,9 +385,9 @@ public class EmployeeTests {
     @Test
     public void addEmployeeWithNonExistingGrossSalary() throws Exception {
         Employee employee = new Employee();
-        employee.setFirst_name("hhh");
+        employee.setFirst_name("ahmed");
         employee.setGender(Gender.Male);
-        employee.setLast_name("uuuu");
+        employee.setLast_name("mohamed");
         employee.setYearsOfExperience(12);
         employee.setNationalId("12442");
         employee.setAcceptableLeaves(30);

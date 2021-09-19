@@ -153,4 +153,12 @@ public class SalaryService {
             throw  new NotFoundException("can't find earnings  by this date or employee!" );
         }
     }
+
+    public void deleteSalaryHistory(Employee employee) {
+        try{
+            salaryHistoryRepository.deleteAllByEmployee(employee);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }

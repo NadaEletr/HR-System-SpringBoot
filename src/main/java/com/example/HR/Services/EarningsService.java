@@ -39,4 +39,11 @@ public class EarningsService {
         return 0.0;
     }
 
+    public void deleteEarnings(Employee employee) {
+        try{
+            earningsRepository.deleteAllByEmployee(employee);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }

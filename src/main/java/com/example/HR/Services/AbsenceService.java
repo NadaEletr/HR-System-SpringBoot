@@ -25,9 +25,8 @@ public class AbsenceService {
     @Autowired
     SalaryService salaryHistoryService;
 
-    public void recordLeave(int id) {
-
-        Date date = Date.valueOf(LocalDate.now());
+    public void recordLeave(int id,Date date) {
+//        Date date = Date.valueOf(LocalDate.now());
         Employee employee = employeeService.getEmployeeInfoByID(id);
         if (absenceRepository.existsByEmployeeAndDate(employee, date)) {
             throw new ConflictException("you are already recorded this day !");
@@ -56,5 +55,13 @@ public class AbsenceService {
         Employee employee = employeeService.getEmployeeInfoByID(id);
         return absenceRepository.findAllByEmployee_Id(employee.getId());
 
+    }
+
+    public void deleteAbsence(Employee employee) {
+       try {
+           absenceRepository.deleteAllByEmployee(employee);
+       }catch (Exception e){
+           e.printStackTrace();
+       }
     }
 }

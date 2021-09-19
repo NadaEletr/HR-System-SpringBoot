@@ -2,7 +2,7 @@ package com.example.HR.Controllers;
 
 
 import com.example.HR.Classes.Earnings;
-import com.example.HR.Classes.SalaryDTO;
+import com.example.HR.DTO.SalaryDTO;
 import com.example.HR.Classes.SalaryDetails;
 import com.example.HR.Repositories.EmployeeRepository;
 import com.example.HR.Repositories.UserAccountRepository;

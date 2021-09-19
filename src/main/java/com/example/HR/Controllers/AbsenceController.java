@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 
 @RestController
@@ -30,9 +31,9 @@ public class AbsenceController {
 
     @PostMapping(value = "/record", produces = MediaType.APPLICATION_JSON_VALUE)
     public String
-    recordLeave() throws NotFoundException {
+    recordLeave(@RequestBody Date date) throws NotFoundException {
         UserAccount userAccount = userDetailPrincipalService.getCurrentUser();
-        absenceService.recordLeave(userAccount.getEmployee().getId());
+        absenceService.recordLeave(userAccount.getEmployee().getId(),date);
         return "your Absence are " + userAccount.getEmployee().getLeaves();
     }
 

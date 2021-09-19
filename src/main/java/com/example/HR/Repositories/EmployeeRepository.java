@@ -56,10 +56,10 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     @Query(value = "update Employee e set e.leaves=?1")
     void updateYearlyLeaves(int i);
 
-    @Transactional
-    @Modifying
-    void deleteById(int id);
 
+    @Query(value ="DELETE from Employee e where e.id = ?1")
+    @Modifying()
+    void deleteById(int id);
 }
 
 

@@ -3,6 +3,7 @@ package com.example.HR.Repositories;
 import com.example.HR.Classes.Employee;
 import com.example.HR.Classes.SalaryDetails;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -17,5 +18,9 @@ public interface SalaryHistoryRepository extends JpaRepository<SalaryDetails, In
 
     boolean existsByEmployee(Employee employee);
 
-       Optional<SalaryDetails> getByEmployeeAndDate(Employee employee, Date date);
+    Optional<SalaryDetails> getByEmployeeAndDate(Employee employee, Date date);
+
+    @Query(value ="DELETE from SalaryDetails e where e.employee = ?1")
+    @Modifying()
+    void deleteAllByEmployee(Employee employee);
 }

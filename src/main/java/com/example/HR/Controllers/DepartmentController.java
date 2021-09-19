@@ -22,6 +22,7 @@ public class DepartmentController {
         return new ResponseEntity<>(newDepartment, HttpStatus.CREATED);
     }
 
+
     @GetMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     Department getTeams(@RequestParam("id") String id) {

@@ -1,6 +1,7 @@
 package com.example.HR.Services;
 
 import com.example.HR.Classes.*;
+import com.example.HR.DTO.SalaryDTO;
 import com.example.HR.Repositories.AbsenceRepository;
 import com.example.HR.Repositories.EmployeeRepository;
 import com.example.HR.Repositories.UserAccountRepository;
@@ -14,7 +15,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -32,6 +32,16 @@ public class EmployeeService {
     UserAccountService userAccountService;
     @Autowired
     UserAccountRepository userAccountRepository;
+    @Autowired
+    private DepartmentService departmentService;
+    @Autowired
+    TeamService teamService;
+    @Autowired
+    AbsenceService absenceService;
+    @Autowired
+    SalaryService salaryService;
+    @Autowired
+    EarningsService earningsService;
 
     public Employee saveEmployee(Employee employee) {
         checkBeforeSaving(employee);
@@ -49,10 +59,9 @@ public class EmployeeService {
         if (employee.getFirst_name() == null || employee.getLast_name() == null) {
             throw new NotFoundException("name missing !");
         }
-        if(employee.getFirst_name().matches("[a-zA-Z]+") || employee.getLast_name().matches("[a-zA-Z]+")){
+        if(!employee.getFirst_name().matches("[a-zA-Z]+") || !employee.getLast_name().matches("[a-zA-Z]+")){
             throw new NotFoundException(" name must be characters only");
         }
-
         if (employee.getYearsOfExperience() == null) {
             throw new NotFoundException("years of experience must not be empty!");
         }
@@ -169,8 +178,13 @@ public class EmployeeService {
             employee1.setManager(employee.getManager());
             employeeRepository.save(employee);
         }
+        absenceService.deleteAbsence(employee);
+        earningsService.deleteEarnings(employee);
+        salaryService.deleteSalaryHistory(employee);
         userAccountService.deleteAccount(employee);
         employeeRepository.deleteById(employee.getId());
+
+
 
 
     }
@@ -193,5 +207,19 @@ public class EmployeeService {
             throw new NotFoundException("no Team is found");
         }
         return employee.getTeam();
+    }
+
+    public void addDepartmentToEmployee(int employeeId, int departmentId) {
+        Employee employee = getEmployeeInfoByID(employeeId);
+        Department department = departmentService.getDepartment(departmentId);
+        employee.setDepartment(department);
+        employeeRepository.save(employee);
+    }
+
+    public void addTeamToEmployee(int employeeId, int teamId) {
+        Employee employee = getEmployeeInfoByID(employeeId);
+        Teams team = teamService.getTeams(teamId);
+        employee.setTeam(team);
+        employeeRepository.save(employee);
     }
 }

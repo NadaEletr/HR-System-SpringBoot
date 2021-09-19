@@ -30,14 +30,24 @@ public class EmployeesController {
         return new ResponseEntity<>(newEmployee, HttpStatus.CREATED);
     }
 
-
     @GetMapping(value = "/get", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     ResponseEntity<Employee> getEmployeeInfo(@RequestParam("id") String id) {
         Employee newEmployee = employeeService.getEmployeeInfoByID(Integer.parseInt(id));
         return new ResponseEntity<>(newEmployee, HttpStatus.OK);
     }
-
+    @PostMapping(value = "/addDepartment", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    String  addDepartmentToEmployee( @RequestParam("employeeId") String employeeId,@RequestParam("departmentId") String departmentId) {
+        employeeService.addDepartmentToEmployee(Integer.parseInt(employeeId),Integer.parseInt(departmentId));
+        return "Department is added !";
+    }
+    @PostMapping(value = "/addTeam", produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody
+    String  addTeamToEmployee( @RequestParam("employeeId") String employeeId,@RequestParam("teamId") String departmentId) {
+        employeeService.addTeamToEmployee(Integer.parseInt(employeeId),Integer.parseInt(departmentId));
+        return "Team is added !";
+    }
 
     @PutMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Employee> updateEmployee(@RequestBody Employee EmployeeToModify, @RequestParam String id) {
