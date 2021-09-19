@@ -42,12 +42,17 @@ public class EmployeeService {
     }
 
     private void checkBeforeSaving(Employee employee) {
+
         if (employee.getNationalId() == null) {
             throw new NotFoundException("national id must not be null");
         }
         if (employee.getFirst_name() == null || employee.getLast_name() == null) {
             throw new NotFoundException("name missing !");
         }
+        if(employee.getFirst_name().matches("[a-zA-Z]+") || employee.getLast_name().matches("[a-zA-Z]+")){
+            throw new NotFoundException(" name must be characters only");
+        }
+
         if (employee.getYearsOfExperience() == null) {
             throw new NotFoundException("years of experience must not be empty!");
         }
@@ -176,5 +181,17 @@ public class EmployeeService {
    }
 
 
+    public Department userGetDepartment(Employee employee) {
+        if(employee.getDepartment()==null){
+            throw new NotFoundException("no department is found");
+        }
+        return employee.getDepartment();
+    }
 
+    public Teams userGetTeam(Employee employee) {
+        if(employee.getTeam()==null){
+            throw new NotFoundException("no Team is found");
+        }
+        return employee.getTeam();
+    }
 }

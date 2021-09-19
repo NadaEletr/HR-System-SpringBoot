@@ -39,7 +39,7 @@ public class SalaryController {
     @Autowired
     EarningsService earningsService;
 
-    @GetMapping(value = "/get/SalaryHistory", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/get/UserSalaryHistory", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     List<SalaryDetails> getEmployeeSalaryHistory() {
         UserAccount userAccount = userDetailPrincipalService.getCurrentUser();
@@ -70,7 +70,7 @@ public class SalaryController {
         UserAccount userAccount = userDetailPrincipalService.getCurrentUser();
         return salaryService.getEarnings(userAccount.getEmployee().getId());
     }
-    @GetMapping(value = "/get/SalaryHistory/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/get/SalaryHistory", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
     List<SalaryDetails> getSalaryHistoryById(@RequestParam("id") String id) {
         return salaryService.getEmployeeSalaryHistory(Integer.parseInt(id));

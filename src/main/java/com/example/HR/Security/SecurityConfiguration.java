@@ -37,10 +37,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/Salary/get/EarningsByDate").hasRole( Roles.HR.name())
                 .antMatchers("/Salary/get/UserSalaryByDate").hasAnyRole(Roles.EMPLOYEE.name(),Roles.HR.name())
                 .antMatchers("/Salary/get/ActualSalaries").hasAnyRole(Roles.HR.name())
-                .antMatchers("/Salary/get/SalaryHistory/{id}").hasAnyRole(Roles.HR.name())
+                .antMatchers("/Salary/get/SalaryHistory").hasAnyRole(Roles.HR.name())
+                .antMatchers("/Salary/get/UserSalaryHistory").hasAnyRole(Roles.HR.name(),Roles.EMPLOYEE.name())
                 .antMatchers("/absence/**").hasAnyRole(Roles.EMPLOYEE.name(), Roles.HR.name())
-                .antMatchers("/absence/").hasRole(Roles.EMPLOYEE.name())
-                .antMatchers("/user/changePassword").hasAnyRole(Roles.EMPLOYEE.name(), Roles.HR.name())
+                .antMatchers("/user/**").hasAnyRole(Roles.EMPLOYEE.name(), Roles.HR.name())
                 .and().httpBasic().and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 

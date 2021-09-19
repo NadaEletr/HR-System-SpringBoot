@@ -1,9 +1,13 @@
 package com.example.HR.IntegerationTests;
 
 
+import com.example.HR.errors.ConflictException;
 import com.example.HR.errors.InvalidCredentialsException;
+import com.example.HR.errors.NotFoundException;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.ExpectedDatabase;
+import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,5 +74,57 @@ public class UserTests {
                 .contentType(MediaType.APPLICATION_JSON).content(body))
                 .andExpect(status().isUnauthorized());
     }
+    @Test
+    @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = "/data.xml")
+    public void userGetDepartment() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/user/get/Department")
+                .with(httpBasic("sara3", "mohamed@3")))
+                .andExpect(status().isOk());
+    }
+    @Test
+    @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = "/data.xml")
+    public void userGetDepartmentUnAuthorized() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/user/get/Department")
+                .with(httpBasic("salma", "mohamed@3")))
+                .andExpect(status().isUnauthorized());
+    }
 
+    @Test
+    @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = "/data.xml")
+    public void userGetDepartmentWithNonExistedDepartment() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/user/get/Department")
+                .with(httpBasic("nada1", "nada123")))
+                .andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
+                .andExpect(status().isNotFound())
+                .andExpect(result -> assertEquals("no department is found", Objects.requireNonNull(result.getResolvedException()).getMessage()));
+
+    }
+
+    @Test
+    @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = "/data.xml")
+    public void userGetTeam() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/user/get/team")
+                .with(httpBasic("sara3", "mohamed@3")))
+        .andExpect(status().isOk());
+
+    }
+    @Test
+    @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = "/data.xml")
+    public void userGetTeamUnAuthorized() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/user/get/team")
+                .with(httpBasic("salma", "mohamed@3")))
+                .andExpect(status().isUnauthorized());
+
+    }
+
+    @Test
+    @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = "/data.xml")
+    public void userGetTeamWithNoTeam() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/user/get/team")
+                .with(httpBasic("nada1", "nada123")))
+                .andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
+                .andExpect(status().isNotFound())
+                .andExpect(result -> assertEquals("no Team is found", Objects.requireNonNull(result.getResolvedException()).getMessage()));
+
+    }
 }

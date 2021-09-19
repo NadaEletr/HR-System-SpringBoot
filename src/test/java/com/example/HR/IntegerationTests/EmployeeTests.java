@@ -179,6 +179,33 @@ public class EmployeeTests {
                 .content(body)).andDo(print()).andExpect(status().isCreated())
                 .andExpect(content().json(response));
     }
+    @Test
+    public void addEmployeeWithWrongName() throws Exception {
+        Optional<Teams> team = teamRepository.findById(1);
+        Optional<Department> department = departmentRepository.findById(1);
+        Employee manager = employeeRepository.getById(1);
+        Employee employee = new Employee();
+        employee.setFirst_name("youssef@-");
+        employee.setLast_name("hhh");
+        employee.setId(4);
+        employee.setGender(Gender.Male);
+        employee.setGrossSalary(1223330d);
+        employee.setNationalId("122");
+        employee.setTeam(team.get());
+        employee.setDepartment(department.get());
+        employee.setManager(manager);
+        employee.setYearsOfExperience(10);
+        employee.setAcceptableLeaves(30);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String body = objectMapper.writeValueAsString(employee);
+        employeeService.CalcNetSalary(employee);
+        employeeService.generateAcceptedLeave(employee);
+        mockMvc.perform(MockMvcRequestBuilders.post("/HR/employee/add")
+                .with(httpBasic("nada1", "nada123")).
+                        contentType(MediaType.APPLICATION_JSON)
+                .content(body)).andExpect(status().isNotFound()).andExpect(result -> assertTrue(result.getResolvedException() instanceof NotFoundException))
+                .andExpect(result -> assertEquals(" name must be characters only", Objects.requireNonNull(result.getResolvedException()).getMessage()));
+    }
 
     @Test
     public void addEmployeeWithNonExistingNationalId() throws Exception {

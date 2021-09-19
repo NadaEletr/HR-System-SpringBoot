@@ -245,36 +245,42 @@ public class SalariesTests {
     @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = "/data.xml")
     public void testEmployeeGetSalaryHistory() throws Exception {
         UserAccount userAccount = userAccountRepository.getById("sara3");
-        mockMvc.perform(MockMvcRequestBuilders.get("/Salary/get/SalaryHistory")
+        mockMvc.perform(MockMvcRequestBuilders.get("/Salary/get/UserSalaryHistory")
                 .with(httpBasic(userAccount.getUserName(), "mohamed@3")));
     }
 
     @Test
     @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = "/data.xml")
     public void testEmployeeGetSalaryHistoryUnAuthorized() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/Salary/get/SalaryHistory")
+        mockMvc.perform(MockMvcRequestBuilders.get("/Salary/get/UserSalaryHistory")
                 .with(httpBasic("youssef", "mohamed@3"))).andExpect(status().isUnauthorized());
     }
 
     @Test
     @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = "/data.xml")
     public void testHRGetSalaryHistory() throws Exception {
+        int employeeId=1;
         UserAccount userAccount = userAccountRepository.getById("nada1");
-        mockMvc.perform(MockMvcRequestBuilders.get("/Salary/get/SalaryHistory/1")
+        mockMvc.perform(MockMvcRequestBuilders.get("/Salary/get/SalaryHistory")
+                .param("id", String.valueOf(employeeId))
                 .with(httpBasic(userAccount.getUserName(), "nada123")));
     }
 
     @Test
     @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = "/data.xml")
     public void testHRGetSalaryHistoryUnAuthorized() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/Salary/get/SalaryHistory/1")
+        int employeeId=1;
+        mockMvc.perform(MockMvcRequestBuilders.get("/Salary/get/SalaryHistory")
+                .param("id", String.valueOf(employeeId))
                 .with(httpBasic("salwa", "nada123"))).andExpect(status().isUnauthorized());
     }
 
     @Test
     @ExpectedDatabase(assertionMode = DatabaseAssertionMode.NON_STRICT_UNORDERED, value = "/data.xml")
     public void testHRGetSalaryHistoryForbidden() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/Salary/get/SalaryHistory/1")
+        int employeeId=1;
+        mockMvc.perform(MockMvcRequestBuilders.get("/Salary/get/SalaryHistory")
+                .param("id", String.valueOf(employeeId))
                 .with(httpBasic("sara3", "mohamed@3"))).andExpect(status().isForbidden());
     }
     @Test
