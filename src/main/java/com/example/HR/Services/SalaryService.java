@@ -81,7 +81,7 @@ public class SalaryService {
         }
     }
 
-    private SalaryDetails CreateSalaryDetails(Employee employee, Date date) throws Exception {
+    private SalaryDetails CreateSalaryDetails(Employee employee, Date date) {
         SalaryDetails salaryDetails = new SalaryDetails();
         double bonus = earningsService.getBonus(employee, date);
         double raise = earningsService.getRaise(employee, date);

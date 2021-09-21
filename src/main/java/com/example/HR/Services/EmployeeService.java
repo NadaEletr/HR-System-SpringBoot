@@ -80,6 +80,7 @@ public class EmployeeService {
             throw new NotFoundException(" manager does not exists!");
         }
 
+
     }
 
 
@@ -132,12 +133,30 @@ public class EmployeeService {
         return employeeRepository.existsById(id);
     }
 
+    public void checkTransferManager(Employee originalEmployee,Employee updateEmployee){
+        if(originalEmployee.getId()==updateEmployee.getManager().getId()){
+            throw new ConflictException("manager have same id as employee!");
+        }
+        List<Employee> employeesUnderThisManager=employeeRepository.findAllUnderSomeManager(originalEmployee.getId());
+        if(employeesUnderThisManager!=null){
+            for(Employee employee: employeesUnderThisManager)
+            {
+                if(updateEmployee.getManager().getId()==employee.getId()){
+                    throw new ConflictException("can't transfer manager to this employee!");
+                }
+            }
+        }
+    }
 
-    public void updateEmployee(Employee updateEmployee, Employee originalEmployee) throws NotFoundException {
+    public Employee updateEmployee(Employee updateEmployee,int id) throws NotFoundException {
 
+        Employee originalEmployee = getEmployeeInfoByID(id);
+        if(updateEmployee.getManager()!=null){
+            checkTransferManager(originalEmployee,updateEmployee);
+        }
         transferEmployee(updateEmployee, originalEmployee);
-
         employeeRepository.save(originalEmployee);
+        return originalEmployee;
     }
 
     public SalaryDTO getEmployeeSalary(int id) throws NotFoundException {
@@ -146,23 +165,24 @@ public class EmployeeService {
     }
 
     public List<Employee> getEmployeesInTeam(int teamId) {
-        if (employeeRepository.existsByTeamId(teamId) == false) {
+        if (!employeeRepository.existsByTeamId(teamId)) {
             throw new NotFoundException("team does not exists !");
         }
         return employeeRepository.findAllByTeamTeamId(teamId);
     }
 
     public List<Employee> getEmployeesUnderManger(int mangerId) {
-        if (employeeRepository.existsById(mangerId) == false) {
+        if (!employeeRepository.existsById(mangerId)) {
             throw new NotFoundException("no employee with this ID");
         }
         return employeeRepository.findAllByManagerId(mangerId);
     }
 
-    public List<Employee> getEmployeesOnSpeceficManger(int mangerId) {
-        if (employeeRepository.existsById(mangerId) == false) {
+    public List<Employee> getEmployeesOnSpecificManger(int mangerId) {
+        if (!employeeRepository.existsById(mangerId)) {
             throw new NotFoundException("no employee with this ID");
         }
+
         return employeeRepository.findAllUnderSomeManager(mangerId);
     }
 

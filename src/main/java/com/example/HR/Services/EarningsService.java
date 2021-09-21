@@ -1,6 +1,5 @@
 package com.example.HR.Services;
 
-import com.example.HR.Classes.Earnings;
 import com.example.HR.Classes.Employee;
 import com.example.HR.Repositories.EarningsRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -8,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.util.List;
 
 @Service
 @Slf4j

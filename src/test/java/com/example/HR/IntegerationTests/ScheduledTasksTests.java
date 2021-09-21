@@ -9,17 +9,8 @@ import org.springframework.scheduling.config.ScheduledTaskHolder;
 
 import java.util.Set;
 
-
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.quartz.JobBuilder.newJob;
 
-
-//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-//@AutoConfigureMockMvc
-//@ActiveProfiles("test")
-//@SpringJUnitConfig(DemoApplication.SchedulingConfiguration.class)
-//@ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class ScheduledTasksTests {
     @Autowired

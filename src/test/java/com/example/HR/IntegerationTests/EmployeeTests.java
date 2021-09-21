@@ -11,8 +11,6 @@ import com.example.HR.errors.ConflictException;
 import com.example.HR.errors.NotFoundException;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.github.springtestdbunit.annotation.ExpectedDatabase;
-import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +33,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -694,7 +691,7 @@ public class EmployeeTests {
                 .with(httpBasic("nada1", "nada123")))
                 .andExpect(status().isOk())
                 .andExpect(content().string(message));
-        assertEquals(employeeRepository.existsById(3), false);
+        assertFalse(employeeRepository.existsById(3));
     }
 
     @Test

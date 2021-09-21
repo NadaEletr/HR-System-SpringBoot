@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -43,8 +42,7 @@ public class AbsenceService {
         if (leaves > employee.getAcceptableLeaves()) {
             final int workingDays = 22;
             double dayPayed = employee.getGrossSalary() / workingDays;
-            double exceededLeavesDeduction = (leaves - employee.getAcceptableLeaves()) * dayPayed;
-            return exceededLeavesDeduction;
+            return (leaves - employee.getAcceptableLeaves()) * dayPayed;
         } else {
             return 0.0;
         }

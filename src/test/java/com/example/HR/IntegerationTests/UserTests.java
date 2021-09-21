@@ -1,7 +1,6 @@
 package com.example.HR.IntegerationTests;
 
 
-import com.example.HR.errors.ConflictException;
 import com.example.HR.errors.InvalidCredentialsException;
 import com.example.HR.errors.NotFoundException;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;

@@ -1,9 +1,6 @@
 package com.example.HR.Controllers;
 
-import com.example.HR.Classes.Department;
 import com.example.HR.Classes.Employee;
-import com.example.HR.Security.UserAccount;
-import com.example.HR.Security.UserDetailPrincipalService;
 import com.example.HR.Services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -51,8 +48,8 @@ public class EmployeesController {
 
     @PutMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Employee> updateEmployee(@RequestBody Employee EmployeeToModify, @RequestParam String id) {
-        Employee originalEmployeeModified = employeeService.getEmployeeInfoByID(Integer.parseInt(id));
-        employeeService.updateEmployee(EmployeeToModify, originalEmployeeModified);
+
+        Employee originalEmployeeModified=employeeService.updateEmployee(EmployeeToModify, Integer.parseInt(id));
         return new ResponseEntity<>(originalEmployeeModified, HttpStatus.OK);
     }
 
@@ -76,7 +73,7 @@ public class EmployeesController {
     public @ResponseBody
     List<Employee> getEmployeesUnderSomeManager(@RequestParam("id") String id) {
 
-        return employeeService.getEmployeesOnSpeceficManger(Integer.parseInt(id));
+        return employeeService.getEmployeesOnSpecificManger(Integer.parseInt(id));
     }
 
     @DeleteMapping(value = "/delete")
