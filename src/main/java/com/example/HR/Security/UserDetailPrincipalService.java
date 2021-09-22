@@ -49,12 +49,13 @@ public class UserDetailPrincipalService implements UserDetailsService {
 
 
     public void changePassword(String newPassword) {
-        Optional<UserAccount> userAccount = this.userAccountRepository.findById(this.getLoggedUserName());
-        if (!userAccount.isPresent()) {
+        UserAccount userAccount = this.userAccountRepository.findById(this.getLoggedUserName()).orElse(null);
+        if (userAccount == null) {
             throw new InvalidCredentialsException(" user is not found! please try again");
         }
-        userAccount.get().setPassword(passwordEncoder().encode(newPassword));
-        userAccountRepository.save(userAccount.get());
+        userAccount.setPassword(passwordEncoder().encode(newPassword));
+        System.out.println("**************"+userAccount.getPassword());
+        userAccountRepository.save(userAccount);
 
     }
 

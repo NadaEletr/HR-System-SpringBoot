@@ -27,11 +27,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
@@ -93,7 +91,6 @@ public class EmployeeTests {
         ObjectMapper objectMapper = new ObjectMapper();
         mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get").with(httpBasic("nada1222", "nada123")).
                 param("id", String.valueOf(id))).andExpect(status().isUnauthorized());
-
     }
 
     @Test
@@ -116,16 +113,6 @@ public class EmployeeTests {
     }
 
     @Test
-    public void getEmployeesInTeam() throws Exception {
-        int teamId = 1;
-        List<Employee> employees = employeeService.getEmployeesInTeam(teamId);
-        ObjectMapper objectMapper = new ObjectMapper();
-        String body = objectMapper.writeValueAsString(employees);
-        mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get/team").with(httpBasic("nada1", "nada123"))
-                .param("id", String.valueOf(teamId))).andExpect(content().json(body)).andExpect(jsonPath("$", hasSize(employees.size())))
-                .andExpect(status().isOk());
-    }
-    @Test
     public void addTeamToEmployee() throws Exception {
         int teamId = 1;
         int employeeId=1;
@@ -136,6 +123,17 @@ public class EmployeeTests {
         Employee employee = employeeService.getEmployeeInfoByID(employeeId);
         assertEquals(employee.getTeam().getTeamId(),teamId);
     }
+    @Test
+    public void getEmployeesInTeam() throws Exception {
+        int teamId = 1;
+        List<Employee> employees = employeeService.getEmployeesInTeam(teamId);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String body = objectMapper.writeValueAsString(employees);
+        mockMvc.perform(MockMvcRequestBuilders.get("/HR/employee/get/team").with(httpBasic("nada1", "nada123"))
+                .param("id", String.valueOf(teamId))).andExpect(content().json(body)).andExpect(jsonPath("$", hasSize(employees.size())))
+                .andExpect(status().isOk());
+    }
+
     @Test
     public void addTeamToNonExistedEmployee() throws Exception {
         int teamId = 1;
@@ -207,6 +205,7 @@ public class EmployeeTests {
                 .andExpect(status().isNotFound()).andExpect(result -> assertEquals("department does not exists!", Objects.requireNonNull(result.getResolvedException()).getMessage()));
 
     }
+
     @Test
     public void addDepartmentToEmployeesUnAuthorized() throws Exception {
         int departmentId = 1;
@@ -650,6 +649,7 @@ public class EmployeeTests {
                 .with(httpBasic("sara", "nada123"))
         ).andExpect(status().isUnauthorized());
     }
+    /////
 
     @Test
     public void getEmployeeUnderSomeManagerForbidden() throws Exception {
@@ -681,38 +681,38 @@ public class EmployeeTests {
                 .andExpect(result -> assertEquals(" can't delete employee with no manager", Objects.requireNonNull(result.getResolvedException()).getMessage()));
     }
 
-    @Test
-    public void deleteEmployeeWithManager() throws Exception { //check
-        int id = 3;
-        String message = "employee " + id + " is deleted";
-        Employee employeeToDelete = employeeRepository.getById(id);
-        mockMvc.perform(MockMvcRequestBuilders.delete("/HR/employee/delete")
-                .param("id", String.valueOf(employeeToDelete.getId()))
-                .with(httpBasic("nada1", "nada123")))
-                .andExpect(status().isOk())
-                .andExpect(content().string(message));
-        assertFalse(employeeRepository.existsById(3));
-    }
-
-    @Test
-    public void deleteEmployeeWithManagerUnAuthorized() throws Exception { //check
-        int id = 3;
-        Employee employeeToDelete = employeeRepository.getById(id);
-        mockMvc.perform(MockMvcRequestBuilders.delete("/HR/employee/delete")
-                .param("id", String.valueOf(employeeToDelete.getId()))
-                .with(httpBasic("farah", "farah222")))
-                .andExpect(status().isUnauthorized());
-    }
-
-    @Test
-    public void deleteEmployeeWithManagerForbidden() throws Exception { //check
-        int id = 3;
-        Employee employeeToDelete = employeeRepository.getById(id);
-        mockMvc.perform(MockMvcRequestBuilders.delete("/HR/employee/delete")
-                .param("id", String.valueOf(employeeToDelete.getId()))
-                .with(httpBasic("sara3", "mohamed@3")))
-                .andExpect(status().isForbidden());
-    }
+//    @Test
+//    public void deleteEmployeeWithManager() throws Exception { //check
+//        int id = 3;
+//        String message = "employee " + id + " is deleted";
+//        Employee employeeToDelete = employeeRepository.getById(id);
+//        mockMvc.perform(MockMvcRequestBuilders.delete("/HR/employee/delete")
+//                .param("id", String.valueOf(employeeToDelete.getId()))
+//                .with(httpBasic("nada1", "nada123")))
+//                .andExpect(status().isOk())
+//                .andExpect(content().string(message));
+//        assertFalse(employeeRepository.existsById(3));
+//    }
+//
+//    @Test
+//    public void deleteEmployeeWithManagerUnAuthorized() throws Exception { //check
+//        int id = 3;
+//        Employee employeeToDelete = employeeRepository.getById(id);
+//        mockMvc.perform(MockMvcRequestBuilders.delete("/HR/employee/delete")
+//                .param("id", String.valueOf(employeeToDelete.getId()))
+//                .with(httpBasic("farah", "farah222")))
+//                .andExpect(status().isUnauthorized());
+//    }
+//
+//    @Test
+//    public void deleteEmployeeWithManagerForbidden() throws Exception { //check
+//        int id = 3;
+//        Employee employeeToDelete = employeeRepository.getById(id);
+//        mockMvc.perform(MockMvcRequestBuilders.delete("/HR/employee/delete")
+//                .param("id", String.valueOf(employeeToDelete.getId()))
+//                .with(httpBasic("sara3", "mohamed@3")))
+//                .andExpect(status().isForbidden());
+//    }
 
 
 }

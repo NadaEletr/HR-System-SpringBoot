@@ -1,18 +1,22 @@
 package com.example.HR.IntegerationTests;
 
 
+import com.example.HR.Repositories.UserAccountRepository;
+import com.example.HR.Security.UserAccount;
 import com.example.HR.errors.InvalidCredentialsException;
 import com.example.HR.errors.NotFoundException;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -43,6 +47,8 @@ public class UserTests {
 
     @Autowired
     MockMvc mockMvc;
+    @Autowired
+    UserAccountRepository userAccountRepository;
     @Test
     public void invalidLenghtpassword() throws Exception {
         String password = "n00";
@@ -52,15 +58,18 @@ public class UserTests {
     }
 
     @Test
-    public void changePassword() throws Exception {
+    public void changePassword() throws Exception { // change it
         String password = "nadaIbr023";
         ObjectMapper objectMapper = new ObjectMapper();
         String message = "password is changed successfully";
         String body = objectMapper.writeValueAsString(password);
         mockMvc.perform(MockMvcRequestBuilders.put("/user/changePassword")
                 .with(httpBasic("sara3", "mohamed@3"))
-                .contentType(MediaType.APPLICATION_JSON).content(body))
+                .contentType(MediaType.APPLICATION_JSON).content(password))
                 .andExpect(status().isOk()).andExpect(content().string(message));
+        UserAccount userAccount =userAccountRepository.getById("sara3");
+        assertTrue(BCrypt.checkpw(password,userAccount.getPassword()));
+
     }
 
     @Test
