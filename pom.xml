@@ -244,9 +244,7 @@
                     <testFailureIgnore>false</testFailureIgnore>
                     <forkedProcessExitTimeoutInSeconds>120</forkedProcessExitTimeoutInSeconds>
                     <groups>com.example</groups>
-
                 </configuration>
-
             </plugin>
 
         </plugins>
